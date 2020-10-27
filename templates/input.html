@@ -8,31 +8,59 @@
 
 <form action="\input" method="POST">
         <div class="form-group">
-            Your salary
-            <input id="salary" name="salalry" type="number">
 
+
+            Your salary
+            <input name="salary" type="number" value="0" min="0" max="999999999999">
+            <input name="submit" type="submit" value="Calculate">
+
+            <br><br>
+            <div class="container">
+              <div class="row">
+
+                <div class="col-sm">
+                    <h5>expenses</h5>
+                    {% for key in expenses %}
+                        {{key}}
+                    <input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999">
+
+                    <br><br>
+                    {% endfor %}
+
+                </div>
+
+                <div class="col-sm">
+                    <h5>saving accounts:</h5>
+                    {% for key in savings %}
+
+                        {{key}} {{savings[key]['percent']}} %
+                    <input name={{key}} type="number" value={{savings[key]['value']}} min="-99999999" max="99999999">
+
+                        <div class="progress" style="display:inline-block;">
+                          <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
+                          aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}}>
+                              <div style="color:black;"> {{savings[key]['progress']}} %_______</div>
+                          </div>
+
+                        </div>
+                        {{savings[key]['value']}}/{{savings[key]['goal']}}
+                        <br><br>
+
+                    {% endfor %}
+
+                </div>
+
+              </div>
+            </div>
 
             <p></p>
-            <h5>Current value in your saving accounts:</h5>
-
-            {% for key in savings %}
-
-                    {{key}} <input name={{key}} type="number" value={{savings[key]['value']}} min="-99999999" max="99999999">
-
-                    <div class="progress" style="display:inline-block;">
-                      <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
-                      aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}}>
-                        {{savings[key]['progress']}}%
-                      </div>
-                    </div>
-
-                <br><br>
-
-            {% endfor %}
 
 
 
-             <input name="submit" type="submit" value="Calculate">
+
+
+
+
         </div>
 </form>
 
