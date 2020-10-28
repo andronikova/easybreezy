@@ -1,5 +1,5 @@
 from flask import session, render_template
-
+import datetime
 
 def load_savings(userid, savings_db):
     datas = savings_db.query.filter_by(userid=userid).all()
@@ -175,6 +175,73 @@ def update_progress(savings,key):
         savings[key]['for_bar'] = 'width:' + str(100) + '%;'
 
     return savings
+
+
+def save_in_history(db, history_expenses_db, history_accounts_db):
+    savings = session.get('savings')
+    expenses = session.get('expenses')
+    salary = session.get('salary')
+
+    userid = session.get('userid')
+
+    date = datetime.datetime.now().date()
+
+    # load from some db rows with this date
+    datas = history_expenses_db.query.filter_by(userid=userid,date=date).all()
+
+    if len(datas) != 0 : # there are rows with the same date => dbs have been updated already today
+        # save expenses
+        for key in expenses:
+            ret = history_expenses_db.query.filter_by(userid=userid, date=date, name=key).update(
+                { 'to_pay': expenses[key]['value'] } )
+
+            if ret == 0:  # row with name==key doesn't exist
+                new_row = history_expenses_db(userid=userid, date=date, name=key, to_pay=expenses[key]['value']                                               )
+
+                db.session.add(new_row)
+
+        # save savings
+        for key in savings:
+            ret = history_accounts_db.query.filter_by(userid=userid, date=date, name=key).update(
+                {
+                    'to_pay': savings[key]['to_pay'],
+                    'value' : savings[key]['value'] + savings[key]['to_pay']
+                  }
+            )
+
+            if ret == 0: # row with name==key doesn't exist
+                new_row = history_accounts_db(userid=userid,
+                                              name=key,
+                                              to_pay=savings[key]['to_pay'],
+                                              value=savings[key]['value'] + savings[key]['to_pay'],
+                                              date=date
+                                              )
+                db.session.add(new_row)
+
+        # save salary
+
+    else: # case when there is no record in db for this date
+        for key in expenses:
+            new_row = history_expenses_db(userid=userid,
+                                         name=key,
+                                         to_pay=savings[key]['value'],
+                                         date =date
+                                         )
+            db.session.add(new_row)
+
+        for key in savings:
+            new_row = history_accounts_db(userid=userid,
+                                          name=key,
+                                          to_pay=savings[key]['to_pay'],
+                                          value=savings[key]['value'] + savings[key]['to_pay'],
+                                          date=date
+                                          )
+            db.session.add(new_row)
+
+    db.session.commit()
+
+    return True
+
 
 
 def logged():

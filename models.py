@@ -59,3 +59,13 @@ class history_accounts_db(db.Model):
 
     def __repr__(self):
         return '<history_accounts_db {}>'.format(self.name)
+
+
+class history_salary_db(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    userid = db.Column(db.Integer())
+    value = db.Column(db.Integer())
+    date = db.Column(db.Date())
+
+    def __repr__(self):
+        return '<history_salary_db {}>'.format(self.date)

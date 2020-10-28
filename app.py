@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
 
-from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress
+from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, save_in_history
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db
+from models import db, user_db, savings_db, expenses_db, history_expenses_db, history_accounts_db
 
 # database settings and creation of tables
 with app.app_context():
@@ -139,7 +139,7 @@ def output():
         session['expenses'] = expenses
         session['savings'] = savings
 
-        save_in_history()
+        save_in_history(db, history_expenses_db, history_accounts_db)
 
             # go to page with calculation
         return  redirect('/history')
