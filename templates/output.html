@@ -12,7 +12,7 @@
 
     <h6> Remains: <span id="remain">  {{remain}}  </span>
         <input name="recalculate" id="recalculate" type="button" value="Check" class="btn btn-primary" >
-        <input name="save" id="save" type="submit" value="Save results" disabled title="To save result in history. Disabled until remain is null.">
+        <input name="save" id="save" type="submit" value="Save results" disabled title="To save result in history. Disabled until remain is not null.">
     </h6>
 
     <br>
@@ -129,6 +129,10 @@
         if (remain == 0)
         {
             document.querySelector('#save').disabled = false;
+        }
+        else
+        {
+            document.querySelector('#save').disabled = true;
         }
     }
 

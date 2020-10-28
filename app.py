@@ -139,6 +139,8 @@ def output():
         session['expenses'] = expenses
         session['savings'] = savings
 
+        save_in_history()
+
             # go to page with calculation
         return  redirect('/history')
 
