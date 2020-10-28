@@ -137,7 +137,7 @@ def output():
 
         save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db)
 
-            # go to page with calculation
+        # go to page with calculation
         return  redirect('/history')
 
 
@@ -145,8 +145,11 @@ def output():
 @app.route('/history', methods=['GET','POST'])
 def history():
     if request.method == 'GET':
+        salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
 
-        return render_template('history.html')
+        return render_template('history.html',
+                               salary_history=salary_history
+                               )
 
 
 if __name__ == "__main__":
