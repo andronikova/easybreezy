@@ -46,7 +46,6 @@ def load_user_info(userid, user_db):
         return error('There are few such user.')
 
     user_info = {
-                    'sum_to_live': datas[0].sum_to_live,
                     'reserve_account': datas[0].reserve_account
                  }
 
@@ -55,7 +54,7 @@ def load_user_info(userid, user_db):
     print(f"\nuser info is loaded and saved in dict:\n{user_info}")
 
 
-def money_distribution(salary,expenses,savings,sum_to_live, reserve):
+def money_distribution(salary,expenses,savings, reserve):
     # DEF: calculate all payments taking in account salary value
     # 1 case: salary is not enough to cover expenses and sum to live -> take insufficient money from reserve account, don't pay savings and goals
     # 2 case: salary is enough to pay expenses, sum to live and some savings account -> distribute payments in saving account proportionally
@@ -68,9 +67,6 @@ def money_distribution(salary,expenses,savings,sum_to_live, reserve):
     # subtract monthly fixed expenses
     for key in expenses:
         remain -= expenses[key]['value']
-
-    # subtract sum for living
-    remain -= sum_to_live
 
     # check that salary is enough
     if remain <= 0: #salary doesn't enough
@@ -177,7 +173,7 @@ def update_progress(savings,key):
     return savings
 
 
-def save_in_history(db, history_expenses_db, history_accounts_db):
+def save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db):
     savings = session.get('savings')
     expenses = session.get('expenses')
     salary = session.get('salary')
@@ -219,8 +215,13 @@ def save_in_history(db, history_expenses_db, history_accounts_db):
                 db.session.add(new_row)
 
         # save salary
+        ret = history_salary_db.query.filter_by(userid=userid, date=date, value=salary)
+        if ret == 0:
+            new_row = history_salary_db(userid=userid, date=date, value=salary)
+            db.session.add(new_row)
 
     else: # case when there is no record in db for this date
+        # expenses
         for key in expenses:
             new_row = history_expenses_db(userid=userid,
                                          name=key,
@@ -229,6 +230,7 @@ def save_in_history(db, history_expenses_db, history_accounts_db):
                                          )
             db.session.add(new_row)
 
+        # savings
         for key in savings:
             new_row = history_accounts_db(userid=userid,
                                           name=key,
@@ -237,6 +239,10 @@ def save_in_history(db, history_expenses_db, history_accounts_db):
                                           date=date
                                           )
             db.session.add(new_row)
+
+        # salary
+        new_row = history_salary_db(userid=userid, date=date, value=salary)
+        db.session.add(new_row)
 
     db.session.commit()
 

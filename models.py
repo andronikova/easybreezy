@@ -7,7 +7,6 @@ class user_db(db.Model):
     userid = db.Column(db.Integer(),primary_key=True)
     email = db.Column(db.String(64))
     hash = db.Column(db.String(128))
-    sum_to_live = db.Column(db.Integer())
     reserve_account = db.Column(db.String(64))
 
     def __repr__(self):

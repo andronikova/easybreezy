@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db, history_expenses_db, history_accounts_db
+from models import db, user_db, savings_db, expenses_db, history_expenses_db, history_accounts_db, history_salary_db
 
 # database settings and creation of tables
 with app.app_context():
@@ -51,9 +51,6 @@ def input():
         # save salary
         session['salary'] = int(request.form.get('salary'))
 
-        # save cum to live
-        session['user_info']['sum_to_live'] = int(request.form.get('sum_to_live'))
-
         #for all saving types load current value from input page
         savings = session.get('savings')
 
@@ -78,7 +75,7 @@ def input():
         session['expenses'] = expenses
         session['savings'] = savings
 
-        print(f'\n\n-----USER INPUT processed and saved in session\n\nexpenses: {expenses} \n\nsavings:{savings}\n\nsum to live:{session.get("user_info")["sum_to_live"]}\n\nsalary:{session.get("salary")}')
+        print(f'\n\n-----USER INPUT processed and saved in session\n\nexpenses: {expenses} \n\nsavings:{savings}\n\nsalary:{session.get("salary")}')
         return redirect('/output')
 
 
@@ -94,7 +91,7 @@ def output():
         user_info = session.get('user_info')
 
         # check that there is enough money
-        returned_dict = money_distribution(salary, expenses, savings, user_info['sum_to_live'], user_info['reserve_account'])
+        returned_dict = money_distribution(salary, expenses, savings, user_info['reserve_account'])
 
         savings = returned_dict['savings']
         remain = returned_dict['remain']
@@ -113,7 +110,6 @@ def output():
     if request.method == "POST":
         # save new values in session
         session['salary'] = float(request.form.get('salary'))
-        session['user_info']['sum_to_live'] = float(request.form.get('sum_to_live'))
 
         # for all saving types load current value from input page
         savings = session.get('savings')
@@ -139,7 +135,7 @@ def output():
         session['expenses'] = expenses
         session['savings'] = savings
 
-        save_in_history(db, history_expenses_db, history_accounts_db)
+        save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db)
 
             # go to page with calculation
         return  redirect('/history')
