@@ -8,6 +8,7 @@ class user_db(db.Model):
     email = db.Column(db.String(64))
     hash = db.Column(db.String(128))
     sum_to_live = db.Column(db.Integer())
+    reserve_account = db.Column(db.String(64))
 
     def __repr__(self):
         return '<user_db {}>'.format(self.name)
@@ -35,3 +36,15 @@ class expenses_db(db.Model):
 
     def __repr__(self):
         return '<expenses_db {}>'.format(self.name)
+
+
+class history_expenses_db(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    userid = db.Column(db.Integer())
+    name = db.Column(db.String(128))
+    to_pay = db.Column(db.Integer())
+    value = db.Column(db.Integer())
+    date = db.Column(db.Date())
+
+    def __repr__(self):
+        return '<history_expenses_db {}>'.format(self.name)

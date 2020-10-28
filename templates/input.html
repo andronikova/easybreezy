@@ -6,12 +6,12 @@
 
 {% block main %}
 
-<form action="\input" method="POST">
+<form action="\" method="POST">
         <div class="form-group">
-
-
-            Your salary
-            <input name="salary" type="number" value="0" min="0" max="999999999999">
+            <h6>Fill in your salary and if necessary, update saving account values</h6>
+            <br>
+            Your income
+            <input name="salary" type="number" value="5000" min="0" max="999999999999" >
             <input name="submit" type="submit" value="Calculate">
 
             <br><br>
@@ -20,50 +20,89 @@
 
                 <div class="col-sm">
                     <h5>expenses</h5>
-                    {% for key in expenses %}
-                        {{key}}
-                    <input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>name</td>
+                                <td>sum to pay</td>
+                            </tr>
+                        </thead>
 
-                    <br><br>
-                    {% endfor %}
+                        <tbody>
+                          {% for key in expenses %}
+                          <tr>
+                              <td>{{key}}</td>
+                            <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999"></td>
+                          </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <td><h5>To live</h5></td>
+                            <td><input name='sum_to_live' type="number" value={{user_info['sum_to_live']}} min="0" max="999999"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
 
                 </div>
 
                 <div class="col-sm">
                     <h5>saving accounts:</h5>
-                    {% for key in savings %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>name</td>
+                                <td>percent to pay</td>
+                                <td>current value</td>
+                                <td>progress</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key in savings %}
+                            <tr>
+                                <td>
+                                    {{key}}
+                                    {% if key == user_info['reserve_account'] %}
+                                        <a href="#" data-toggle="tooltip" title="Reserve account">☆</a>
+                                    {% endif %}
 
-                        {{key}} {{savings[key]['percent']}} %
-                    <input name={{key}} type="number" value={{savings[key]['value']}} min="-99999999" max="99999999">
 
-                        <div class="progress" style="display:inline-block;">
-                          <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
-                          aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}}>
-                              <div style="color:black;"> {{savings[key]['progress']}} %_______</div>
-                          </div>
+                                </td>
+                                <td>{{savings[key]['percent']}} %</td>
+                                <td><input name={{key}} type="number" value={{savings[key]['value']}} min="-99999999" max="99999999"></td>
+                                <td>
+                                    <div class="progress" style="display:inline-block;">
+                                      <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
+                                      aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}} >
+                                          <div >
+                                              <a href="#" data-toggle="tooltip" title={{savings[key]['value']}}/{{savings[key]['goal']}} style="color:black;">{{savings[key]['progress']}} %_______</a>
+                                              </div>
+                                      </div>
+                                    </div>
+                                </td>
 
-                        </div>
-                        {{savings[key]['value']}}/{{savings[key]['goal']}}
-                        <br><br>
+                            </tr>
+                            {% endfor %}
 
-                    {% endfor %}
+                        </tbody>
+                    </table>
+
+
 
                 </div>
 
               </div>
             </div>
 
-            <p></p>
-
-
-
-
-
-
-
         </div>
 </form>
 
+
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 
 {% endblock %}

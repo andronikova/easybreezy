@@ -1,0 +1,55 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+    font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+}
+
+
+/* color for brand */
+nav .navbar-brand .red
+{
+    color: #a0869f;
+}
+
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+
+    font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+/*  for left and right alignment on the same line */
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited
+{
+    background-color: #A2AFBD !important;
+}
+
+/* for responsive navbar*/

@@ -5,5 +5,138 @@
 {% endblock %}
 
 {% block main %}
- HELOO
+<form action="\output" method="POST">
+<div class="form-group">
+
+    <h5>{{message}}</h5>
+
+    <h6> Remains: <span id="remain">  {{remain}}  </span>
+        <input name="recalculate" id="recalculate" type="button" value="Check" class="btn btn-primary" >
+        <input name="save" id="save" type="submit" value="Save results" disabled title="To save result in history. Disabled until remain is null.">
+    </h6>
+
+    <br>
+
+    Your income
+    <input name="salary" type="number" min="0" max="999999999999" value={{salary}}>
+
+
+    <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+                <h5>expenses</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>name</td>
+                            <td>to pay</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for key in expenses %}
+                      <tr>
+                          <td>{{key}}</td>
+                        <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999" class="to_pay"></td>
+                      </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td><h5>To live</h5></td>
+                        <td><input name='sum_to_live' type="number" value={{user_info['sum_to_live']}} min="0" max="999999" class="to_pay"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+            <div class="col-sm">
+                <h5>saving accounts:</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>name</td>
+                            <td>to pay</td>
+                            <td></td>
+                            <td>value</td>
+                            <td>progress</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key in savings %}
+                        <tr>
+                            <td>
+                                {{key}}
+                                {% if key == user_info['reserve_account'] %}
+                                    <a href="#" data-toggle="tooltip" title="Reserve account">☆</a>
+                                {% endif %}
+                            </td>
+                            <td><input name={{key}} type="number" value={{savings[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
+                            <td>{{savings[key]['percent']}} %</td>
+                            <td>{{savings[key]['value']}}</td>
+                            <td>
+                                <div class="progress" style="display:inline-block;">
+                                  <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
+                                  aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}} >
+                                      <div >
+                                          <a href="#" data-toggle="tooltip" title={{savings[key]['value']}}/{{savings[key]['goal']}} style="color:black;">{{savings[key]['progress']}} %_______</a>
+                                          </div>
+                                  </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+
+          </div>
+    </div>
+
+
+</div>
+</form>
+
+
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
+    document.getElementById("recalculate").addEventListener("click", function()
+    {
+
+        var to_pay = document.querySelectorAll("input.to_pay");
+
+        var sum_pay = 0;
+        for (var i = 0; i < to_pay.length; i++)
+        {
+            sum_pay += 1 * to_pay[i].value;
+        }
+
+        var income = document.getElementsByName("salary")[0].value;
+        var remain = income - sum_pay
+        document.querySelector('#remain').innerHTML = remain   ;
+
+        if (remain == 0)
+        {
+            document.querySelector('#save').disabled = false;
+        }
+    }
+
+    )
+
+</script>
+
+
+
+
 {% endblock %}
