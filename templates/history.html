@@ -8,13 +8,42 @@
 
 
 <table class="table">
+    <colgroup>
+        <col span="2" style="background-color:white">
+        {%  for name in expenses_list %}
+            <col style="background-color:#CCFFFF">
+        {%  endfor%}
+        {%  for name in savings_list %}
+            <col style="background-color:#FFFFCC">
+        {%  endfor%}
 
+    </colgroup>
+
+    <thead>
+        <tr>
+            <td>date</td>
+            <td>income</td>
+            {%  for name in expenses_list %}
+                <td>{{name}}</td>
+            {%  endfor%}
+            {%  for name in savings_list %}
+                <td>{{name}}</td>
+            {%  endfor%}
+        </tr>
+
+    </thead>
     <tbody>
-        {% for row in salary_history %}
+        {% for date in history %}
             <tr>
-                <td>{{row.date}}</td>
-                <td>{{row.value}}</td>
+                <td>{{date}}</td>
+                <td>{{history[date]['salary']}}</td>
+                {%  for name in expenses_list %}
+                    <td>{{history[date][name]}}</td>
+                {%  endfor%}
 
+                {%  for name in savings_list %}
+                    <td>{{history[date][name]['to_pay']}} ({{history[date][name]['value']}})</td>
+                {%  endfor%}
 
             </tr>
         {% endfor %}

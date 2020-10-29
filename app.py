@@ -2,7 +2,8 @@ from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
 
-from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, save_in_history
+from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, \
+    save_in_history,load_history
 
 app = Flask(__name__)
 
@@ -146,9 +147,19 @@ def output():
 def history():
     if request.method == 'GET':
         salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
+        history = load_history(history_salary_db, history_accounts_db,history_expenses_db)
+
+        savings_list, expenses_list = [],[]
+        for row in session.get('savings'):
+            savings_list.append(row)
+
+        for row in session.get('expenses'):
+            expenses_list.append(row)
 
         return render_template('history.html',
-                               salary_history=salary_history
+                               history=history,
+                               savings_list=savings_list,
+                               expenses_list=expenses_list
                                )
 
 

@@ -1,6 +1,8 @@
 from flask import session, render_template
 import datetime
 
+from collections import OrderedDict
+
 def load_savings(userid, savings_db):
     datas = savings_db.query.filter_by(userid=userid).all()
 
@@ -227,7 +229,7 @@ def save_in_history(db, history_expenses_db, history_accounts_db, history_salary
         for key in expenses:
             new_row = history_expenses_db(userid=userid,
                                          name=key,
-                                         to_pay=savings[key]['value'],
+                                         to_pay=expenses[key]['value'],
                                          date =date
                                          )
             db.session.add(new_row)
@@ -250,6 +252,28 @@ def save_in_history(db, history_expenses_db, history_accounts_db, history_salary
 
     return True
 
+
+def load_history(history_salary_db, history_accounts_db,history_expenses_db):
+    # DEF function to load all history dbs and save it in dictionary
+    userid=session.get('userid')
+
+    history = OrderedDict()
+
+    data_salary = history_salary_db.query.filter_by(userid=userid).order_by(history_salary_db.date.desc()).all()
+
+    for row in data_salary:
+        history[row.date] = {'salary': row.value}
+
+    data_expenses = history_expenses_db.query.filter_by(userid=userid).all()
+    for row in data_expenses:
+        history[row.date].update({row.name : row.to_pay})
+
+    data_accounts = history_accounts_db.query.filter_by(userid=userid).all()
+    for row in data_accounts:
+        history[row.date].update({row.name: {'to_pay': row.to_pay, 'value': row.value}})
+
+    print(f"history is {history}")
+    return history
 
 
 def logged():

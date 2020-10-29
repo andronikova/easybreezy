@@ -5,10 +5,35 @@
 {% endblock %}
 
 {% block main %}
+
+easycalc
+
+<table class="table">
+    <tbody>
+    <tr>
+        <td><input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc"></td>
+
+        <td><input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc"></td>
+
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button name="operation" type="button" class="btn btn-secondary" value="plus">+</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="minus">-</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="multipl">x</button>
+            </div>
+        </td>
+        <td> = <span id="easycalcresult">2</span></td>
+    </tr>
+    </tbody>
+
+</table>
+
+
+
 <form action="\output" method="POST">
 <div class="form-group">
 
-    <h5>{{message}}</h5>
+
 
     <h6> Remains: <span id="remain">  {{remain}}  </span>
         <input name="recalculate" id="recalculate" type="button" value="Check" class="btn btn-primary" >
@@ -88,11 +113,7 @@
 
                     </tbody>
                 </table>
-
-
-
             </div>
-
           </div>
     </div>
 
@@ -101,12 +122,14 @@
 </form>
 
 
+<h6>{{message}}</h6>
+
 <script>
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
     });
 
-
+<!--check remains-->
     document.getElementById("recalculate").addEventListener("click", function()
     {
 
@@ -130,9 +153,31 @@
         {
             document.querySelector('#save').disabled = true;
         }
+    })
+
+<!--easy calculator-->
+
+    var button = document.getElementsByName("operation");
+
+    for (var i = 0; i < button.length; i++)
+    {
+        button[i].addEventListener("click", function()
+        {
+            var term1 = 1 * document.getElementById("term1").value ;
+            var term2 = 1 * document.getElementById("term2").value ;
+
+             if ( this.value == 'plus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 + term2; }
+
+             else if ( this.value == 'minus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 - term2; }
+
+             else if ( this.value == 'multipl')
+             { document.querySelector('#easycalcresult').innerHTML = term1 * term2; }
+        })
     }
 
-    )
+
 
 </script>
 
