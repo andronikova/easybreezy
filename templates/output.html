@@ -6,11 +6,11 @@
 
 {% block main %}
 
-easycalc
+easycalc <button id="toggle" title="Press to see all tickers.">▾</button>
 
 <table class="table">
     <tbody>
-    <tr>
+    <tr style="display:none;" class="togg">
         <td><input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc"></td>
 
         <td><input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc"></td>
@@ -156,7 +156,6 @@ easycalc
     })
 
 <!--easy calculator-->
-
     var button = document.getElementsByName("operation");
 
     for (var i = 0; i < button.length; i++)
@@ -177,7 +176,16 @@ easycalc
         })
     }
 
+<!--to show hided-->
 
+    $(document).ready(function()
+    {
+      $("#toggle").click(function()
+      {
+        $(".togg").toggle();
+      });
+
+    });
 
 </script>
 

@@ -39,6 +39,7 @@ def input():
         # load info from db and save it in session
         load_savings(session.get('userid'), savings_db)
         load_expenses(session.get('userid'),expenses_db)
+
         load_user_info(session.get('userid'),user_db)
 
         return render_template('input.html',

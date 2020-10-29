@@ -37,6 +37,8 @@ class expenses_db(db.Model):
         return '<expenses_db {}>'.format(self.name)
 
 
+
+
 class history_expenses_db(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     userid = db.Column(db.Integer())
