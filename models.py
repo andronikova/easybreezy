@@ -36,7 +36,7 @@ class expenses_db(db.Model):
     def __repr__(self):
         return '<expenses_db {}>'.format(self.name)
 
-
+#
 
 
 class history_expenses_db(db.Model):

@@ -30,7 +30,7 @@ with app.app_context():
 @app.route('/', methods=['GET','POST'])
 # @login_required  #TODO
 def input():
-    session['userid'] = 1
+    # session['userid'] = 1
 
     if request.method == "GET":
 
