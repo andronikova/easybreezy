@@ -19,7 +19,6 @@ class savings_db(db.Model):
     name = db.Column(db.String(128))
     goal = db.Column(db.Integer())  # goal sum
     date = db.Column(db.Date())  # date when goal sum should be accumulated
-    # term = db.Column(db.Boolean())  # False for unlimited time for savings, True - for savings with finish date
     value = db.Column(db.Integer())  # current value
     percent = db.Column(db.Integer()) #
 
