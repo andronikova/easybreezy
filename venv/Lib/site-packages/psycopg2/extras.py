@@ -130,10 +130,7 @@ class DictConnection(_connection):
 
 
 class DictCursor(DictCursorBase):
-    """A cursor that keeps a list of column name -> index mappings__.
-
-    .. __: https://docs.python.org/glossary.html#term-mapping
-    """
+    """A cursor that keeps a list of column name -> index mappings."""
 
     def __init__(self, *args, **kwargs):
         kwargs['row_factory'] = DictRow
