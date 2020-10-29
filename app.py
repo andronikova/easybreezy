@@ -34,7 +34,8 @@ def input():
 
     if request.method == "GET":
 
-        logged()
+        if logged() is False:
+            return render_template('welcome.html')
 
         # load info from db and save it in session
         load_savings(session.get('userid'), savings_db)

@@ -278,7 +278,7 @@ def load_history(history_salary_db, history_accounts_db,history_expenses_db):
 
 def logged():
     if session.get('userid') is None:
-        return render_template('welcome.html')
+        return False
 
     return True
 
