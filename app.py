@@ -2,8 +2,7 @@ from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
 
-from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, \
-    save_in_history,load_history
+from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, save_in_history,load_history
 
 app = Flask(__name__)
 
@@ -20,15 +19,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db
-    # , history_expenses_db, history_accounts_db, history_salary_db
+from models import db, user_db, savings_db, expenses_db, history_expenses_db, history_accounts_db, history_salary_db
 
 
 # database settings and creation of tables
 with app.app_context():
     db.init_app(app)
     migrate = Migrate(app,db)
-    db.app = app
+    db.app = app # don't touch to create new db
     db.create_all()
     db.session.commit()
 
@@ -145,7 +143,7 @@ def output():
         session['expenses'] = expenses
         session['savings'] = savings
 
-        # save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db)
+        save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db)
 
         # go to page with calculation
         return  redirect('/history')
@@ -154,23 +152,23 @@ def output():
 
 @app.route('/history', methods=['GET','POST'])
 def history():
-    return redirect('/')
-    # if request.method == 'GET':
-    #     salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
-    #     history = load_history(history_salary_db, history_accounts_db,history_expenses_db)
-    #
-    #     savings_list, expenses_list = [],[]
-    #     for row in session.get('savings'):
-    #         savings_list.append(row)
-    #
-    #     for row in session.get('expenses'):
-    #         expenses_list.append(row)
-    #
-    #     return render_template('history.html',
-    #                            history=history,
-    #                            savings_list=savings_list,
-    #                            expenses_list=expenses_list
-    #                            )
+
+    if request.method == 'GET':
+        salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
+        history = load_history(history_salary_db, history_accounts_db,history_expenses_db)
+
+        savings_list, expenses_list = [],[]
+        for row in session.get('savings'):
+            savings_list.append(row)
+
+        for row in session.get('expenses'):
+            expenses_list.append(row)
+
+        return render_template('history.html',
+                               history=history,
+                               savings_list=savings_list,
+                               expenses_list=expenses_list
+                               )
 
 
 if __name__ == "__main__":
