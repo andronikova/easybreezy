@@ -8,7 +8,7 @@ from helpers import load_savings, logged, load_expenses, money_distribution, loa
 app = Flask(__name__)
 
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY_rebalanceme')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY_easybreezy')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
                       "postgresql://postgres:1111111@localhost:5432/easybreezy"
