@@ -28,6 +28,9 @@ from models import db, user_db, savings_db, expenses_db
 with app.app_context():
     db.init_app(app)
     migrate = Migrate(app,db)
+    db.app = app
+    db.create_all()
+    db.session.commit()
 
 
 
@@ -173,6 +176,6 @@ def history():
 if __name__ == "__main__":
     app.run(debug=True)
 
-    with app.app_context():
-        db.create_all()
-        db.session.commit()
+    # with app.app_context():
+    #     db.create_all()
+    #     db.session.commit()
