@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
 
-from helpers import load_savings, logged, load_expenses, money_distribution, load_user_info, update_progress, save_in_history,load_history
+from helpers import load_savings, logged, load_expenses, load_goals, money_distribution, load_user_info, update_progress, save_in_history,load_history
 
 app = Flask(__name__)
 
@@ -19,7 +19,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db, history_expenses_db, history_accounts_db, history_salary_db
+from models import db, user_db, savings_db, expenses_db, goals_db, \
+    history_expenses_db, history_accounts_db, history_salary_db
 
 
 # database settings and creation of tables
@@ -42,15 +43,18 @@ def input():
         if logged() is False:
             return render_template('welcome.html')
 
+        userid = session.get('userid')
         # load info from db and save it in session
-        load_savings(session.get('userid'), savings_db)
-        load_expenses(session.get('userid'),expenses_db)
+        load_savings(userid, savings_db)
+        load_expenses(userid, expenses_db)
+        load_goals(userid, goals_db)
 
-        load_user_info(session.get('userid'),user_db)
+        load_user_info(userid, user_db)
 
         return render_template('input.html',
                                savings=session.get('savings'),
                                expenses=session.get('expenses'),
+                               goals=session.get('goals'),
                                user_info=session.get('user_info')
                                )
 

@@ -18,9 +18,8 @@ class savings_db(db.Model):
     userid = db.Column(db.Integer())
     name = db.Column(db.String(128))
     goal = db.Column(db.Integer())  # goal sum
-    date = db.Column(db.Date())  # date when goal sum should be accumulated
     value = db.Column(db.Integer())  # current value
-    percent = db.Column(db.Integer()) #
+    percent = db.Column(db.Integer()) # percent of income to pay monthly
 
     def __repr__(self):
         return '<savings_db {}>'.format(self.name)
@@ -35,7 +34,17 @@ class expenses_db(db.Model):
     def __repr__(self):
         return '<expenses_db {}>'.format(self.name)
 
-#
+class goals_db(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    userid = db.Column(db.Integer())
+    name = db.Column(db.String(128))
+    value = db.Column(db.Integer()) # current value
+    goal = db.Column(db.Integer()) # goal value
+    date = db.Column(db.Date())  # date when goal sum should be accumulated
+
+    def __repr__(self):
+        return '<goals_db {}>'.format(self.name)
+
 
 
 class history_expenses_db(db.Model):

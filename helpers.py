@@ -1,6 +1,8 @@
 from flask import session, render_template
 import datetime
 
+from dateutil import relativedelta
+
 from collections import OrderedDict
 
 def load_savings(userid, savings_db):
@@ -32,7 +34,7 @@ def load_expenses(userid, expenses_db):
     for row in datas:
         expenses[row.name] = {'value':row.value}
 
-    print(f" expenses info is loaded and saved in dict: \n{expenses}")
+    print(f"\nexpenses info is loaded and saved in dict: \n{expenses}")
 
     # save in session
     session['expenses'] = expenses
@@ -54,6 +56,40 @@ def load_user_info(userid, user_db):
     session['user_info'] = user_info
 
     print(f"\nuser info is loaded and saved in dict:\n{user_info}")
+
+
+def load_goals(userid, goals_db):
+    goals = {}
+    today = datetime.date.today()
+
+    datas = goals_db.query.filter_by(userid=userid).all()
+
+    for row in datas:
+        # This will find the difference between the two dates
+        difference = relativedelta.relativedelta(row.date, today)
+        months = difference.months
+
+        # calculate payments based on date and goal
+        to_pay = (row.goal - row.value) / months
+
+        # if date of goal passed
+        if months < 0:
+            to_pay = 0
+
+        progress = round(100 * row.value / row.goal)
+
+        goals[row.name] = {
+            'value' : row.value,
+            'goal' : row.goal,
+            'date' : row.date,
+            'to_pay' : to_pay,
+            'progress' : progress,
+            'for_bar':'width:' + str(progress) + '%;'
+        }
+
+    print(f"\ngoals info is loaded and saved in dict: \n{goals} \n{len(goals)}")
+
+    session['goals'] = goals
 
 
 def money_distribution(salary,expenses,savings, reserve):
