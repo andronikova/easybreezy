@@ -65,7 +65,6 @@ def input():
 
         #for all saving types load current value from input page
         savings = session.get('savings')
-
         for key in savings:
             new_value = int(request.form.get(key))
 
@@ -83,11 +82,23 @@ def input():
             # save new value in the session
             expenses[key]['value'] = new_value
 
+        # for all goal load current value
+        goals = session.get('goals')
+        for key in goals:
+            new_value = int(request.form.get(key))
+
+            goals[key]['value'] = new_value
+
+            # change progress info
+            goals = update_progress(goals, key)
+
+
         #save updated info in session
         session['expenses'] = expenses
         session['savings'] = savings
+        session['goals'] = goals
 
-        print(f'\n\n-----USER INPUT processed and saved in session\n\nexpenses: {expenses} \n\nsavings:{savings}\n\nsalary:{session.get("salary")}')
+        print(f'\n\n-----USER INPUT processed and saved in session\n\nexpenses: {expenses} \n\nsavings:{savings}\n\ngoals: {goals} \n\nsalary:{session.get("salary")}')
         return redirect('/output')
 
 
@@ -96,30 +107,22 @@ def output():
     if request.method == "GET":
         # DEF: calculate all payments using info from session, show it to user
         logged()
-        # load all info from session
-        salary = session.get('salary')
-        expenses = session.get('expenses')
-        savings = session.get('savings')
-        user_info = session.get('user_info')
 
-        # check that there is enough money
-        returned_dict = money_distribution(salary, expenses, savings, user_info['reserve_account'])
-
-        savings = returned_dict['savings']
-        remain = returned_dict['remain']
-        message = returned_dict['message']
+        # calculate payments using info from user, saved in session
+        returned_dict = money_distribution(userid=session.get('userid'))
 
 
         return render_template('output.html',
-                               salary=salary,
-                               expenses=expenses,
+                               salary=session.get('salary'),
+                               expenses=session.get('expenses'),
                                savings = returned_dict['savings'],
                                remain=returned_dict['remain'],
                                message=returned_dict['message'],
-                               user_info=user_info
+                               user_info=session.get('user_info')
                                )
 
     if request.method == "POST":
+        # DEF load all info and save it in history and accounts db
         # save new values in session
         session['salary'] = float(request.form.get('salary'))
 
@@ -156,7 +159,6 @@ def output():
 
 @app.route('/history', methods=['GET','POST'])
 def history():
-
     if request.method == 'GET':
         salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
         history = load_history(history_salary_db, history_accounts_db,history_expenses_db)
@@ -175,9 +177,65 @@ def history():
                                )
 
 
+@app.route('/help', methods=['GET','POST'])
+def help():
+    if request.method == 'GET':
+
+        return render_template('help.html')
+
+
+@app.route('/settings', methods=['GET','POST'])
+def settings():
+    if request.method == 'GET':
+
+        return render_template('settings.html',
+                               expenses=session.get('expenses'),
+                               savings=session.get('savings'),
+                               goals=session.get('goals')
+                               )
+
+
+
+@app.route('/settings_change', methods=['GET','POST'])
+def settings_change():
+    if request.method == 'GET':
+        expenses = session.get('expenses')
+        savings = session.get('savings')
+        goals = session.get('goals')
+
+        #create name for each input
+        id_name = {}
+
+        for key in expenses:
+            id_name[key] = {
+                'name': key + '_' + 'name' ,
+                'value': key + '_' +'value'
+                            }
+
+        tag_savings = ['name', 'percent', 'value', 'goal']
+        for key in savings:
+            for tag in tag_savings:
+                id_name.update({key:  { tag: tag + '_' + key } } )
+
+
+        tag_goals = ['name', 'value', 'goal', 'date']
+        for key in goals:
+            for tag in tag_goals:
+                id_name.update({key: {tag: tag + '_' + key} } )
+        #
+        print(f"\ndictionary for ids and names : {id_name}")
+
+        return render_template('settings_change.html',
+                               expenses=expenses,
+                               savings=savings,
+                               goals=goals,
+                               id_name=id_name
+                               )
+
+    if request.method == 'POST':
+        # check uniqness of all names
+
+        return redirect ('/settings')
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-    # with app.app_context():
-    #     db.create_all()
-    #     db.session.commit()

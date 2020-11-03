@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+        change settings
+{% endblock %}
+
+{% block main %}
+<button id="submit" type="submit" class="btn btn-primary" disabled>Save changes</button>
+<div id="message" style="color:red;"></div>
+
+<form action="\settings_change" method="POST">
+<div class="form-group">
+
+    <h5>Your expenses</h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>name</td>
+                <td>value</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key in expenses %}
+            <tr>
+                <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
+                <td><input name={{id_name[key]['value']}} type="number" value={{expenses[key]['value']}} min="0" max="999999"></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+
+    <h5>Your saving accounts</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>name</td>
+                <td>percent</td>
+                <td>current value</td>
+                <td>goal</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key in savings %}
+            <tr>
+                <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
+
+                <td><input name={{id_name[key]['percent']}} type="number" value={{savings[key]['percent']}} min="0" max="100"></td>
+
+                <td><input name={{id_name[key]['value']}} type="number" value={{savings[key]['value']}} min="0" max="999999"></td>
+
+                <td><input name={{id_name[key]['goal']}} type="number" value={{savings[key]['goal']}} min="0" max="999999"></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h5>Your goals </h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>name</td>
+                <td>current value</td>
+                <td>goal</td>
+                <td>goal date</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key in goals %}
+            <tr>
+                <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
+
+                <td><input name={{id_name[key]['value']}} type="number" value={{goals[key]['value']}} min="0" max="999999"></td>
+
+                <td><input name={{id_name[key]['goal']}} type="number" value={{goals[key]['goal']}} min="0" max="999999"></td>
+
+                <td><input name={{id_name[key]['date']}} type="date" value={{goals[key]['date']}}></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</form>
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
+<!--check that all fields are non empty-->
+    var input = document.querySelectorAll("input");
+
+    function IsEmpty()
+    {
+        document.querySelector('#submit').disabled = false;
+        document.querySelector('#message').innerHTML = "";
+
+        if (this.value == "")
+        {
+            document.querySelector('#submit').disabled = true;
+            document.querySelector('#message').innerHTML = "You have empty fields.";
+        }
+    }
+
+    for (var i = 0; i < input.length; i++)
+    {
+        input[i].addEventListener('onchange', IsEmpty,false);
+        input[i].addEventListener('keyup', IsEmpty, false);
+        input[i].addEventListener('click', IsEmpty,false);
+    }
+
+</script>
+
+{% endblock %}
