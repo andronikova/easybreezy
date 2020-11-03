@@ -52,7 +52,8 @@ def load_user_info(userid, user_db):
         return error('There are few such user.')
 
     user_info = {
-                    'reserve_account': datas[0].reserve_account
+                    'reserve_account': datas[0].reserve_account,
+                    'email' : datas[0].email
                  }
 
     session['user_info'] = user_info

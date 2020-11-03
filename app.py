@@ -191,7 +191,8 @@ def settings():
         return render_template('settings.html',
                                expenses=session.get('expenses'),
                                savings=session.get('savings'),
-                               goals=session.get('goals')
+                               goals=session.get('goals'),
+                               user_info=session.get('user_info')
                                )
 
 
@@ -212,7 +213,7 @@ def settings_change():
                 'value': key + '_' +'value'
                             }
 
-        tag_savings = ['name', 'percent', 'value', 'goal']
+        tag_savings = ['name', 'percent', 'value', 'goal','reserve']
         for key in savings:
             for tag in tag_savings:
                 id_name.update({key:  { tag: tag + '_' + key } } )
@@ -229,7 +230,8 @@ def settings_change():
                                expenses=expenses,
                                savings=savings,
                                goals=goals,
-                               id_name=id_name
+                               id_name=id_name,
+                               user_info=session.get('user_info')
                                )
 
     if request.method == 'POST':

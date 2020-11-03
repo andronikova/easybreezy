@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block main %}
-<button id="submit" type="submit" class="btn btn-primary" disabled>Save changes</button>
+<button id="submit" type="submit" class="btn btn-primary">Save changes</button>
 <div id="message" style="color:red;"></div>
+<div id="message_add" style="color:red;"></div>
+
 
 <form action="\settings_change" method="POST">
 <div class="form-group">
@@ -37,6 +39,7 @@
         <thead>
             <tr>
                 <td>name</td>
+                <td>reserve</td>
                 <td>percent</td>
                 <td>current value</td>
                 <td>goal</td>
@@ -46,7 +49,15 @@
         {% for key in savings %}
             <tr>
                 <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
-
+                <td>
+                    <div>
+                      <input type="checkbox" name={{id_name[key]['reserve']}} class="check"
+                             {% if key == user_info["reserve_account"] %}
+                                checked
+                            {% endif %}
+                        >
+                    </div>
+                </td>
                 <td><input name={{id_name[key]['percent']}} type="number" value={{savings[key]['percent']}} min="0" max="100"></td>
 
                 <td><input name={{id_name[key]['value']}} type="number" value={{savings[key]['value']}} min="0" max="999999"></td>
@@ -91,28 +102,92 @@
       $('[data-toggle="tooltip"]').tooltip();
     });
 
+    function OnlyOneCheck()
+    {
+        var check = document.querySelectorAll("input.check");
+
+        var summa = 0;
+
+        for (var i = 0; i < check.length; i++)
+        {
+            if (check[i].checked)
+            {
+                summa = summa + 1;
+            }
+        }
+
+        if ( summa == 0)
+        {
+            document.querySelector('#submit').disabled = true;
+            document.querySelector('#message_add').innerHTML = "Choose at least one reserve account";
+        }
+        else if ( summa > 1)
+        {
+            document.querySelector('#submit').disabled = true;
+            document.querySelector('#message_add').innerHTML = "Choose only one reserve account";
+        }
+        else if ( summa == 1)
+        {
+            document.querySelector('#message_add').innerHTML = "";
+        }
+    }
+
 
 <!--check that all fields are non empty-->
-    var input = document.querySelectorAll("input");
+
 
     function IsEmpty()
     {
-        document.querySelector('#submit').disabled = false;
-        document.querySelector('#message').innerHTML = "";
+        var input = document.querySelectorAll("input");
 
-        if (this.value == "")
+        var empty = 0;
+        document.querySelector('#submit').disabled = false;
+        document.querySelector('#message').innerHTML = " ";
+
+
+        for (var i = 0; i < input.length; i++)
+        {
+            if (input[i].value == "")
+            {
+                empty = 1;
+            }
+        }
+
+        if (empty == 1)
         {
             document.querySelector('#submit').disabled = true;
             document.querySelector('#message').innerHTML = "You have empty fields.";
         }
+
+
+<!--check that only one check box is choosed-->
+        OnlyOneCheck()
+
     }
+
+    var input = document.querySelectorAll("input");
 
     for (var i = 0; i < input.length; i++)
     {
         input[i].addEventListener('onchange', IsEmpty,false);
         input[i].addEventListener('keyup', IsEmpty, false);
         input[i].addEventListener('click', IsEmpty,false);
+        input[i].addEventListener('change', IsEmpty,false);
     }
+
+
+
+
+
+    <!--for (var i = 0; i < check.length; i++)-->
+    <!--{-->
+        <!--check[i].addEventListener('click', only_one_check, false);-->
+        <!--check[i].addEventListener('change', only_one_check, false);-->
+    <!--}-->
+
+
+
+
 
 </script>
 

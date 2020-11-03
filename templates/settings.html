@@ -39,6 +39,7 @@
     <thead>
         <tr>
             <td>name</td>
+            <td>type</td>
             <td>percent</td>
             <td>current value</td>
             <td>goal</td>
@@ -50,6 +51,11 @@
     {% for key in savings %}
         <tr>
             <td>{{key}}</td>
+            <td>
+                {% if key == user_info['reserve_account'] %}
+                    reserve
+                {% endif %}
+            </td>
             <td>{{savings[key]['percent']}} %</td>
             <td>{{savings[key]['value']}}</td>
             <td>{{savings[key]['goal']}}</td>
@@ -102,6 +108,29 @@
         </tr>
     {% endfor %}
     </tbody>
+</table>
+
+
+<h5>
+    User info
+    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings') }}';">Change password</button>
+
+    <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete this user?');">
+        <div class="form-group" >
+            <input id="delete" name="delete" type="submit" value="Delete this user" class="btn btn-primary mb-2">
+        </div>
+    </form>
+
+</h5>
+<table class="table">
+    <tbody>
+    <tr>
+        <td>email</td>
+        <td>{{user_info['email']}}</td>
+    </tr>
+
+    </tbody>
+
 </table>
 
 
