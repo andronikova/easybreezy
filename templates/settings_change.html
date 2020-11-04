@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block main %}
-<button id="submit" type="submit" class="btn btn-primary">Save changes</button>
-<div id="message" style="color:red;"></div>
-<div id="message_add" style="color:red;"></div>
-
 
 <form action="\settings_change" method="POST">
-<div class="form-group">
+    <div class="form-group" >
+        <button id="submit" type="submit" class="btn btn-primary">Save changes</button>
+
+    <div id="message" style="color:red;"></div>
+    <div id="message_add" style="color:red;"></div>
+
 
     <h5>Your expenses</h5>
 
@@ -97,6 +98,8 @@
 
 </div>
 </form>
+
+
 <script>
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();

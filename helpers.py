@@ -43,7 +43,7 @@ def load_expenses(userid, expenses_db):
 
 
 def load_user_info(userid, user_db):
-    # def: load user info and save it in sesion
+    # def: load user info and save it in session
     datas = user_db.query.filter_by(userid=userid).all()
 
     if len(datas) == 0:
@@ -62,6 +62,7 @@ def load_user_info(userid, user_db):
 
 
 def load_goals(userid, goals_db):
+    # def: load goals info and save it in session
     goals = {}
     today = datetime.date.today()
 
@@ -376,6 +377,19 @@ def load_history(history_salary_db, history_accounts_db,history_expenses_db):
 
     print(f"history is {history}")
     return history
+
+
+def create_ids_dict(ids, account, tag_list):
+    # DEF : to create dictionary of account names and tags
+    for key in account:
+        ids.update({key:{}})
+
+        for tag in tag_list:
+            ids[key].update({tag: tag + '_' + key} )
+
+    return ids
+
+
 
 
 def logged():

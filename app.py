@@ -2,7 +2,8 @@ from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
 
-from helpers import load_savings, logged, load_expenses, load_goals, money_distribution, load_user_info, update_progress, save_in_history,load_history
+from helpers import load_savings, logged, load_expenses, load_goals, money_distribution, load_user_info, \
+    update_progress, save_in_history,load_history, create_ids_dict, error
 
 app = Flask(__name__)
 
@@ -204,26 +205,13 @@ def settings_change():
         savings = session.get('savings')
         goals = session.get('goals')
 
-        #create name for each input
+        #create id for each input
         id_name = {}
-
-        for key in expenses:
-            id_name[key] = {
-                'name': key + '_' + 'name' ,
-                'value': key + '_' +'value'
-                            }
-
-        tag_savings = ['name', 'percent', 'value', 'goal','reserve']
-        for key in savings:
-            for tag in tag_savings:
-                id_name.update({key:  { tag: tag + '_' + key } } )
+        id_name = create_ids_dict(id_name, expenses, ['name', 'value'])
+        id_name = create_ids_dict(id_name, savings, ['name', 'percent', 'value', 'goal','reserve'])
+        id_name = create_ids_dict(id_name, goals, ['name', 'value', 'goal', 'date'])
 
 
-        tag_goals = ['name', 'value', 'goal', 'date']
-        for key in goals:
-            for tag in tag_goals:
-                id_name.update({key: {tag: tag + '_' + key} } )
-        #
         print(f"\ndictionary for ids and names : {id_name}")
 
         return render_template('settings_change.html',
@@ -235,9 +223,102 @@ def settings_change():
                                )
 
     if request.method == 'POST':
-        # check uniqness of all names
+        # load all necessary info from session
+        userid = session.get('userid')
+
+        expenses = session.get('expenses')
+        savings = session.get('savings')
+        goals = session.get('goals')
+
+        # save change in expenses
+        for key in expenses:
+            newname = request.form.get('name_' + key)
+            newvalue = float(request.form.get('value_' + key))
+
+            # check uniqueness of new name if it is really new
+            check_name_uniqueness(newname, key, expenses, savings, goals)
+
+            # update db
+            expenses_db.query.filter_by(userid=userid, name=key).update({ 'name': newname, 'value': newvalue })
+
+        # update session info
+        load_expenses(userid, expenses_db)
+
+        # reload expenses to use new info in the check of name uniqueness
+        expenses = session.get('expenses')
+
+        # ---------------------------------------------
+        # save change in savings
+        for key in savings:
+            newname = request.form.get('name_' + key)
+            newreserve = request.form.get('reserve_' + key)
+
+            # check uniqueness of new name if it's new name
+            check_name_uniqueness(newname, key, expenses, savings, goals)
+
+            # if this is reserve account
+            if newreserve == 'on':
+                # update user_db and session
+                user_db.query.filter_by(userid=userid).update({'reserve_account': newname})
+                session['user_info']['reserve_account'] = newname
+
+            # update db
+            savings_db.query.filter_by(userid=userid, name=key).update\
+                    ({
+                        'name': newname,
+                        'value': float(request.form.get('value_' + key)),
+                        'goal' : float(request.form.get('goal_' + key)) ,
+                        'percent' : int(request.form.get('percent_' + key))
+                    })
+
+        # update session
+        load_savings(userid, savings_db)
+
+        # reload savings to use new info in the check of name uniqueness
+        savings = session.get('savings')
+
+        # ---------------------------------------------
+        # save changes in goals
+        for key in goals:
+            newname = request.form.get('name_' + key)
+
+            # check uniqueness of new name if it is new name
+            check_name_uniqueness(newname, key, expenses, savings, goals)
+
+            # update db
+            goals_db.query.filter_by(userid=userid, name=key).update \
+                    ({
+                    'name': newname,
+                    'value': float(request.form.get('value_' + key)),
+                    'goal': float(request.form.get('goal_' + key)),
+                    'date': request.form.get('date_' + key)
+                })
+
+        # update session
+        load_goals(userid, goals_db)
+
+        db.session.commit()
 
         return redirect ('/settings')
+
+
+def check_name_uniqueness(newname, oldname, expenses,savings,goals):
+    # check that name is new
+    if newname != oldname:
+
+        # check that this name doesn't exist in any accounts
+        if newname in expenses:
+            return error('Please, use unique name.\nName ' + newname + ' is used in expenses already.')
+
+        if newname in savings:
+            return error('Please, use unique name.\nName ' + newname + ' is used in savings already.')
+
+        if newname in goals:
+            return error('Please, use unique name.\nName ' + newname + ' is used in goals already.')
+
+    return True
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
