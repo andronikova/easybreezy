@@ -273,16 +273,15 @@ def settings_change():
             newvalue = float(request.form.get('value_' + key))
 
             # check uniqueness of new name if it is really new
-            check_name_uniqueness(newname, key, expenses, savings, goals)
+            if newname != key:
+                if check_name_uniqueness(newname) is False:
+                    return redirect('/error')
 
             # update db
             expenses_db.query.filter_by(userid=userid, name=key).update({ 'name': newname, 'value': newvalue })
 
         # update session info
         load_expenses(userid, expenses_db)
-
-        # reload expenses to use new info in the check of name uniqueness
-        expenses = session.get('expenses')
 
         # ---------------------------------------------
         # save change in savings
@@ -291,7 +290,9 @@ def settings_change():
             newreserve = request.form.get('reserve_' + key)
 
             # check uniqueness of new name if it's new name
-            check_name_uniqueness(newname, key, expenses, savings, goals)
+            if newname != key:
+                if check_name_uniqueness(newname) is False:
+                    return redirect('/error')
 
             # if this is reserve account
             if newreserve == 'on':
@@ -311,16 +312,15 @@ def settings_change():
         # update session
         load_savings(userid, savings_db)
 
-        # reload savings to use new info in the check of name uniqueness
-        savings = session.get('savings')
-
         # ---------------------------------------------
         # save changes in goals
         for key in goals:
             newname = request.form.get('name_' + key)
 
             # check uniqueness of new name if it is new name
-            check_name_uniqueness(newname, key, expenses, savings, goals)
+            if newname != key:
+                if check_name_uniqueness(newname) is False:
+                    return redirect('/error')
 
             # update db
             goals_db.query.filter_by(userid=userid, name=key).update \
@@ -339,19 +339,24 @@ def settings_change():
         return redirect ('/settings')
 
 
-def check_name_uniqueness(newname, oldname, expenses,savings,goals):
-    # check that name is new
-    if newname != oldname:
+def check_name_uniqueness(newname):
+    print('\ncheck name for uniqueness')
+    expenses = session.get('expenses')
+    savings = session.get('savings')
+    goals = session.get('goals')
 
-        # check that this name doesn't exist in any accounts
-        if newname in expenses:
-            return error('Please, use unique name.\nName ' + newname + ' is used in expenses already.')
+    # check that this name doesn't exist in any accounts
+    if newname in expenses.keys():
+        session['error_message'] = 'Please, use unique name.\nName ' + newname + ' is used in expenses already.'
+        return False
 
-        if newname in savings:
-            return error('Please, use unique name.\nName ' + newname + ' is used in savings already.')
+    if newname in savings:
+        session['error_message'] = 'Please, use unique name.\nName ' + newname + ' is used in savings already.'
+        return False
 
-        if newname in goals:
-            return error('Please, use unique name.\nName ' + newname + ' is used in goals already.')
+    if newname in goals:
+        session['error_message'] = 'Please, use unique name.\nName ' + newname + ' is used in goals already.'
+        return False
 
     return True
 
@@ -364,11 +369,12 @@ def add_expenses():
 
     if request.method == 'POST':
         # load new values
-        newname = request.form.get('name')
+        newname = request.form.get('newname')
         newvalue = float(request.form.get('value'))
 
         # check uniqueness of new name
-        check_name_uniqueness(newname, '', session.get('expenses'), session.get('savings'), session.get('goals'))
+        if check_name_uniqueness(newname) is not True:
+            return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
         max_id = expenses_db.query.order_by(expenses_db.id.desc()).first().id
@@ -382,6 +388,12 @@ def add_expenses():
         load_expenses(session.get('userid'), expenses_db)
 
         return redirect('/settings')
+
+
+@app.route('/error')
+def error():
+
+    return render_template('error_page.html', message=session.get('error_message'))
 
 
 if __name__ == "__main__":

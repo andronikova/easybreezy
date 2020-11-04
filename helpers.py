@@ -390,6 +390,9 @@ def create_ids_dict(ids, account, tag_list):
     return ids
 
 
+def error(message):
+    print('\n error message')
+    return render_template('error_page.html', message=message)
 
 
 def logged():
@@ -399,6 +402,3 @@ def logged():
     return True
 
 
-def error(message):
-
-    return render_template('error_page.html', message=message)
