@@ -185,6 +185,7 @@ def help():
         return render_template('help.html')
 
 
+
 @app.route('/settings', methods=['GET','POST'])
 def settings():
     if request.method == 'GET':
@@ -196,6 +197,42 @@ def settings():
                                user_info=session.get('user_info')
                                )
 
+    if request.method == 'POST':
+        if request.form.get("delete_account") is not None:
+            # delete one of account
+            userid = session.get('userid')
+
+            #load name of account
+            key = request.form.get('delete_account')
+
+            # find there this key
+            if key in session.get('expenses'):
+                # update db
+                expenses_db.query.filter_by(userid=userid,name=key).delete(synchronize_session='evaluate')
+
+                # reload session
+                load_expenses(userid, expenses_db)
+
+            # the same if key from savings
+            elif key in session.get('savings'):
+                savings_db.query.filter_by(userid=userid,name=key).delete(synchronize_session='evaluate')
+                load_savings(userid, savings_db)
+
+            # the same if key from goals
+            elif key in session.get('goals'):
+                goals_db.query.filter_by(userid=userid,name=key).delete(synchronize_session='evaluate')
+
+                # reload session
+                load_goals(userid, goals_db)
+
+            db.session.commit()
+
+            return redirect('/settings')
+
+        if request.form.get("delete") is not None:
+            print('deleting user')
+
+            return redirect('/settings')
 
 
 @app.route('/settings_change', methods=['GET','POST'])
@@ -318,6 +355,33 @@ def check_name_uniqueness(newname, oldname, expenses,savings,goals):
 
     return True
 
+
+@app.route('/add_expenses', methods=['GET','POST'])
+def add_expenses():
+    if request.method == 'GET':
+
+        return render_template( 'add_expenses.html' )
+
+    if request.method == 'POST':
+        # load new values
+        newname = request.form.get('name')
+        newvalue = float(request.form.get('value'))
+
+        # check uniqueness of new name
+        check_name_uniqueness(newname, '', session.get('expenses'), session.get('savings'), session.get('goals'))
+
+        # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
+        max_id = expenses_db.query.order_by(expenses_db.id.desc()).first().id
+
+        # update db
+        newrow = expenses_db(id=max_id + 1, userid=session.get('userid'), name=newname, value=newvalue)
+        db.session.add(newrow)
+        db.session.commit()
+
+        # update session info
+        load_expenses(session.get('userid'), expenses_db)
+
+        return redirect('/settings')
 
 
 if __name__ == "__main__":

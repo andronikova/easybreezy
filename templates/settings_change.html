@@ -105,6 +105,8 @@
       $('[data-toggle="tooltip"]').tooltip();
     });
 
+
+<!--function ot check that only one check box is choosed-->
     function OnlyOneCheck()
     {
         var check = document.querySelectorAll("input.check");
@@ -137,8 +139,6 @@
 
 
 <!--check that all fields are non empty-->
-
-
     function IsEmpty()
     {
         var input = document.querySelectorAll("input");
@@ -162,10 +162,8 @@
             document.querySelector('#message').innerHTML = "You have empty fields.";
         }
 
-
-<!--check that only one check box is choosed-->
+        <!--check that only one check box is choosed-->
         OnlyOneCheck()
-
     }
 
     var input = document.querySelectorAll("input");
@@ -177,20 +175,6 @@
         input[i].addEventListener('click', IsEmpty,false);
         input[i].addEventListener('change', IsEmpty,false);
     }
-
-
-
-
-
-    <!--for (var i = 0; i < check.length; i++)-->
-    <!--{-->
-        <!--check[i].addEventListener('click', only_one_check, false);-->
-        <!--check[i].addEventListener('change', only_one_check, false);-->
-    <!--}-->
-
-
-
-
 
 </script>
 

@@ -321,7 +321,7 @@ def save_in_history(db, history_expenses_db, history_accounts_db, history_salary
 
         # save salary
         ret = history_salary_db.query.filter_by(userid=userid, date=date).update({'value':salary})
-        print(f"for salsary ret is {ret}")
+        print(f"for salary ret is {ret}")
 
         if ret == 0:
             new_row = history_salary_db(userid=userid, date=date, value=salary)
