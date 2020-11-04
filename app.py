@@ -390,6 +390,80 @@ def add_expenses():
         return redirect('/settings')
 
 
+@app.route('/add_savings', methods=['GET','POST'])
+def add_savings():
+    if request.method == 'GET':
+
+        return render_template( 'add_savings.html' )
+
+    if request.method == 'POST':
+        # load new values
+        newname = request.form.get('newname')
+        newvalue = float(request.form.get('value'))
+        newgoal = float(request.form.get('goal'))
+        newpercent = float(request.form.get('percent'))
+
+        # check uniqueness of new name
+        if check_name_uniqueness(newname) is not True:
+            return redirect('/error')
+
+        # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
+        max_id = savings_db.query.order_by(savings_db.id.desc()).first().id
+
+        # update db
+        newrow = savings_db(id=max_id + 1, userid=session.get('userid'),
+                            name=newname,
+                            value=newvalue,
+                            goal=newgoal,
+                            percent=newpercent
+                            )
+        db.session.add(newrow)
+        db.session.commit()
+
+        # update session info
+        load_savings(session.get('userid'), savings_db)
+
+        return redirect('/settings')
+
+
+
+@app.route('/add_goals', methods=['GET','POST'])
+def add_goals():
+    if request.method == 'GET':
+
+        return render_template( 'add_goals.html' )
+
+    if request.method == 'POST':
+        # load new values
+        newname = request.form.get('newname')
+        newvalue = float(request.form.get('value'))
+        newgoal = float(request.form.get('goal'))
+        newdate= request.form.get('date')
+
+        # check uniqueness of new name
+        if check_name_uniqueness(newname) is not True:
+            return redirect('/error')
+
+        # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
+        max_id = goals_db.query.order_by(goals_db.id.desc()).first().id
+
+        # update db
+        newrow = goals_db(id=max_id + 1, userid=session.get('userid'),
+                            name=newname,
+                            value=newvalue,
+                            goal=newgoal,
+                            date=newdate
+                            )
+        db.session.add(newrow)
+        db.session.commit()
+
+        # update session info
+        load_goals(session.get('userid'), goals_db)
+
+        return redirect('/settings')
+
+
+
 @app.route('/error')
 def error():
 

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+        add new goal
+{% endblock %}
+
+{% block main %}
+<h3>Add new goal</h3>
+<form action="\add_goals" method="POST">
+    <div class="form-group">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>name</td>
+                <td>value</td>
+                <td>goal</td>
+                <td>date</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input name="newname" autocomplete='off' class="form-control" type="text" placeholder="e.g. transport">
+                </td>
+                <td>
+                    <input name="value" autocomplete='off' class="form-control" type="number">
+                </td>
+                <td>
+                    <input name="goal" autocomplete='off' class="form-control" type="number">
+                </td>
+                <td>
+                    <input name="date" autocomplete='off' class="form-control" type="date">
+                </td>
+                <td>
+                    <button id="submit" type="submit" class="btn btn-primary" disabled>Save expense</button>
+                    <div id="message"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</form>
+
+
+<script>
+function IsEmpty()
+    {
+        var input = document.querySelectorAll("input");
+
+        document.querySelector('#submit').disabled = false;
+        document.querySelector('#message').innerHTML = "";
+
+        var empty = 0;
+
+        for (var i = 0; i < input.length; i++)
+        {
+            if (input[i].value == "")
+            { empty = 1; }
+        }
+
+        if (empty == 1)
+        {
+            document.querySelector('#submit').disabled = true;
+            document.querySelector('#message').innerHTML = "You have empty fields.";
+        }
+    }
+
+    var input = document.querySelectorAll("input");
+
+    for (var i = 0; i < input.length; i++)
+    {
+        input[i].addEventListener('onchange', IsEmpty,false);
+        input[i].addEventListener('keyup', IsEmpty, false);
+        input[i].addEventListener('click', IsEmpty,false);
+        input[i].addEventListener('change', IsEmpty,false);
+    }
+
+
+
+
+
+    <!--for toolitp-->
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+
+
+
+{% endblock %}
