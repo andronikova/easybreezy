@@ -163,10 +163,11 @@ def history():
         print(f"\nlast date is {last_date}")
         print(f"for this date: {history[last_date]}")
 
-
         return render_template('history.html',
                                history=history,
-                               savings=session.get('savings')
+                               expenses=session.get('expenses'),
+                               savings=session.get('savings'),
+                               goals=session.get('goals')
                                )
 
 

@@ -78,8 +78,8 @@ def load_goals(userid, goals_db):
         # calculate payments based on date and goal
         to_pay = (row.goal - row.value) / months
 
-        # if date of goal passed
-        if months < 0:
+        # if date of goal passed or goal has been achieved
+        if months < 0 or (row.goal - row.value) < 0:
             to_pay = 0
 
         progress = round(100 * row.value / row.goal)
@@ -146,7 +146,11 @@ def money_distribution(userid):
     # remain > 0 => salary is enough to cover expenses
     # now we can calculate payments for saving account
     for key in savings:
-        savings[key]['to_pay'] = savings[key]['percent'] * salary / 100
+        # check that goal is not achieved
+        if savings[key]['goal'] > savings[key]['value']:
+            savings[key]['to_pay'] = savings[key]['percent'] * salary / 100
+        else:
+            savings = put_zero_to_pay(savings)
 
     # calculate sum of all saving payments
     savings_to_pay_sum = sum_of_paymetns(savings)
@@ -196,8 +200,8 @@ def money_distribution(userid):
     else: # salary is enough to pay all goals
         remain -= goals_to_pay_sum
 
-        message = "You have enough money to pay expenses, living sum and all savings. You also have remains " \
-              + str(remain) + "Please, add this remains whenever you want (we recommend add it to reserve account)."
+        message = "You have enough money to pay expenses, savings and goals. You also have remains " \
+              + str(remain) + ". Please, add this remains whenever you want (we recommend add it to reserve account)."
 
 
     return {'remain': remain, 'savings': savings, 'goals': goals, 'message': message}
@@ -307,7 +311,10 @@ def save_in_history(db, history_db,expenses,savings, goals, salary):
 
     if len(datas) == 0: # add new row
         # find out last id in db
-        max_id = history_db.query.order_by(history_db.id.desc()).first().id
+        if len(history_db.query.all()) == 0: # db is empty
+            max_id = 0
+        else:
+            max_id = history_db.query.order_by(history_db.id.desc()).first().id
 
         new_row = history_db(id=max_id + 1 ,
                              userid=userid,
@@ -335,84 +342,6 @@ def save_in_history(db, history_db,expenses,savings, goals, salary):
     return True
 
 
-def save_in_history_backup(db, history_expenses_db, history_accounts_db, history_salary_db):
-    savings = session.get('savings')
-    expenses = session.get('expenses')
-    salary = session.get('salary')
-
-    userid = session.get('userid')
-
-    date = datetime.datetime.now().date()
-
-    # load from some db rows with this date
-    datas = history_expenses_db.query.filter_by(userid=userid,date=date).all()
-
-    if len(datas) != 0 : # there are rows with the same date => dbs have been updated already today
-        # save expenses
-        for key in expenses:
-            ret = history_expenses_db.query.filter_by(userid=userid, date=date, name=key).update(
-                { 'to_pay': expenses[key]['value'] } )
-
-            if ret == 0:  # row with name==key doesn't exist
-                new_row = history_expenses_db(userid=userid, date=date, name=key, to_pay=expenses[key]['value']                                               )
-
-                db.session.add(new_row)
-
-        # save savings
-        for key in savings:
-            ret = history_accounts_db.query.filter_by(userid=userid, date=date, name=key).update(
-                {
-                    'to_pay': savings[key]['to_pay'],
-                    'value' : savings[key]['value'] + savings[key]['to_pay']
-                  }
-            )
-
-            if ret == 0: # row with name==key doesn't exist
-                new_row = history_accounts_db(userid=userid,
-                                              name=key,
-                                              to_pay=savings[key]['to_pay'],
-                                              value=savings[key]['value'] + savings[key]['to_pay'],
-                                              date=date
-                                              )
-                db.session.add(new_row)
-
-        # save salary
-        ret = history_salary_db.query.filter_by(userid=userid, date=date).update({'value':salary})
-        print(f"for salary ret is {ret}")
-
-        if ret == 0:
-            new_row = history_salary_db(userid=userid, date=date, value=salary)
-            db.session.add(new_row)
-
-    else: # case when there is no record in db for this date
-        # expenses
-        for key in expenses:
-            new_row = history_expenses_db(userid=userid,
-                                         name=key,
-                                         to_pay=expenses[key]['value'],
-                                         date =date
-                                         )
-            db.session.add(new_row)
-
-        # savings
-        for key in savings:
-            new_row = history_accounts_db(userid=userid,
-                                          name=key,
-                                          to_pay=savings[key]['to_pay'],
-                                          value=savings[key]['value'] + savings[key]['to_pay'],
-                                          date=date
-                                          )
-            db.session.add(new_row)
-
-        # salary
-        new_row = history_salary_db(userid=userid, date=date, value=salary)
-        db.session.add(new_row)
-
-    db.session.commit()
-
-    return True
-
-
 def load_history(history_db):
     # DEF function to load all history dbs and save it in dictionary
     userid=session.get('userid')
@@ -424,13 +353,22 @@ def load_history(history_db):
     for row in datas:
         history[row.date] = { 'salary' : row.salary}
 
-        savings_name = row.savings_name
-        savings_value = row.savings_value
-        savings_to_pay = row.savings_to_pay
+        expenses_name = row.expenses_name
+        if expenses_name is not None:
+            for i in range(len(expenses_name)):
+                history[row.date][expenses_name[i]] = {'value': row.expenses_value[i]}
 
+
+        savings_name = row.savings_name
         if savings_name is not None:
             for i in range(len(savings_name)):
-                history[row.date][savings_name[i]] = { 'value': savings_value[i], 'to_pay':savings_to_pay[i]}
+                history[row.date][savings_name[i]] = { 'value': row.savings_value[i], 'to_pay':row.savings_to_pay[i]}
+
+        goals_name = row.goals_name
+        if goals_name is not None:
+            for i in range(len(goals_name)):
+                history[row.date][goals_name[i]] = { 'value': row.goals_value[i], 'to_pay':row.goals_to_pay[i]}
+
 
     print(f"\n\n history is \n{history}")
     return history

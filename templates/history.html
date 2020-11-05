@@ -10,13 +10,17 @@
 <table class="table">
     <colgroup>
         <col span="2" style="background-color:white">
+            {%  for name in expenses %}
+                <col style="background-color:#CCFFFF">
+            {%  endfor %}
 
-        {%  for name in savings %}
-            <col style="background-color:#CCFFFF">
-        {%  endfor %}
-        <!--{%  for name in savings_list %}-->
-            <!--<col style="background-color:#FFFFCC">-->
-        <!--{%  endfor%}-->
+            {%  for name in savings %}
+                <col style="background-color:#FFFFCC">
+            {%  endfor %}
+
+            {%  for name in goals %}
+                <col style="background-color:#D3D3D3">
+            {%  endfor%}
 
     </colgroup>
 
@@ -24,13 +28,18 @@
         <tr>
             <td>date</td>
             <td>income</td>
+            {%  for name in expenses %}
+                <td>{{ name }}</td>
+            {%  endfor%}
+
             {%  for name in savings %}
                 <td>{{ name }}</td>
             {%  endfor%}
-            <!--{%  for name in savings_list %}-->
-                <!--<td>{{name}}</td>-->
-            <!--{%  endfor%}-->
-        </tr>
+
+            {%  for name in goals %}
+                <td>{{ name }}</td>
+            {%  endfor%}
+
 
     </thead>
     <tbody>
@@ -38,7 +47,23 @@
             <tr>
                 <td>{{date}}</td>
                 <td>{{history[date]['salary']}}</td>
+                {%  for name in expenses %}
+                    {% if name in history[date] %}
+                        <td> {{ history[date][name]['value'] }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {%  endfor%}
+
                 {%  for name in savings %}
+                    {% if name in history[date] %}
+                        <td>{{ history[date][name]['value'] }} ( +{{ history[date][name]['to_pay'] }})</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {%  endfor%}
+
+                {%  for name in goals %}
                     {% if name in history[date] %}
                         <td>{{ history[date][name]['value'] }} ( +{{ history[date][name]['to_pay'] }})</td>
                     {% else %}
