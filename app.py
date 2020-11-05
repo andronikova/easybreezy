@@ -20,8 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db, goals_db, history_db, \
-    history_expenses_db, history_accounts_db, history_salary_db
+from models import db, user_db, savings_db, expenses_db, goals_db, history_db
 
 
 # database settings and creation of tables
