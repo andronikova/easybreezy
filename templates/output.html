@@ -36,7 +36,7 @@ calculeasy <button id="toggle" title="Press to see all tickers.">▾</button>
 
 
     <h6> Remains: <span id="remain">  {{remain}}  </span>
-        <input name="recalculate" id="recalculate" type="button" value="Check" class="btn btn-primary" >
+        <input name="recalculate" id="recalculate" type="button" value="Check remains" class="btn btn-primary" >
         <input name="save" id="save" type="submit" value="Save results" disabled title="To save result in history. Disabled until remain is not null.">
     </h6>
 
@@ -49,6 +49,7 @@ calculeasy <button id="toggle" title="Press to see all tickers.">▾</button>
     <div class="container">
           <div class="row">
 
+          {% if expenses|length != 0 %}
             <div class="col-sm">
                 <h5>expenses</h5>
                 <table class="table">
@@ -69,10 +70,10 @@ calculeasy <button id="toggle" title="Press to see all tickers.">▾</button>
 
                     </tbody>
                 </table>
-
-
             </div>
+          {% endif %}
 
+          {% if savings|length != 0 %}
             <div class="col-sm">
                 <h5>saving accounts:</h5>
                 <table class="table">
@@ -114,6 +115,31 @@ calculeasy <button id="toggle" title="Press to see all tickers.">▾</button>
                     </tbody>
                 </table>
             </div>
+          {% endif %}
+
+            {% if goals|length != 0 %}
+            <div class="col-sm">
+                <h5>goals</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>name</td>
+                            <td>to pay</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key in goals %}
+                        <tr>
+                            <td>{{key}}</td>
+                        <td><input name={{key}} type="number" value={{goals[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+          {% endif %}
           </div>
     </div>
 

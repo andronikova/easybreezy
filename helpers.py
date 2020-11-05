@@ -134,7 +134,7 @@ def money_distribution(userid):
         # generate message
         if savings[reserve]['value'] >= 0 : # we have enough money in reserves
             message = "Your salary isn't enough to cover expenses and living cost. We took money from reserve account ("\
-                      + reserve + "). \nNo money went to savings and goals. "
+                      + reserve + "). \nNo money for savings and goals. "
 
         else: # we have not enough money in reserves
             message = "Your salary isn't enough to cover expenses and living cost. Your reserve account (" \
@@ -145,6 +145,8 @@ def money_distribution(userid):
 
     # remain > 0 => salary is enough to cover expenses
     # now we can calculate payments for saving account
+    for key in savings:
+        savings[key]['to_pay'] = savings[key]['percent'] * salary / 100
 
     # calculate sum of all saving payments
     savings_to_pay_sum = sum_of_paymetns(savings)
@@ -268,7 +270,7 @@ def calc_payments_using_remains(remains, to_pay_sum, account):
 
         sum_tmp += account[key]['to_pay']
 
-        last_key = kwy
+        last_key = key
 
     if sum_tmp != remains:  # we have rounding problem, compensate it by last account
         account[last_key]['to_pay'] += remains - sum_tmp

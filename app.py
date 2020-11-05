@@ -64,31 +64,25 @@ def input():
         # save salary
         session['salary'] = int(request.form.get('salary'))
 
-        #for all saving types load current value from input page
+        # preload accounts from session
         savings = session.get('savings')
+        expenses = session.get('expenses')
+        goals = session.get('goals')
+
+        #for all saving types load current value from input page
         for key in savings:
-            new_value = int(request.form.get(key))
+            savings[key]['value'] = int(request.form.get(key))
 
-            if new_value != savings[key]['value']: # if user change value
-                savings[key]['value'] = new_value
-
-                #change progress info
-                savings = update_progress(savings, key)
+            #change progress info
+            savings = update_progress(savings, key)
 
         # for all expenses load value from input page
-        expenses = session.get('expenses')
         for key in expenses:
-            new_value = int(request.form.get(key))
-
-            # save new value in the session
-            expenses[key]['value'] = new_value
+            expenses[key]['value'] = int(request.form.get(key))
 
         # for all goal load current value
-        goals = session.get('goals')
         for key in goals:
-            new_value = int(request.form.get(key))
-
-            goals[key]['value'] = new_value
+            goals[key]['value'] = int(request.form.get(key))
 
             # change progress info
             goals = update_progress(goals, key)
@@ -117,6 +111,7 @@ def output():
                                salary=session.get('salary'),
                                expenses=session.get('expenses'),
                                savings = returned_dict['savings'],
+                               goals=returned_dict['goals'],
                                remain=returned_dict['remain'],
                                message=returned_dict['message'],
                                user_info=session.get('user_info')
