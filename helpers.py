@@ -1,4 +1,4 @@
-from flask import session, render_template
+from flask import session, render_template, redirect
 import datetime
 
 from dateutil import relativedelta
@@ -47,9 +47,11 @@ def load_user_info(userid, user_db):
     datas = user_db.query.filter_by(userid=userid).all()
 
     if len(datas) == 0:
-        return error('There is no such user.')
+        session['error_message'] = 'There is no such user.'
+        return False
     elif len(datas) > 1:
-        return error('There are few such user.')
+        session['error_message'] = 'There are few such user.'
+        return False
 
     user_info = {
                     'reserve_account': datas[0].reserve_account,
@@ -69,8 +71,6 @@ def load_goals(userid, goals_db):
     datas = goals_db.query.filter_by(userid=userid).all()
 
     for row in datas:
-        #TODO chack that goal is not achieved
-
         # This will find the difference between the two dates
         difference = relativedelta.relativedelta(row.date, today)
         months = difference.months
@@ -123,6 +123,12 @@ def money_distribution(userid):
     # check that salary is enough for expenses
     if remain <= 0: #salary doesn't enough
         # took money from reserve account
+
+        #check, that reserve account  is real account in savings
+        if reserve not in savings:
+            session['error_message'] = "You don't choose reserve account. Please, go to settings -> change value -> savings"
+            return False
+
         savings[reserve]['value'] += remain
         savings = update_progress(savings, reserve)
         remain = 0
@@ -383,11 +389,6 @@ def create_ids_dict(ids, account, tag_list):
             ids[key].update({tag: tag + '_' + key} )
 
     return ids
-
-
-def error(message):
-    print('\n error message')
-    return render_template('error_page.html', message=message)
 
 
 def logged():

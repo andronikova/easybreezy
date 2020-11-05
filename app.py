@@ -1,9 +1,10 @@
 from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
 import os
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import load_savings, logged, load_expenses, load_goals, money_distribution, load_user_info, \
-    update_progress, save_in_history,load_history, create_ids_dict, error
+    update_progress, save_in_history,load_history, create_ids_dict
 
 app = Flask(__name__)
 
@@ -36,7 +37,7 @@ with app.app_context():
 @app.route('/', methods=['GET','POST'])
 # @login_required  #TODO
 def input():
-    session['userid'] = 1
+    # session['userid'] = 1
 
     if request.method == "GET":
 
@@ -49,7 +50,8 @@ def input():
         load_expenses(userid, expenses_db)
         load_goals(userid, goals_db)
 
-        load_user_info(userid, user_db)
+        if load_user_info(userid, user_db) is False:
+            return redirect('/error')
 
         return render_template('input.html',
                                savings=session.get('savings'),
@@ -105,6 +107,8 @@ def output():
         # calculate payments using info from user, saved in session
         returned_dict = money_distribution(userid=session.get('userid'))
 
+        if returned_dict is False:
+            return redirect('/error')
 
         return render_template('output.html',
                                salary=session.get('salary'),
@@ -223,9 +227,27 @@ def settings():
             return redirect('/settings')
 
         if request.form.get("delete") is not None:
-            print('deleting user')
+            userid = session.get('userid')
 
-            return redirect('/settings')
+            # clear user_db
+            user_db.query.filter_by(userid=userid).delete(synchronize_session='evaluate')
+
+            # clear accounts db
+            expenses_db.query.filter_by(userid=userid).delete(synchronize_session='evaluate')
+            savings_db.query.filter_by(userid=userid).delete(synchronize_session='evaluate')
+            goals_db.query.filter_by(userid=userid).delete(synchronize_session='evaluate')
+
+            # clear history
+            history_db.query.filter_by(userid=userid).delete(synchronize_session='evaluate')
+
+            db.session.commit()
+
+            print(f'user number {userid} deleted')
+
+            # clear session
+            session.clear()
+
+            return redirect('/')
 
 
 @app.route('/settings_change', methods=['GET','POST'])
@@ -370,7 +392,10 @@ def add_expenses():
             return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
-        max_id = expenses_db.query.order_by(expenses_db.id.desc()).first().id
+        if len(expenses_db.query.all()) == 0: # db is empty
+            max_id = 0
+        else:
+            max_id = expenses_db.query.order_by(expenses_db.id.desc()).first().id
 
         # update db
         newrow = expenses_db(id=max_id + 1, userid=session.get('userid'), name=newname, value=newvalue)
@@ -401,7 +426,10 @@ def add_savings():
             return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
-        max_id = savings_db.query.order_by(savings_db.id.desc()).first().id
+        if len(savings_db.query.all()) == 0: # db is empty
+            max_id = 0
+        else:
+            max_id = savings_db.query.order_by(savings_db.id.desc()).first().id
 
         # update db
         newrow = savings_db(id=max_id + 1, userid=session.get('userid'),
@@ -438,7 +466,10 @@ def add_goals():
             return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
-        max_id = goals_db.query.order_by(goals_db.id.desc()).first().id
+        if len(goals_db.query.all()) == 0:  # db is empty
+            max_id = 0
+        else:
+            max_id = goals_db.query.order_by(goals_db.id.desc()).first().id
 
         # update db
         newrow = goals_db(id=max_id + 1, userid=session.get('userid'),
@@ -454,6 +485,120 @@ def add_goals():
         load_goals(session.get('userid'), goals_db)
 
         return redirect('/settings')
+
+
+@app.route('/registration', methods=['GET','POST'])
+def registration():
+    if request.method == "GET":
+        # Forget any user_id
+        session.clear()
+
+        return render_template('registration.html')
+
+    if request.method == "POST":
+        email = request.form.get("email")
+
+        # hash password
+        hashed = generate_password_hash(request.form.get("password"))
+
+        # Query database for email
+        datas = user_db.query.filter_by(email=email).all()
+
+        if len(datas) != 0:
+            session['error_message'] = "User with email " + email + " already exists."
+            return redirect('/error')
+
+        # load last id from user_db
+        if len(user_db.query.all()) == 0:  # db is empty
+            max_id = 0
+        else:
+            max_id = user_db.query.order_by(user_db.userid.desc()).first().userid
+
+        userid = max_id + 1
+        print(f'userid is {userid}')
+
+        # create new row in user_db
+        new_user = user_db(userid=userid, email=email, hash=hashed, reserve_account='default')
+        db.session.add(new_user)
+
+        # save in user in session
+        session["userid"] = userid
+
+        db.session.commit()
+
+        return redirect('/')
+
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if request.method == "GET":
+        # Forget any user_id
+        session.clear()
+
+        return render_template('login.html')
+
+    if request.method == "POST":
+        email = request.form.get("email")
+
+        # Query database for username
+        datas = user_db.query.filter_by(email=email).all()
+
+        # Ensure username exists and password is correct
+        if len(datas) != 1 or not check_password_hash(datas[0].hash, request.form.get("password")):
+            session['error_message'] = "invalid username and/or password"
+            return redirect('/error')
+
+        # Remember which user has logged in
+        session["userid"] = datas[0].userid
+
+
+        return redirect('/')
+
+
+
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/")
+
+
+@app.route('/forgot_password', methods=['GET','POST'])
+def forgot_password():
+    if request.method == "GET":
+        return render_template('forgot_password.html')
+
+    if request.method == "POST":
+        # # check that this email in user_db
+        # email = request.form.get("email")
+        # datas = user_db.query.filter_by(email=email).all()
+        # if len(datas) == 0:
+        #
+        #     return error_page('There is no user with email ' + email)
+        #
+        # # generate new password
+        # new_password = secrets.token_hex(16)
+        #
+        # # send password to user
+        # text = 'Dear ' + datas[0].name + '\nhere is your new password:\n' + new_password
+        # text += '\nPlease, change this password as soon as possible. \n\nRebalanceMe'
+        # topic = 'RebalanceMe: your new password'
+        #
+        # send_email(email, text, topic, app)
+        # print(f"new password has been created and send to {email}")
+        #
+        # # save this password in user_db
+        # user_db.query.filter_by(email=email).update({
+        #     'hash' : generate_password_hash(new_password)
+        # })
+        # db.session.commit()
+
+        return redirect('/login')
 
 
 

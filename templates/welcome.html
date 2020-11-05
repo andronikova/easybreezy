@@ -5,5 +5,15 @@
 {% endblock %}
 
 {% block main %}
- Please, login
+
+
+<br>
+<br>
+
+<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'login') }}';">Log in</button>
+
+<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'registration') }}';">Register</button>
+
+
+
 {% endblock %}
