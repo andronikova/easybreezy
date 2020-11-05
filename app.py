@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # load databases
-from models import db, user_db, savings_db, expenses_db, goals_db, \
+from models import db, user_db, savings_db, expenses_db, goals_db, history_db, \
     history_expenses_db, history_accounts_db, history_salary_db
 
 
@@ -119,36 +119,39 @@ def output():
 
     if request.method == "POST":
         # DEF load all info and save it in history and accounts db
-        # save new values in session
-        session['salary'] = float(request.form.get('salary'))
+        userid = session.get('userid')
 
-        # for all saving types load current value from input page
         savings = session.get('savings')
+        expenses = session.get('expenses')
+        goals = session.get('goals')
 
-        for key in savings:
-            new_to_pay = float(request.form.get(key))
-
-            if new_to_pay != savings[key]['to_pay']:  # if user change value
-                savings[key]['to_pay'] = new_to_pay
-
-                # change progress info
-                savings = update_progress(savings, key)
+        # load salary
+        salary = float(request.form.get('salary'))
 
         # for all expenses load value from input page
-        expenses = session.get('expenses')
         for key in expenses:
-            new_value = int(request.form.get(key))
+            expenses[key]['value'] = float(request.form.get(key))
+            # nothing to save in db
 
-            # save new value in the session
-            expenses[key]['value'] = new_value
+        # for all saving types load current value from input page
+        for key in savings:
+            savings[key]['to_pay'] = float(request.form.get(key))
+            savings[key]['value'] += savings[key]['to_pay']
 
-        # save updated info in session
-        session['expenses'] = expenses
-        session['savings'] = savings
+            # save update value in db
+            savings_db.query.filter_by(userid=userid, name=key).update({ 'value': savings[key]['value'] })
 
-        save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db)
+        for key in goals:
+            goals[key]['to_pay'] = float(request.form.get(key))
+            goals[key]['value'] += goals[key]['to_pay']
 
-        # go to page with calculation
+            # save update value in db
+            goals_db.query.filter_by(userid=userid, name=key).update({ 'value': goals[key]['value'] })
+
+
+        save_in_history(db, history_db,expenses,savings, goals, salary)
+
+
         return  redirect('/history')
 
 
@@ -156,20 +159,15 @@ def output():
 @app.route('/history', methods=['GET','POST'])
 def history():
     if request.method == 'GET':
-        salary_history = history_salary_db.query.filter_by(userid=session.get('userid')).order_by(history_salary_db.date.desc()).all()
-        history = load_history(history_salary_db, history_accounts_db,history_expenses_db)
+        history = load_history(history_db)
+        last_date = next(iter(history)) # used to show in history only actual account
+        print(f"\nlast date is {last_date}")
+        print(f"for this date: {history[last_date]}")
 
-        savings_list, expenses_list = [],[]
-        for row in session.get('savings'):
-            savings_list.append(row)
-
-        for row in session.get('expenses'):
-            expenses_list.append(row)
 
         return render_template('history.html',
                                history=history,
-                               savings_list=savings_list,
-                               expenses_list=expenses_list
+                               savings=session.get('savings')
                                )
 
 

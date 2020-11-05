@@ -10,12 +10,13 @@
 <table class="table">
     <colgroup>
         <col span="2" style="background-color:white">
-        {%  for name in expenses_list %}
+
+        {%  for name in savings %}
             <col style="background-color:#CCFFFF">
-        {%  endfor%}
-        {%  for name in savings_list %}
-            <col style="background-color:#FFFFCC">
-        {%  endfor%}
+        {%  endfor %}
+        <!--{%  for name in savings_list %}-->
+            <!--<col style="background-color:#FFFFCC">-->
+        <!--{%  endfor%}-->
 
     </colgroup>
 
@@ -23,12 +24,12 @@
         <tr>
             <td>date</td>
             <td>income</td>
-            {%  for name in expenses_list %}
-                <td>{{name}}</td>
+            {%  for name in savings %}
+                <td>{{ name }}</td>
             {%  endfor%}
-            {%  for name in savings_list %}
-                <td>{{name}}</td>
-            {%  endfor%}
+            <!--{%  for name in savings_list %}-->
+                <!--<td>{{name}}</td>-->
+            <!--{%  endfor%}-->
         </tr>
 
     </thead>
@@ -37,13 +38,14 @@
             <tr>
                 <td>{{date}}</td>
                 <td>{{history[date]['salary']}}</td>
-                {%  for name in expenses_list %}
-                    <td>{{history[date][name]}}</td>
+                {%  for name in savings %}
+                    {% if name in history[date] %}
+                        <td>{{ history[date][name]['value'] }} ( +{{ history[date][name]['to_pay'] }})</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                 {%  endfor%}
 
-                {%  for name in savings_list %}
-                    <td>{{history[date][name]['to_pay']}} ({{history[date][name]['value']}})</td>
-                {%  endfor%}
 
             </tr>
         {% endfor %}

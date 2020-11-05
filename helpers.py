@@ -278,9 +278,64 @@ def calc_payments_using_remains(remains, to_pay_sum, account):
     return account
 
 
+def save_in_history(db, history_db,expenses,savings, goals, salary):
+    userid = session.get('userid')
+    today_date = datetime.datetime.now().date()
+
+    # for expenses: create lists of names and and values
+    expenses_name, expenses_value = [],[]
+    for key in expenses:
+        expenses_name.append(key)
+        expenses_value.append(expenses[key]['value'])
+
+    # for savings: create lists of names, to_pay and values
+    savings_name, savings_to_pay, savings_value = [],[],[]
+    for key in savings:
+        savings_name.append(key)
+        savings_to_pay.append( savings[key]['to_pay'] )
+        savings_value.append(savings[key]['value'])
+
+    # for goals: create lists of name, to_pay and values
+    goals_name, goals_value, goals_to_pay = [],[],[]
+    for key in goals:
+        goals_name.append(key)
+        goals_to_pay.append(goals[key]['to_pay'])
+        goals_value.append(goals[key]['value'])
+
+    # check that this date doesn't exist in db
+    datas = history_db.query.filter_by(userid=userid,date=today_date).all()
+
+    if len(datas) == 0: # add new row
+        # find out last id in db
+        max_id = history_db.query.order_by(history_db.id.desc()).first().id
+
+        new_row = history_db(id=max_id + 1 ,
+                             userid=userid,
+                             salary=salary,
+                             savings_name=savings_name, savings_to_pay=savings_to_pay, savings_value=savings_value,
+                             goals_name=goals_name, goals_to_pay=goals_to_pay, goals_value=goals_value,
+                             expenses_name=expenses_name, expenses_value=expenses_value,
+                             date=today_date
+                             )
+
+        db.session.add(new_row)
+        print('new row is added to history_db')
+
+    elif len(datas) == 1: # update
+        ret = history_db.query.filter_by(userid=userid, date=today_date).update({
+            'salary' : salary,
+            'savings_name' : savings_name, 'savings_to_pay':savings_to_pay, 'savings_value' : savings_value,
+            'goals_name':goals_name,       'goals_to_pay':goals_to_pay,     'goals_value' : goals_value,
+            'expenses_name' : expenses_name, 'expenses_value':expenses_value
+        })
+        print('rewrite row for this date in history_db')
+
+    db.session.commit()
+
+    return True
 
 
-def save_in_history(db, history_expenses_db, history_accounts_db, history_salary_db):
+def save_in_history_backup(db, history_expenses_db, history_accounts_db, history_salary_db):
     savings = session.get('savings')
     expenses = session.get('expenses')
     salary = session.get('salary')
@@ -358,26 +413,26 @@ def save_in_history(db, history_expenses_db, history_accounts_db, history_salary
     return True
 
 
-def load_history(history_salary_db, history_accounts_db,history_expenses_db):
+def load_history(history_db):
     # DEF function to load all history dbs and save it in dictionary
     userid=session.get('userid')
 
     history = OrderedDict()
 
-    data_salary = history_salary_db.query.filter_by(userid=userid).order_by(history_salary_db.date.desc()).all()
+    datas = history_db.query.filter_by(userid=userid).order_by(history_db.date.desc()).all()
 
-    for row in data_salary:
-        history[row.date] = {'salary': row.value}
+    for row in datas:
+        history[row.date] = { 'salary' : row.salary}
 
-    data_expenses = history_expenses_db.query.filter_by(userid=userid).all()
-    for row in data_expenses:
-        history[row.date].update({row.name : row.to_pay})
+        savings_name = row.savings_name
+        savings_value = row.savings_value
+        savings_to_pay = row.savings_to_pay
 
-    data_accounts = history_accounts_db.query.filter_by(userid=userid).all()
-    for row in data_accounts:
-        history[row.date].update({row.name: {'to_pay': row.to_pay, 'value': row.value}})
+        if savings_name is not None:
+            for i in range(len(savings_name)):
+                history[row.date][savings_name[i]] = { 'value': savings_value[i], 'to_pay':savings_to_pay[i]}
 
-    print(f"history is {history}")
+    print(f"\n\n history is \n{history}")
     return history
 
 

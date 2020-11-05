@@ -78,3 +78,26 @@ class history_salary_db(db.Model):
 
     def __repr__(self):
         return '<history_salary_db {}>'.format(self.date)
+
+
+class history_db(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    userid = db.Column(db.Integer())
+    salary = db.Column(db.Integer())
+
+    expenses_name = db.Column(db.ARRAY(db.String()))
+    expenses_value = db.Column(db.ARRAY(db.Integer()))
+
+    savings_name = db.Column(db.ARRAY(db.String()))
+    savings_to_pay = db.Column(db.ARRAY(db.Integer()))
+    savings_value = db.Column(db.ARRAY(db.Integer()))
+
+    goals_name = db.Column(db.ARRAY(db.String()))
+    goals_to_pay = db.Column(db.ARRAY(db.Integer()))
+    goals_value = db.Column(db.ARRAY(db.Integer()))
+
+
+    date = db.Column(db.Date())
+
+    def __repr__(self):
+        return '<history_db {}>'.format(self.date)
