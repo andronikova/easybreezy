@@ -90,7 +90,8 @@ def load_goals(userid, goals_db):
             'date' : row.date.strftime('%Y-%m-%d'),
             'to_pay' : to_pay,
             'progress' : progress,
-            'for_bar':'width:' + str(progress) + '%;'
+            'for_bar':'width:' + str(progress) + '%;' ,
+            'to_pay_to_achieve': to_pay   # sum you have to pay to achieve goal
         }
 
     print(f"\ngoals info is loaded and saved in dict: \n{goals} \n{len(goals)}")
@@ -150,6 +151,7 @@ def money_distribution(userid):
         return {'remain': remain, 'savings': savings, 'goals': goals,'message': message}
 
     # remain > 0 => salary is enough to cover expenses
+
     # now we can calculate payments for saving account
     for key in savings:
         # check that goal is not achieved
@@ -206,7 +208,7 @@ def money_distribution(userid):
     else: # salary is enough to pay all goals
         remain -= goals_to_pay_sum
 
-        message = "You have enough money to pay expenses, savings and goals. You also have remains " \
+        message = "You have enough money to pay all your accounts. You also have remains " \
               + str(remain) + ". Please, add this remains whenever you want (we recommend add it to reserve account)."
 
 
@@ -259,7 +261,7 @@ def calc_payments_for_saving(savings, salary):
 
         savings[key].update({'to_pay': to_pay})
 
-        return savings
+    return savings
 
 
 def put_zero_to_pay(account):

@@ -97,6 +97,7 @@
     <thead>
         <tr>
             <td>name</td>
+            <td>to pay monthly</td>
             <td>current value</td>
             <td>goal</td>
             <td>goal date</td>
@@ -108,6 +109,7 @@
     {% for key in goals %}
         <tr>
             <td>{{key}}</td>
+            <td>{{goals[key]['to_pay_to_achieve']}}</td>
             <td>{{goals[key]['value']}}</td>
             <td>{{goals[key]['goal']}}</td>
             <td>{{goals[key]['date']  }}</td>
@@ -133,6 +135,7 @@
 
 <div></div>
 <div></div>
+<br><br>
 <table class="table">
     <tbody>
     <tr>
