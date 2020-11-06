@@ -15,6 +15,7 @@
 
 </h5>
 
+{% if expenses|length != 0 %}
 <h5>Your expenses
 </h5>
 
@@ -39,10 +40,11 @@
         </tr>
     {% endfor %}
     </tbody>
-
 </table>
+{% endif %}
 
 
+{% if savings|length != 0 %}
 <h5>Your saving accounts
 </h5>
 <table class="table">
@@ -90,7 +92,10 @@
     {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
+
+{% if goals|length != 0 %}
 <h5>Your goals
 </h5>
 <table class="table">
@@ -132,6 +137,7 @@
     {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
 <div></div>
 <div></div>

@@ -31,39 +31,91 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
-    <!-- https://favicon.io -->
-    <!--<link href="/static/favicon.ico" rel="icon">-->
+     <!--https://favicon.io-->
+    <link href="/static/favicon.ico" rel="icon">
+
+    <!--for font-->
+<!--<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,300&display=swap" rel="stylesheet">-->
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
+
 
     <title>{% block title %}{% endblock %}</title>
 
 </head>
 <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="red">EasyBreezy</span></a>
 
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
+    <nav class="navbar navbar-expand-md transparent" >
 
-                <ul class="navbar-nav ml-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/help">Help</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/settings">Settings</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                </ul>
+        <a class="navbar-brand" href="/" style="display:inline-block;">
+          <div class="logo-image">
+                <img src="/static/logo_4.png" class="img-fluid">
+          </div>
+        </a>
 
-            </div>
-        </nav>
+        <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-light navbar-default" data-target="#navbar" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
 
-        <main class="container p-5">
-            {% block main %}{% endblock %}
-        </main>
+        <div class="collapse navbar-collapse" id="navbar">
 
-        <footer class="small text-center text-muted">
+             <!--<button id="toggle" title="Calculeasy"><img src="/static/calculeasy_1.png" class="img-fluid"/></button>-->
 
-            Made by <a href="https://github.com/andronikova">Daria</a> <br>2020.
-        </footer>
+
+            <ul class="navbar-nav ml-auto mt-2">
+
+                <li class="nav-item">
+                    <div class="nav-image">
+                        <img src="/static/calculeasy_1.png" class="img-fluid" id="toggle">
+                    </div>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">
+                    <div class="nav-image">
+                        <img src="/static/empty_1.png" class="img-fluid">
+                    </div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/help">
+                    <div class="nav-image">
+                        <img src="/static/empty_2.png" class="img-fluid">
+                    </div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">
+                      <div class="nav-image">
+                            <img src="/static/settings_2.png" class="img-fluid">
+                      </div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                      <div class="nav-image">
+                            <img src="/static/empty_1.png" class="img-fluid">
+                      </div>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <main class="container p-5">
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer class="small text-center text-muted">
+
+        Made by <a href="https://github.com/andronikova">Daria</a> <br>2020.
+    </footer>
 </body>
 </html>
