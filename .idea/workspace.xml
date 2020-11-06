@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e38b109-bffd-4a92-9652-05a3859f0072" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/change_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/change_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/forgot_password.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/settings.html" afterDir="false" />
@@ -20,8 +21,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="256">
-                  <caret line="500" column="40" selection-start-line="500" selection-start-column="40" selection-end-line="500" selection-end-column="40" />
+                <state relative-caret-position="153">
+                  <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
                   <folding>
                     <element signature="e#0#68#0" expanded="true" />
                   </folding>
@@ -30,10 +31,28 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/login.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="357">
+                  <caret line="21" column="109" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="109" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/change_password.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="51">
+                  <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/layout.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="269">
-                  <caret line="52" column="71" lean-forward="true" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
+                  <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
                 </state>
               </provider>
             </entry>
@@ -42,7 +61,7 @@
             <entry file="file://$PROJECT_DIR$/helpers.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="232">
-                  <caret line="50" column="20" lean-forward="true" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+                  <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
                   <folding>
                     <element signature="e#0#42#0" expanded="true" />
                   </folding>
@@ -81,8 +100,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="140" column="23" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="23" />
+                <state relative-caret-position="391">
+                  <caret line="145" column="117" selection-start-line="145" selection-start-column="117" selection-end-line="145" selection-end-column="117" />
                   <folding>
                     <element signature="n#style#0;n#div#0;n#td#4;n#tr#0;n#tbody#0;n#table#2;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#0;n#div#0;n#td#4;n#tr#0;n#tbody#0;n#table#2;n#!!top" expanded="true" />
@@ -154,16 +173,19 @@
         <option value="$PROJECT_DIR$/templates/input.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/helpers.py" />
-        <option value="$PROJECT_DIR$/templates/settings.html" />
         <option value="$PROJECT_DIR$/templates/change_email.html" />
+        <option value="$PROJECT_DIR$/templates/change_password.html" />
+        <option value="$PROJECT_DIR$/templates/settings.html" />
+        <option value="$PROJECT_DIR$/templates/forgot_password.html" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="70" />
-    <option name="width" value="2784" />
-    <option name="height" value="1635" />
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
+    <option name="width" value="1943" />
+    <option name="height" value="1103" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -257,7 +279,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info x="515" y="-933" width="672" height="554" id="DB Browser" order="0" sideWeight="0.4795009" side_tool="true" weight="0.17448777" />
       <window_info id="Favorites" order="1" sideWeight="0.40894568" side_tool="true" weight="0.1870456" />
@@ -271,7 +292,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3252688" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
-      <window_info anchor="bottom" auto_hide="true" x="-1344" y="9" width="663" height="546" id="Terminal" order="9" sideWeight="0.51983804" weight="0.25515056" />
+      <window_info active="true" anchor="bottom" auto_hide="true" x="-1344" y="9" width="663" height="546" id="Terminal" order="9" sideWeight="0.51983804" visible="true" weight="0.51664025" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50033045" side_tool="true" weight="0.57930106" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32646593" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="12" weight="0.3293011" />
@@ -370,7 +391,7 @@
     <entry file="file://$PROJECT_DIR$/templates/layout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
-          <caret line="52" column="71" lean-forward="true" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
+          <caret line="52" column="71" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -391,13 +412,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/error_page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -408,7 +422,7 @@
     <entry file="file://$PROJECT_DIR$/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
-          <caret line="50" column="20" lean-forward="true" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
@@ -436,10 +450,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/change_password.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="140" column="23" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="23" />
+        <state relative-caret-position="391">
+          <caret line="145" column="117" selection-start-line="145" selection-start-column="117" selection-end-line="145" selection-end-column="117" />
           <folding>
             <element signature="n#style#0;n#div#0;n#td#4;n#tr#0;n#tbody#0;n#table#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#td#4;n#tr#0;n#tbody#0;n#table#2;n#!!top" expanded="true" />
@@ -448,10 +469,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="109" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/forgot_password.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="500" column="40" selection-start-line="500" selection-start-column="40" selection-end-line="500" selection-end-column="40" />
+        <state relative-caret-position="153">
+          <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
           <folding>
             <element signature="e#0#68#0" expanded="true" />
           </folding>

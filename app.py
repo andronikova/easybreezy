@@ -1,7 +1,10 @@
 from flask import Flask, request, render_template, session, redirect
 from flask_migrate import Migrate
-import os
+import os, secrets
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from flask_mail import Mail, Message
+
 
 from helpers import load_savings, logged, load_expenses, load_goals, money_distribution, load_user_info, \
     update_progress, save_in_history,load_history, create_ids_dict
@@ -14,10 +17,16 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY_easybreezy')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
                       "postgresql://postgres:1111111@localhost:5432/easybreezy"
 
-# print(f" \nX\nX\nX\nX  DATABASE_URL  from os.environ  {os.environ.get('DATABASE_URL')} \nX\nX\nX\n")
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+
+# for mail
+app.config['MAIL_SERVER'] = 'smtp.yandex.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'andronikova.daria@ya.ru'
+app.config['MAIL_DEFAULT_SENDER'] = 'andronikova.daria@ya.ru'
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 
 # load databases
@@ -500,15 +509,35 @@ def change_email():
         user_info['email'] = newemail
         session['user_info'] = user_info
 
-        print(f"new user info is {session.get('user_info')}")
-
-
-        # chaneg db
+        # change db
         user_db.query.filter_by(userid=session.get('userid')).update( {'email':newemail} )
         db.session.commit()
 
         return redirect('/settings')
 
+
+@app.route('/change_password', methods=['GET','POST'])
+def change_password():
+    if request.method == "GET":
+        return render_template('change_password.html')
+
+    if request.method == "POST":
+        userid = session.get('userid')
+        datas = user_db.query.filter_by(userid=userid).all()
+
+        # check old password
+        if check_password_hash(datas[0].hash, request.form.get("old")) is False:
+            session['error_message'] = 'Your old password is not correct.'
+            return error()
+
+        # save new hashed password
+        user_db.query.filter_by(userid=userid).update(
+            {
+                'hash':generate_password_hash(request.form.get("new"))
+            })
+        db.session.commit()
+
+        return redirect('/')
 
 
 @app.route('/registration', methods=['GET','POST'])
@@ -598,32 +627,41 @@ def forgot_password():
         return render_template('forgot_password.html')
 
     if request.method == "POST":
-        # # check that this email in user_db
-        # email = request.form.get("email")
-        # datas = user_db.query.filter_by(email=email).all()
-        # if len(datas) == 0:
-        #
-        #     return error_page('There is no user with email ' + email)
-        #
-        # # generate new password
-        # new_password = secrets.token_hex(16)
-        #
-        # # send password to user
-        # text = 'Dear ' + datas[0].name + '\nhere is your new password:\n' + new_password
-        # text += '\nPlease, change this password as soon as possible. \n\nRebalanceMe'
-        # topic = 'RebalanceMe: your new password'
-        #
-        # send_email(email, text, topic, app)
-        # print(f"new password has been created and send to {email}")
-        #
-        # # save this password in user_db
-        # user_db.query.filter_by(email=email).update({
-        #     'hash' : generate_password_hash(new_password)
-        # })
-        # db.session.commit()
+        # check that this email in user_db
+        email = request.form.get("email")
+        datas = user_db.query.filter_by(email=email).all()
+        if len(datas) == 0:
+            session['error_message'] = 'There is no user with email ' + email
+            return error()
+
+        # generate new password
+        new_password = secrets.token_hex(16)
+
+        # send password to user
+        text = 'Dear EasyBreezy user,\nhere is your new password:\n' + new_password
+        text += '\nPlease, change this password as soon as possible. \n\nEasyBreezy'
+        topic = 'EasyBreezy: your new password'
+
+        with app.app_context():
+            mail = Mail()
+            mail.init_app(app)
+
+            message = Message(topic, recipients=[email])
+
+            message.body = text
+
+            ret = mail.send(message)
+
+
+        print(f"new password has been created and send to {email}\n ret is {ret}")
+
+        # save this password in user_db
+        user_db.query.filter_by(email=email).update({
+            'hash' : generate_password_hash(new_password)
+        })
+        db.session.commit()
 
         return redirect('/login')
-
 
 
 @app.route('/error')
