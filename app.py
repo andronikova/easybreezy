@@ -487,6 +487,30 @@ def add_goals():
         return redirect('/settings')
 
 
+@app.route('/change_email', methods=['GET','POST'])
+def change_email():
+    if request.method == "GET":
+        return render_template('change_email.html')
+
+    if request.method == "POST":
+        newemail = request.form.get("email")
+
+        # change session info
+        user_info = session.get('user_info')
+        user_info['email'] = newemail
+        session['user_info'] = user_info
+
+        print(f"new user info is {session.get('user_info')}")
+
+
+        # chaneg db
+        user_db.query.filter_by(userid=session.get('userid')).update( {'email':newemail} )
+        db.session.commit()
+
+        return redirect('/settings')
+
+
+
 @app.route('/registration', methods=['GET','POST'])
 def registration():
     if request.method == "GET":

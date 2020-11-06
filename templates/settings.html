@@ -5,12 +5,17 @@
 {% endblock %}
 
 {% block main %}
+<h5>
+<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings_change') }}';">Change accounts values</button>
 
-<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings_change') }}';">Change values</button>
+    Add new
+    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';">new expenses</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';">new savings</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';">new goal</button>
 
+</h5>
 
 <h5>Your expenses
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';">Add new expenses</button>
 </h5>
 
 <table class="table">
@@ -39,7 +44,6 @@
 
 
 <h5>Your saving accounts
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';">Add new savings</button>
 </h5>
 <table class="table">
     <thead>
@@ -88,7 +92,6 @@
 </table>
 
 <h5>Your goals
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';">Add new goal</button>
 </h5>
 <table class="table">
     <thead>
@@ -128,23 +131,27 @@
     </tbody>
 </table>
 
-
-<h5>
-    User info
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings') }}';">Change password</button>
-
-    <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete this user?');">
-        <div class="form-group" >
-            <input id="delete" name="delete" type="submit" value="Delete this user" class="btn btn-primary mb-2">
-        </div>
-    </form>
-
-</h5>
+<div></div>
+<div></div>
 <table class="table">
     <tbody>
     <tr>
+        <td><h4>User info</h4></td>
         <td>email</td>
         <td>{{user_info['email']}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'change_email') }}';">Change email</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings') }}';">Change password</button>
+        </td>
+        <td>
+            <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete this user?');">
+                <div class="form-group" >
+                    <input id="delete" name="delete" type="submit" value="Delete this user" class="btn btn-primary mb-2">
+                </div>
+            </form>
+        </td>
     </tr>
 
     </tbody>

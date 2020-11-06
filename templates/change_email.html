@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+        change email
+{% endblock %}
+
+{% block main %}
+<form action="\change_email" method="POST">
+
+    <div class="form-group">
+        <input autocomplete="on" autofocus class="form-control" name="email" placeholder="email" type="email">
+        <button class="btn btn-primary" type="submit" id="submit" disabled>Save new email</button>
+
+        <br><br>
+        <span id="message"></span>
+
+    </div>
+
+
+</form>
+
+<script>
+<!--check for empty field-->
+    var input = document.querySelectorAll("input");
+
+    function IsEmpty()
+    {
+        document.querySelector('#submit').disabled = false;
+        document.querySelector('#message').innerHTML = "";
+        for (var i = 0; i < input.length; i++)
+        {
+            if (input[i].value == "")
+            {
+                document.querySelector('#submit').disabled = true;
+                document.querySelector('#message').innerHTML = "You have empty fields.";
+            }
+        }
+    }
+
+    for (var i = 0; i < input.length; i++)
+    {
+        input[i].addEventListener('onchange', IsEmpty,false);
+        input[i].addEventListener('keyup', IsEmpty, false);
+        input[i].addEventListener('click', IsEmpty,false);
+    }
+
+
+</script>
+{% endblock %}
