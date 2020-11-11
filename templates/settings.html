@@ -5,26 +5,66 @@
 {% endblock %}
 
 {% block main %}
+
+<!--calculeasy-->
+<div style="display:none;" class="togg">
+    <div class="container" style="background-color:rgb(250,250,250,0);">
+      <span class="row">
+
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
+
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
+
+          <div class="col-sm" >
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button name="operation" type="button" class="btn btn-secondary" value="plus">+</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="minus">-</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="multipl">x</button>
+                <button name="operation" type="button" class="btn btn-secondary" value="divide">/</button>
+            </div>
+          </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px; float:right;"> = </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px;">
+              <span id="easycalcresult"> 2 </span>
+          </div>
+      </span>
+    </div>
+<br>
+</div>
+
+
+
 <h5>
-<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'settings_change') }}';">Change accounts values</button>
+<button type="button" class="btn btn-primary" style="float: left; " onclick="window.location.href='{{ url_for( 'settings_change') }}';">
+   <img src="/static/pen_white.png" class="button-add" style="width:40px;"/>
+    Change accounts parameters
+</button>
 
+<div style="float: right;">
     Add new
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';">new expenses</button>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';">new savings</button>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';">new goal</button>
-
+    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';"><img src="/static/add_yellow.png" class="button-add"/> expenses</button>
+    <button type="button" class="btn btn-primary"  onclick="window.location.href='{{ url_for( 'add_savings') }}';"><img src="/static/add_yellow.png" class="button-add"/> savings</button>
+    <button type="button" class="btn btn-primary"  onclick="window.location.href='{{ url_for( 'add_goals') }}';"><img src="/static/add_yellow.png" class="button-add"/> goal</button>
+</div>
 </h5>
 
+<br>
+<br><br><br>
 {% if expenses|length != 0 %}
-<h5>Your expenses
-</h5>
+<h3 style="color:yellow;">Expenses</h3>
 
 <table class="table">
-    <thead>
+    <thead >
         <tr>
-            <td>name</td>
-            <td>value</td>
-            <td></td>
+            <td >name</td>
+            <td >value</td>
+            <td >delete</td>
         </tr>
     </thead>
     <tbody>
@@ -34,8 +74,13 @@
             <td>{{expenses[key]['value']}}</td>
             <td>
                 <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete {{key}}?');">
-                        <button name='delete_account' class="btn btn-primary" value={{key}}>Delete</button>
+                    <button name="delete_account" value={{key}}  title="Delete this expense" class="delete-button">
+                        <img src="/static/delete_red.png"/>
+                    </button>
                 </form>
+
+
+
             </td>
         </tr>
     {% endfor %}
@@ -45,8 +90,7 @@
 
 
 {% if savings|length != 0 %}
-<h5>Your saving accounts
-</h5>
+<h3 style="color:yellow;">Savings</h3>
 <table class="table">
     <thead>
         <tr>
@@ -56,7 +100,7 @@
             <td>current value</td>
             <td>goal</td>
             <td>progress</td>
-            <td></td>
+            <td>delete</td>
 
         </tr>
     </thead>
@@ -84,7 +128,9 @@
             </td>
             <td>
                 <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete {{key}}?');">
-                    <button name='delete_account' class="btn btn-primary" value={{key}}>Delete</button>
+                    <button name="delete_account" value={{key}}  title="Delete this saving" class="delete-button">
+                        <img src="/static/delete_red.png"/>
+                    </button>
                 </form>
             </td>
 
@@ -96,18 +142,17 @@
 
 
 {% if goals|length != 0 %}
-<h5>Your goals
-</h5>
+<h3 style="color:yellow;">Goals</h3>
 <table class="table">
     <thead>
-        <tr>
+        <tr style="active">
             <td>name</td>
             <td>to pay monthly</td>
             <td>current value</td>
             <td>goal</td>
             <td>goal date</td>
             <td>progress</td>
-            <td></td>
+            <td>delete</td>
         </tr>
     </thead>
     <tbody>
@@ -130,7 +175,9 @@
             </td>
             <td>
                 <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete {{key}}?');">
-                    <button name='delete_account' class="btn btn-primary" value={{key}}>Delete</button>
+                    <button name="delete_account" value={{key}}  title="Delete this goal" class="delete-button">
+                        <img src="/static/delete_red.png"/>
+                    </button>
                 </form>
             </td>
         </tr>
@@ -146,7 +193,6 @@
     <tbody>
     <tr>
         <td><h4>User info</h4></td>
-        <td>email</td>
         <td>{{user_info['email']}}</td>
         <td>
             <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'change_email') }}';">Change email</button>
@@ -155,14 +201,24 @@
             <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'change_password') }}';">Change password</button>
         </td>
         <td>
-            <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete this user?');">
-                <div class="form-group" >
-                    <input id="delete" name="delete" type="submit" value="Delete this user" class="btn btn-primary mb-2">
-                </div>
-            </form>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'logout') }}';">Log out</button>
         </td>
     </tr>
+    <tr>
+        <td>
 
+            <form action="\settings" method="POST" onSubmit="return confirm('Are you sure you wish to delete this user?');">
+                <button type="submit" name="delete" id="delete" title="Delete this user" class="btn btn-primary mb-2" style="border:red; color:red;">
+                        <img src="/static/delete_red.png" style="width:30px;"/> Delete this user
+                </button>
+            </form>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
     </tbody>
 
 </table>
@@ -173,6 +229,47 @@
       $('[data-toggle="tooltip"]').tooltip();
     });
 
+
+<!--easy calculator-->
+    var button = document.getElementsByName("operation");
+
+    for (var i = 0; i < button.length; i++)
+    {
+        button[i].addEventListener("click", function()
+        {
+            var term1 = 1 * document.getElementById("term1").value ;
+            var term2 = 1 * document.getElementById("term2").value ;
+
+             if ( this.value == 'plus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 + term2; }
+
+             else if ( this.value == 'minus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 - term2; }
+
+             else if ( this.value == 'multipl')
+             { document.querySelector('#easycalcresult').innerHTML = term1 * term2; }
+
+             else if ( this.value == 'divide')
+             { document.querySelector('#easycalcresult').innerHTML = term1 / term2; }
+        })
+    }
+
+
+
+<!--to show hided-->
+    $(document).ready(function()
+    {
+      $("#toggle").click(function()
+      {
+        $(".togg").toggle();
+      });
+
+    $("#toggle_comment").click(function()
+      {
+        $(".comment").toggle();
+      });
+
+    });
 </script>
 
 {% endblock %}

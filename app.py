@@ -72,7 +72,7 @@ def input():
     if request.method == "POST":
         # DEF: saving all info from input page to session
         # save salary
-        session['salary'] = int(request.form.get('salary'))
+        session['salary'] = float(request.form.get('salary'))
 
         # preload accounts from session
         savings = session.get('savings')
@@ -81,18 +81,18 @@ def input():
 
         #for all saving types load current value from input page
         for key in savings:
-            savings[key]['value'] = int(request.form.get(key))
+            savings[key]['value'] = float(request.form.get(key))
 
             #change progress info
             savings = update_progress(savings, key)
 
         # for all expenses load value from input page
         for key in expenses:
-            expenses[key]['value'] = int(request.form.get(key))
+            expenses[key]['value'] = float(request.form.get(key))
 
         # for all goal load current value
         for key in goals:
-            goals[key]['value'] = int(request.form.get(key))
+            goals[key]['value'] = float(request.form.get(key))
 
             # change progress info
             goals = update_progress(goals, key)
@@ -235,7 +235,7 @@ def settings():
 
             return redirect('/settings')
 
-        if request.form.get("delete") is not None:
+        if request.form.get("delete") is not None: # delete user
             userid = session.get('userid')
 
             # clear user_db

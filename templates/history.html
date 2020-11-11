@@ -6,25 +6,56 @@
 
 {% block main %}
 
+<div style="display:none;" class="togg">
+    <div class="container" style="background-color:rgb(250,250,250,0);">
+      <span class="row">
+
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
+
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
+
+          <div class="col-sm" >
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button name="operation" type="button" class="btn btn-secondary" value="plus">+</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="minus">-</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="multipl">x</button>
+                <button name="operation" type="button" class="btn btn-secondary" value="divide">/</button>
+            </div>
+          </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px; float:right;"> = </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px;">
+              <span id="easycalcresult"> 2 </span>
+          </div>
+      </span>
+    </div>
+<br>
+</div>
+
 
 <table class="table">
-    <colgroup>
-        <col span="2" style="background-color:white">
-            {%  for name in expenses %}
-                <col style="background-color:#CCFFFF">
-            {%  endfor %}
+    <!--<colgroup>-->
+        <!--<col span="2" style="background-color:white">-->
+            <!--{%  for name in expenses %}-->
+                <!--<col style="background-color:#CCFFFF">-->
+            <!--{%  endfor %}-->
 
-            {%  for name in savings %}
-                <col style="background-color:#FFFFCC">
-            {%  endfor %}
+            <!--{%  for name in savings %}-->
+                <!--<col style="background-color:#FFFFCC">-->
+            <!--{%  endfor %}-->
 
-            {%  for name in goals %}
-                <col style="background-color:#D3D3D3">
-            {%  endfor%}
+            <!--{%  for name in goals %}-->
+                <!--<col style="background-color:#D3D3D3">-->
+            <!--{%  endfor%}-->
 
-    </colgroup>
+    <!--</colgroup>-->
 
-    <thead>
+    <thead >
         <tr>
             <td>date</td>
             <td>income</td>
@@ -46,10 +77,10 @@
         {% for date in history %}
             <tr>
                 <td>{{date}}</td>
-                <td>{{history[date]['salary']}}</td>
+                <td>{{"{:,.2f}".format(history[date]['salary']).replace(",", " ") }}</td>
                 {%  for name in expenses %}
                     {% if name in history[date] %}
-                        <td> {{ history[date][name]['value'] }}</td>
+                        <td> {{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }}</td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -57,7 +88,7 @@
 
                 {%  for name in savings %}
                     {% if name in history[date] %}
-                        <td>{{ history[date][name]['value'] }} ( +{{ history[date][name]['to_pay'] }})</td>
+                        <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }} ( +{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -65,7 +96,7 @@
 
                 {%  for name in goals %}
                     {% if name in history[date] %}
-                        <td>{{ history[date][name]['value'] }} ( +{{ history[date][name]['to_pay'] }})</td>
+                        <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }} ( +{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -80,4 +111,47 @@
 
 
 </table>
+
+<script>
+
+    <!--easy calculator-->
+    var button = document.getElementsByName("operation");
+
+    for (var i = 0; i < button.length; i++)
+    {
+        button[i].addEventListener("click", function()
+        {
+            var term1 = 1 * document.getElementById("term1").value ;
+            var term2 = 1 * document.getElementById("term2").value ;
+
+             if ( this.value == 'plus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 + term2; }
+
+             else if ( this.value == 'minus')
+             { document.querySelector('#easycalcresult').innerHTML = term1 - term2; }
+
+             else if ( this.value == 'multipl')
+             { document.querySelector('#easycalcresult').innerHTML = term1 * term2; }
+
+             else if ( this.value == 'divide')
+             { document.querySelector('#easycalcresult').innerHTML = term1 / term2; }
+        })
+    }
+
+<!--to show hided-->
+    $(document).ready(function()
+    {
+      $("#toggle").click(function()
+      {
+        $(".togg").toggle();
+      });
+
+    $("#toggle_comment").click(function()
+      {
+        $(".comment").toggle();
+      });
+
+    });
+
+</script>
 {% endblock %}

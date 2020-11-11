@@ -7,64 +7,98 @@
 {% block main %}
 
 <div style="display:none;" class="togg">
-<div class="container" style="background-color:rgb(250,250,250);">
-  <div class="row">
-      <div class="col-sm">
-          calculeasy
-      </div>
-      <div class="col-sm">
-          <input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
-      </div>
-      <div class="col-sm">
-          <input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
-      </div>
+    <div class="container" style="background-color:rgb(250,250,250,0);">
+      <span class="row">
 
-      <div class="col-sm">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button name="operation" type="button" class="btn btn-secondary" value="plus">+</button>
-          <button name="operation" type="button" class="btn btn-secondary" value="minus">-</button>
-          <button name="operation" type="button" class="btn btn-secondary" value="multipl">x</button>
-        </div>
-      </div>
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
 
-      <div class="col-sm">
-          = <span id="easycalcresult">2
-      </div>
-  </div>
+          <div class="col-sm" style="font-size:20px;">
+              <input id="term2" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
+          </div>
+
+          <div class="col-sm" >
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button name="operation" type="button" class="btn btn-secondary" value="plus">+</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="minus">-</button>
+              <button name="operation" type="button" class="btn btn-secondary" value="multipl">x</button>
+                <button name="operation" type="button" class="btn btn-secondary" value="divide">/</button>
+            </div>
+          </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px; float:right;"> = </div>
+
+          <div class="col-sm" style="color:white; font-size: 30px;">
+              <span id="easycalcresult"> 2 </span>
+          </div>
+      </span>
+    </div>
+<br>
 </div>
-</div>
-
 
 
 <form action="\output" method="POST">
 <div class="form-group">
 
+    <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+                <div class="nav-image" style="float: right;">
+                    <img src="/static/comment_black.png" class="img-fluid">
+                </div>
+          </div>
+
+            <div class="col-md-4">
+                <span style="float:left; color:white; ">
+                    {{message}}
+                </span>
+          </div>
+
+            <div class="col-md-1">
+            </div>
 
 
-    <h6> Remains: <span id="remain">  {{remain}}  </span>
-        <input name="recalculate" id="recalculate" type="button" value="Check remains" class="btn btn-primary" >
-        <input name="save" id="save" type="submit" value="Save results" disabled title="To save result in history. Disabled until remain is not null.">
-    </h6>
+          <div class="col-md-2">
+              <span style="float:right;">
+                <h4 style="color:gray;">Remains:</h4>
+                <span id="remain" style="color:white; font-size: 20px;">
+                    {{"{:,.2f}".format(remain).replace(",", " ")}}
+                </span>
+              </span>
+          </div>
 
-    <br>
+          <div class="col-md-2">
+              <button type="button" name="recalculate" id="recalculate" title="Check remains" class="button-image" style="float:left;">
+                    <img src="/static/pig_refresh_2_1.png" style="width:600px;"/>
+                </button>
+          </div>
 
-    Your income
-    <input name="salary" type="number" min="0" max="999999999999" value={{salary}}>
+            <div class="col-md-2">
+                <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:right; width:120px;" class="button-image" disabled title="Save to history" />
+                <h6 id="message_for_save" style="float:right; display:none;">Disabled with not zero remain </h6>
+            </div>
+        </div>
+    </div>
 
+
+    <br><br>
 
     <div class="container">
+        <div class="row">
+            <h5>Income
+                <input name="salary" type="number" min="0" max="999999999999" value={{salary}}>
+            </h5>
+        </div>
+
+        <br>
+
           <div class="row">
 
           {% if expenses|length != 0 %}
             <div class="col-sm">
-                <h5>expenses</h5>
+                <h3 style="color:yellow;">Expenses</h3>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <td>name</td>
-                            <td>to pay</td>
-                        </tr>
-                    </thead>
 
                     <tbody>
                       {% for key in expenses %}
@@ -73,7 +107,10 @@
                         <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999" class="to_pay"></td>
                       </tr>
                     {% endfor %}
-
+                    <tr>
+                        <td></td>
+                        <td style="color:black;">to pay</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -81,29 +118,20 @@
 
           {% if savings|length != 0 %}
             <div class="col-sm">
-                <h5>saving accounts:</h5>
+                <h3 style="color:yellow;">Savings</h3>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <td>name</td>
-                            <td>to pay</td>
-                            <td></td>
-                            <td>value</td>
-                            <td>progress</td>
-                        </tr>
-                    </thead>
                     <tbody>
                         {% for key in savings %}
                         <tr>
                             <td>
-                                {{key}}
                                 {% if key == user_info['reserve_account'] %}
-                                    <a href="#" data-toggle="tooltip" title="Reserve account">☆</a>
+                                    <a href="#" data-toggle="tooltip" title="Reserve account">☆</a>{{key}}
+                                {% else %}
+                                    {{key}}
                                 {% endif %}
                             </td>
                             <td><input name={{key}} type="number" value={{savings[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
-                            <td>{{savings[key]['percent']}} %</td>
-                            <td>{{savings[key]['value']}}</td>
+                            <td>{{savings[key]['percent']}}%</td>
                             <td>
                                 <div class="progress" style="display:inline-block;">
                                   <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
@@ -114,9 +142,15 @@
                                   </div>
                                 </div>
                             </td>
-
                         </tr>
                         {% endfor %}
+
+                        <tr>
+                            <td></td>
+                            <td style="color:black;">to pay</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
                     </tbody>
                 </table>
@@ -125,22 +159,30 @@
 
             {% if goals|length != 0 %}
             <div class="col-sm">
-                <h5>goals</h5>
+                <h3 style="color:yellow;">Goals</h3>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <td>name</td>
-                            <td>to pay</td>
-
-                        </tr>
-                    </thead>
                     <tbody>
                         {% for key in goals %}
                         <tr>
                             <td>{{key}}</td>
                         <td><input name={{key}} type="number" value={{goals[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
+                        <td>
+                            <div class="progress" style="display:inline-block;">
+                              <div class="progress-bar" role="progressbar" aria-valuenow={{goals[key]['progress']}}
+                              aria-valuemin="0" aria-valuemax="100" style={{goals[key]['for_bar']}} >
+                                  <div >
+                                      <a href="#" data-toggle="tooltip" title={{goals[key]['value']}}/{{goals[key]['goal']}} style="color:black;">{{goals[key]['progress']}} %_______</a>
+                                      </div>
+                              </div>
+                            </div>
+                        </td>
                         </tr>
                         {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td style="color:black;">to pay</td>
+                            <td></td>
+                        </tr>
 
                     </tbody>
                 </table>
@@ -154,7 +196,21 @@
 </form>
 
 
-<h6>{{message}}</h6>
+<!--help-->
+<div class="container" style="background-color:rgb(250,250,250);">
+    <div class="nav-image" style="float: left;">
+        <img src="/static/comment_question.png" class="img-fluid" id="toggle_comment">
+    </div>
+
+    <span class="comment" style="display:none; float:left; color:white; padding:5px;">
+        <span style="float:left;"> Check that you have zero remains.  </span>
+        <br>
+        <span style="float:left;">  You can redistribute money as you wish. TO check remains press on pig.</span>
+        <br>
+        <span style="float:left;"> If you want to save results - press on floppy. You can save history only with zero remain. </span>
+    </span>
+</div>
+
 
 <script>
     $(document).ready(function(){
@@ -164,6 +220,7 @@
 <!--check remains-->
     document.getElementById("recalculate").addEventListener("click", function()
     {
+        var message = document.querySelector('#message_for_save').innerHTML;
 
         var to_pay = document.querySelectorAll("input.to_pay");
 
@@ -175,15 +232,17 @@
 
         var income = document.getElementsByName("salary")[0].value;
         var remain = income - sum_pay
-        document.querySelector('#remain').innerHTML = remain   ;
+        document.querySelector('#remain').innerHTML = remain.toFixed(2);
 
         if (remain == 0)
         {
             document.querySelector('#save').disabled = false;
+            document.querySelector('#message_for_save').innerHTML = '';
         }
         else
         {
             document.querySelector('#save').disabled = true;
+            document.querySelector('#message_for_save').innerHTML = message;
         }
     })
 
@@ -205,6 +264,9 @@
 
              else if ( this.value == 'multipl')
              { document.querySelector('#easycalcresult').innerHTML = term1 * term2; }
+
+             else if ( this.value == 'divide')
+             { document.querySelector('#easycalcresult').innerHTML = term1 / term2; }
         })
     }
 
@@ -215,6 +277,11 @@
       $("#toggle").click(function()
       {
         $(".togg").toggle();
+      });
+
+      $("#toggle_comment").click(function()
+      {
+        $(".comment").toggle();
       });
 
     });

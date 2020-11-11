@@ -15,7 +15,9 @@ nav .navbar-brand
   background-color: rgba(255,255,255, 0);
 }
 
-
+.semi-transparent {
+  background-color: rgba(20,20,20, 0.5);
+}
 
 .logo-image{
     width: 140px;
@@ -28,18 +30,42 @@ nav .navbar-brand
     height: 40px;
 }
 
+
 .img-fluid{
     height: 60px;
 }
 
-.button-image{
-    width: 60px;
-    height: 60px;
+.img-fluid-about{
+    height: 80px;
 }
+
+.img-fluid-calc{
+    height: 78px;
+}
+
+
+.button-image{
+    width: 100px;
+    border: none;
+    background: none;
+}
+
+.button-add{
+    width: 20px;
+}
+
+/* used for delete button */
+.delete-button{
+    border: none;
+    background: none;
+    width: 40px;
+}
+
+
 
 main .form-control
 {
-    /* center form controls */
+    /* center form controls
     display: inline-block;
 
     /* override Bootstrap's 100% width for form controls */
@@ -53,7 +79,7 @@ main
 
     /* center contents */
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Jura', sans-serif;
 
 }
 
@@ -61,6 +87,7 @@ body {
    background-image: url("bckg_4.png");
    background-color: #cccccc;
    background-position: center;
+   color:white;
 }
 
 head{
@@ -83,9 +110,46 @@ main img
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited
 {
-    background-color: #A2AFBD !important;
+    background-color: rgba(255,255,255, 0);
+    color: white;
+    border-color: yellow;
 }
+
+
+
 
 td{
     color:white;
 }
+
+input{
+    padding:5px;
+  border-radius:10px;
+  }
+
+
+
+.table>tbody>tr>td
+{
+  border-top: none; /* to delete line between row*/
+}
+
+.table>thead>tr>td
+{
+  border-top: none; /* to delete line between row*/
+  color: black;
+}
+
+
+.progress>div {
+  background-color: gray;
+  width: 40%;
+  /* Adjust with JavaScript */
+
+}
+
+footer{
+
+   bottom:0;
+}
+

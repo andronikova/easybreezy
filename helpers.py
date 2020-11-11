@@ -76,11 +76,10 @@ def load_goals(userid, goals_db):
         months = difference.months
 
         # calculate payments based on date and goal
-        to_pay = (row.goal - row.value) / months
-
-        # if date of goal passed or goal has been achieved
-        if months < 0 or (row.goal - row.value) < 0:
+        if months <= 0 or (row.goal - row.value) < 0: # date of goal passed or goal has been achieved
             to_pay = 0
+        else:
+            to_pay = (row.goal - row.value) / months
 
         progress = round(100 * row.value / row.goal)
 
@@ -208,8 +207,7 @@ def money_distribution(userid):
     else: # salary is enough to pay all goals
         remain -= goals_to_pay_sum
 
-        message = "You have enough money to pay all your accounts. You also have remains " \
-              + str(remain) + ". Please, add this remains whenever you want (we recommend add it to reserve account)."
+        message = "You have enough money to pay all your accounts. You also have nonzero remains. Add it whenever you want."
 
 
     return {'remain': remain, 'savings': savings, 'goals': goals, 'message': message}
