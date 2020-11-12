@@ -8,32 +8,33 @@
 <h3>Add new expense</h3>
 <form action="\add_expenses" method="POST">
     <div class="form-group">
-    <table class="table">
-        <thead>
-            <tr>
-                <td>name</td>
-                <td>value</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input name="newname" autocomplete='off' class="form-control" type="text" placeholder="e.g. transport">
-                </td>
-                <td>
-                    <input name="value" autocomplete='off' class="form-control" type="number">
-                </td>
-                <td>
-                    <button id="submit" type="submit" class="btn btn-primary" disabled>Save expense</button>
-                    <div id="message"></div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>name</td>
+                    <td>value</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input name="newname" autocomplete='off' class="form-control" type="text" placeholder="e.g. transport">
+                    </td>
+                    <td>
+                        <input name="value" autocomplete='off' class="form-control" type="number">
+                    </td>
+                    <td>
+                        <button id="submit" type="submit" class="btn btn-primary" disabled>Save expense</button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </form>
 
+<div style="float:right;" id="message"></div>
 
 <script>
 function IsEmpty()

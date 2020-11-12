@@ -172,9 +172,6 @@ def output():
 def history():
     if request.method == 'GET':
         history = load_history(history_db)
-        last_date = next(iter(history)) # used to show in history only actual account
-        print(f"\nlast date is {last_date}")
-        print(f"for this date: {history[last_date]}")
 
         return render_template('history.html',
                                history=history,
@@ -187,8 +184,12 @@ def history():
 @app.route('/help', methods=['GET','POST'])
 def help():
     if request.method == 'GET':
+        logged = 1
 
-        return render_template('help.html')
+        if session.get('userid') is None:
+            logged = 0
+
+        return render_template('help.html', logged=logged)
 
 
 

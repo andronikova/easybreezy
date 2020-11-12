@@ -13,6 +13,7 @@ nav .navbar-brand
 
 .transparent {
   background-color: rgba(255,255,255, 0);
+  border:none;
 }
 
 .semi-transparent {
@@ -39,8 +40,23 @@ nav .navbar-brand
     height: 80px;
 }
 
+.img-fluid-about-footer{
+    height: 30px;
+}
+
+
 .img-fluid-calc{
     height: 78px;
+}
+
+
+.img-fluid-help-small{
+    height: 30px;
+}
+
+.img-fluid-help-big{
+    width: 68px;
+    margin:8px 0px;
 }
 
 
@@ -65,7 +81,7 @@ nav .navbar-brand
 
 main .form-control
 {
-    /* center form controls
+    /* center form controls*/
     display: inline-block;
 
     /* override Bootstrap's 100% width for form controls */
@@ -80,6 +96,7 @@ main
     /* center contents */
     text-align: center;
     font-family: 'Jura', sans-serif;
+    font-size:20px;
 
 }
 
@@ -124,9 +141,13 @@ td{
 
 input{
     padding:5px;
-  border-radius:10px;
+    border-radius:10px;
   }
 
+p{
+    float:left;
+    color:white;
+}
 
 
 .table>tbody>tr>td
@@ -150,6 +171,8 @@ input{
 
 footer{
 
-   bottom:0;
 }
 
+.container{
+    border:none;
+}
