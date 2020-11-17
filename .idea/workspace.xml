@@ -6,8 +6,6 @@
       <change beforePath="$PROJECT_DIR$/static/about_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/about_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/about_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/about_empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/add_yellow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/background_2000_2000.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/bckg_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/bckg_3.png" beforeDir="false" />
@@ -15,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/static/bckg_5.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/bckg_test.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/button_test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/calc.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/calc_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/calc_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/calc_3.png" beforeDir="false" />
@@ -23,8 +20,6 @@
       <change beforePath="$PROJECT_DIR$/static/calculeasy_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/calculeasy_3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/comment_black.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/comment_question.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/delete_red.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/delete_red_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/delete_white.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/delete_yellow.png" beforeDir="false" />
@@ -34,7 +29,6 @@
       <change beforePath="$PROJECT_DIR$/static/help_white.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/help_white_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/help_white_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/help_white_3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/help_white_4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/history_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/history_2.png" beforeDir="false" />
@@ -44,7 +38,6 @@
       <change beforePath="$PROJECT_DIR$/static/history_6.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/history_7.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/history_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/history_9.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/history_test.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logo_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logo_2.png" beforeDir="false" />
@@ -52,13 +45,9 @@
       <change beforePath="$PROJECT_DIR$/static/logo_4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logo_5.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logo_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/logo_7.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logo_test.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/pen_white.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/pig_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/pig_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/pig_refresh_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/pig_refresh_2_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/pig_refresh_grey.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/pig_refresh_grey_small.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/save_1.png" beforeDir="false" />
@@ -69,7 +58,6 @@
       <change beforePath="$PROJECT_DIR$/static/settings_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/settings_3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/settings_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/settings_5.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,10 +88,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/settings.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
+            <state relative-caret-position="119">
               <caret line="79" column="19" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
               <folding>
                 <element signature="e#122#143#0" expanded="true" />
@@ -147,10 +135,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1572">
+            <state relative-caret-position="144">
               <caret line="120" column="30" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
               <folding>
                 <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -163,7 +151,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/output.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="487">
               <caret line="101" column="18" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -182,8 +170,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/input.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="90" column="49" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
+            <state relative-caret-position="-131">
+              <caret line="45" column="46" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="46" />
               <folding>
                 <element signature="e#118#139#0" expanded="true" />
                 <element signature="e#113#1443#0" />
@@ -366,7 +354,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info x="515" y="-933" width="672" height="554" id="DB Browser" order="0" sideWeight="0.4795009" side_tool="true" weight="0.17448777" />
       <window_info id="Favorites" order="1" sideWeight="0.40894568" side_tool="true" weight="0.1870456" />
@@ -380,7 +367,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3252688" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
-      <window_info anchor="bottom" auto_hide="true" x="-1344" y="9" width="663" height="546" id="Terminal" order="9" sideWeight="0.51983804" weight="0.38034865" />
+      <window_info active="true" anchor="bottom" auto_hide="true" x="-1344" y="9" width="663" height="546" id="Terminal" order="9" sideWeight="0.51983804" visible="true" weight="0.4548336" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50033045" side_tool="true" weight="0.57930106" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32646593" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="12" weight="0.3293011" />
@@ -559,26 +546,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/settings.html">
+    <entry file="file://$PROJECT_DIR$/static/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="79" column="19" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
+        <state relative-caret-position="2238">
+          <caret line="160" column="16" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="120" column="30" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
           <folding>
-            <element signature="e#122#143#0" expanded="true" />
-            <element signature="e#117#1445#0" />
-            <element signature="e#1480#1502#0" expanded="true" />
-            <element signature="e#1459#2012#0" />
-            <element signature="e#1531#1575#0" expanded="true" />
-            <element signature="e#1454#1477#0" expanded="true" />
-            <element signature="e#2461#2482#0" expanded="true" />
+            <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/input.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="90" column="49" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
+        <state relative-caret-position="-131">
+          <caret line="45" column="46" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="46" />
           <folding>
             <element signature="e#118#139#0" expanded="true" />
             <element signature="e#113#1443#0" />
@@ -592,7 +581,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/output.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
+        <state relative-caret-position="487">
           <caret line="101" column="18" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -607,20 +596,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/styles.css">
+    <entry file="file://$PROJECT_DIR$/templates/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2238">
-          <caret line="160" column="16" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1572">
-          <caret line="120" column="30" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
+        <state relative-caret-position="119">
+          <caret line="79" column="19" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
           <folding>
-            <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#122#143#0" expanded="true" />
+            <element signature="e#117#1445#0" />
+            <element signature="e#1480#1502#0" expanded="true" />
+            <element signature="e#1459#2012#0" />
+            <element signature="e#1531#1575#0" expanded="true" />
+            <element signature="e#1454#1477#0" expanded="true" />
+            <element signature="e#2461#2482#0" expanded="true" />
           </folding>
         </state>
       </provider>
