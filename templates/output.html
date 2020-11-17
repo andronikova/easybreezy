@@ -67,10 +67,14 @@
 
     <div class="container" >
         <div class="row">
-
+            <div class="col-sm" >
+                <button type="button" name="recalculate" id="recalculate" title="Check remains" class="button-image" style="float:right;" >
+                    <img src="/static/pig_refresh_2_1.png" style="width:600px;"/>
+                </button>
+            </div>
 
             <div class="col-sm" >
-                <span style="float:right;">
+                <span style="float:left;">
                     <h4 style="color:gray; ">Remains:</h4>
                     <span id="remain" style="color:white; font-size: 20px; ">
                         {{"{:,.2f}".format(remain).replace(",", " ")}}
@@ -78,11 +82,7 @@
                 </span>
             </div>
 
-            <div class="col-sm" >
-                <button type="button" name="recalculate" id="recalculate" title="Check remains" class="button-image" style="float:left;" >
-                    <img src="/static/pig_refresh_2_1.png" style="width:600px;"/>
-                </button>
-            </div>
+
 
             <div class="col-sm">
                 <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:right; width:120px;" class="button-image" disabled title="Save to history" />

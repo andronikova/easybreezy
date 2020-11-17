@@ -107,16 +107,24 @@ body {
    background-image: url("bckg_5.png");
    background-position: center;
 
-
 }
 
-.footer {
-    height: 50px;
+ /* next three things are needed to make footer to ba at place*/
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
 
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin-bottom: 00px;
+.content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
 }
 
 
@@ -131,6 +139,13 @@ main img
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited
 {
     background-color: rgba(0,0,0, 0);
+    color: white;
+    border-color: yellow;
+}
+
+.btn-primary-welcome
+{
+    background-color: rgba(139,37, 152, 100);
     color: white;
     border-color: yellow;
 }

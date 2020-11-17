@@ -2,18 +2,28 @@
 
 {% block title  %}
         index
+
 {% endblock %}
 
+
+
 {% block main %}
+<style>
+body {
+   background-image: url("/static/background_with_stars_2.png") !important;
+   background-position: center;
+}
+</style>
 
+
+<br>
 
 <br>
 <br>
 
-<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'login') }}';">Log in</button>
+<button type="button" class="btn btn-primary-welcome" onclick="window.location.href='{{ url_for( 'login') }}';">Log in</button>
 
-<button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'registration') }}';">Register</button>
-
+<button type="button" class="btn btn-primary-welcome" onclick="window.location.href='{{ url_for( 'registration') }}';">Register</button>
 
 
 {% endblock %}
