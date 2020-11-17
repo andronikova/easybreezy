@@ -4,16 +4,18 @@ nav .navbar-brand
     font-size: xx-large;
     font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
     display: inline-block;
+
 }
 
 .navbar-default {
-    background-color: rgba(255,255,255, 0);
+    background-color: rgba(0,0,0, 0);
     border-color: white;
 }
 
 .transparent {
-  background-color: rgba(255,255,255, 0);
+  background-color: rgba(0,0,0, 0);
   border:none;
+
 }
 
 .semi-transparent {
@@ -27,13 +29,14 @@ nav .navbar-brand
     margin-top: -6px;
 }
 
-.nav-image{
-    height: 40px;
-}
-
 
 .img-fluid{
-    height: 60px;
+    height: 36px;
+}
+
+.img-fluid-navbar{
+    height: 40px;
+    margin: -4px 0px;
 }
 
 .img-fluid-about{
@@ -46,7 +49,7 @@ nav .navbar-brand
 
 
 .img-fluid-calc{
-    height: 78px;
+    height: 48px;
 }
 
 
@@ -55,14 +58,14 @@ nav .navbar-brand
 }
 
 .img-fluid-help-big{
-    width: 68px;
-    margin:8px 0px;
+    width: 42px;
+    margin: 4px 0px;
 }
 
 
 .button-image{
     width: 100px;
-    border: none;
+    border: none !important;
     background: none;
 }
 
@@ -101,15 +104,23 @@ main
 }
 
 body {
-   background-image: url("bckg_4.png");
-   background-color: #cccccc;
+   background-image: url("bckg_5.png");
    background-position: center;
-   color:white;
+
+
+   border:none !important;
 }
 
-head{
-    background-color: black;
+.footer {
+    height: 50px;
+
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 00px;
 }
+
+
 
 main img
 {
@@ -117,26 +128,18 @@ main img
     max-width: 100%;
 }
 
-/*  for left and right alignment on the same line */
-.alignleft {
-	float: left;
-}
-.alignright {
-	float: right;
-}
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited
 {
-    background-color: rgba(255,255,255, 0);
+    background-color: rgba(0,0,0, 0);
     color: white;
     border-color: yellow;
 }
 
 
-
-
 td{
     color:white;
+    font-size:16px;
 }
 
 input{
@@ -147,15 +150,20 @@ input{
 p{
     float:left;
     color:white;
+    font-size:16px;
+}
+
+h5{
+    float:left;
 }
 
 
-.table>tbody>tr>td
+.table-no-border>tbody>tr>td
 {
   border-top: none; /* to delete line between row*/
 }
 
-.table>thead>tr>td
+.table-no-border>thead>tr>td
 {
   border-top: none; /* to delete line between row*/
   color: black;
@@ -169,10 +177,3 @@ p{
 
 }
 
-footer{
-
-}
-
-.container{
-    border:none;
-}

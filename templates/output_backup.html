@@ -67,44 +67,37 @@
 
     <div class="container" >
         <div class="row">
-
-
-            <div class="col-sm" >
-                <span style="float:right;">
-                    <h4 style="color:gray; ">Remains:</h4>
-                    <span id="remain" style="color:white; font-size: 20px; ">
-                        {{"{:,.2f}".format(remain).replace(",", " ")}}
-                    </span>
-                </span>
-            </div>
-
-            <div class="col-sm" >
-                <button type="button" name="recalculate" id="recalculate" title="Check remains" class="button-image" style="float:left;" >
-                    <img src="/static/pig_refresh_2_1.png" style="width:600px;"/>
-                </button>
+            <div class="col-sm">
+                <h5>Income
+                    <input name="salary" type="number" min="0" max="999999999999" value={{salary}}>
+                </h5>
             </div>
 
             <div class="col-sm">
-                <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:right; width:120px;" class="button-image" disabled title="Save to history" />
+                  <span style="float:right;">
+                <h4 style="color:gray;">Remains:</h4>
+                <span id="remain" style="color:white; font-size: 20px;">
+                    {{"{:,.2f}".format(remain).replace(",", " ")}}
+                </span>
+              </span>
+            </div>
+
+            <div class="col-sm">
+                  <button type="button" name="recalculate" id="recalculate" title="Check remains" class="button-image" style="float:left;">
+                    <img src="/static/pig_refresh_2_1.png" style="width:600px;"/>
+                </button>
+            </div>
+            <div class="col-sm">
+                <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:left; width:120px;" class="button-image" disabled title="Save to history" />
                 <h6 id="message_for_save" style="float:right; display:none;">Disabled with not zero remain </h6>
             </div>
 
 
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm" >
-            <span style="float:right;">
-                <h5 >Income
-                    <input name="salary" type="number" min="0" max="999999999999" value={{salary}}>
-                </h5>
-            </span>
-            </div>
-        </div>
-
     </div>
 
 
+    <br><br>
 
     <div class="container">
         <div class="row">
@@ -118,7 +111,7 @@
           {% if expenses|length != 0 %}
             <div class="col-sm">
                 <h3 style="color:yellow;">Expenses</h3>
-                <table class="table-no-border">
+                <table class="table">
 
                     <tbody>
                       {% for key in expenses %}
@@ -139,7 +132,7 @@
           {% if savings|length != 0 %}
             <div class="col-sm">
                 <h3 style="color:yellow;">Savings</h3>
-                <table class="table-no-border">
+                <table class="table">
                     <tbody>
                         {% for key in savings %}
                         <tr>
@@ -180,7 +173,7 @@
             {% if goals|length != 0 %}
             <div class="col-sm">
                 <h3 style="color:yellow;">Goals</h3>
-                <table class="table-no-border">
+                <table class="table">
                     <tbody>
                         {% for key in goals %}
                         <tr>
