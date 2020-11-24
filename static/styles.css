@@ -69,6 +69,13 @@ nav .navbar-brand
     background: none;
 }
 
+
+.button-image-pig-refresh{
+    width: 160px;
+    border: none !important;
+    background: none;
+}
+
 .button-add{
     width: 20px;
 }
@@ -104,12 +111,12 @@ main
 }
 
 body {
-   background-image: url("bckg_5.png");
+   background-image: url("bckg_5-min.png");
    background-position: center;
 
 }
 
- /* next three things are needed to make footer to ba at place*/
+ /* next three things are needed to make footer to be at place*/
 .page-container {
   position: relative;
   min-height: 100vh;

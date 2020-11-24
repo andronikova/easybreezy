@@ -9,6 +9,8 @@
 <div style="display:none;" class="togg">
     <div class="container" style="background-color:rgb(250,250,250,0);">
       <span class="row">
+          <div class="col-sm"></div>
+          <div class="col-sm"></div>
 
           <div class="col-sm" style="font-size:20px;">
               <input id="term1" type="number" min="-9999999999" max="9999999999" value="1" class="easycalc">
@@ -32,6 +34,9 @@
           <div class="col-sm" style="color:white; font-size: 30px;">
               <span id="easycalcresult"> 2 </span>
           </div>
+
+            <div class="col-sm"></div>
+          <div class="col-sm"></div>
       </span>
     </div>
 
@@ -40,10 +45,10 @@
 <!--help-->
 <div class="comment" style="display:none; ">
     <div class="container" style="background-color:rgb(250,250,250,0);">
-      <span class="row">
+      <div class="row">
          <div class="col-md-1">
             <div class="nav-image" style="float: left;">
-            <img src="/static/comment_question.png" class="img-fluid-help">
+            <img src="/static/comment_question.png" class="img-fluid-help-small">
             </div>
          </div>
 
@@ -54,11 +59,11 @@
                 <p>When press on pig to distribute money.</p>
             </span>
           </div>
-      </span>
+      </div>
     </div>
 </div>
+<br>
 
-<br><br>
 
 <!--for new user-->
 {% if (expenses|length == 0)  and (goals|length == 0) and (savings|length == 0)%}
@@ -94,7 +99,7 @@
 
                           <tr>
                               <td>{{key}}</td>
-                              <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999"></td>
+                              <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999" step="0.01"></td>
                           </tr>
 
                         {% endfor %}
@@ -122,7 +127,7 @@
                                     {{key}}
                                     {% endif %}
                                 </td>
-                                <td><input name={{key}} type="number" value={{savings[key]['value']}} min="-99999999" max="99999999"></td>
+                                <td><input name={{key}} type="number" value={{savings[key]['value']}} step="0.01" min="-99999999" max="99999999"></td>
                                 <td>
                                     <div class="progress" style="display:inline-block;">
                                       <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
@@ -155,7 +160,7 @@
                             {% for key in goals %}
                             <tr>
                                 <td> {{key}} </td>
-                                <td><input name={{key}} type="number" value={{goals[key]['value']}} min="0" max="99999999"></td>
+                                <td><input name={{key}} type="number" value={{goals[key]['value']}} step="0.01" min="0" max="99999999"></td>
                                 <td>
                                     <div class="progress" style="display:inline-block;">
                                       <div class="progress-bar" role="progressbar" aria-valuenow={{goals[key]['progress']}}
