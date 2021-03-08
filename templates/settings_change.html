@@ -28,7 +28,7 @@
         {% for key in expenses %}
             <tr>
                 <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
-                <td><input name={{id_name[key]['value']}} type="number" value={{expenses[key]['value']}} min="0" max="999999"></td>
+                <td><input name={{id_name[key]['value']}} type="number" value={{expenses[key]['value']}} min="0" max="999999" step="0.01"></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -61,11 +61,11 @@
                         >
                     </div>
                 </td>
-                <td><input name={{id_name[key]['percent']}} type="number" value={{savings[key]['percent']}} min="0" max="100"></td>
+                <td><input name={{id_name[key]['percent']}} type="number" value={{savings[key]['percent']}} min="0" max="100" step="0.01"></td>
 
-                <td><input name={{id_name[key]['value']}} type="number" value={{savings[key]['value']}} min="0" max="999999"></td>
+                <td><input name={{id_name[key]['value']}} type="number" value={{savings[key]['value']}} min="0" max="999999" step="0.01"></td>
 
-                <td><input name={{id_name[key]['goal']}} type="number" value={{savings[key]['goal']}} min="0" max="999999"></td>
+                <td><input name={{id_name[key]['goal']}} type="number" value={{savings[key]['goal']}} min="0" max="999999" step="0.01"></td>
 
             </tr>
         {% endfor %}
@@ -89,9 +89,9 @@
             <tr>
                 <td><input name={{id_name[key]['name']}} type="text" value={{key}}></td>
 
-                <td><input name={{id_name[key]['value']}} type="number" value={{goals[key]['value']}} min="0" max="999999"></td>
+                <td><input name={{id_name[key]['value']}} type="number" value={{goals[key]['value']}} min="0" max="999999" step="0.01"></td>
 
-                <td><input name={{id_name[key]['goal']}} type="number" value={{goals[key]['goal']}} min="0" max="999999"></td>
+                <td><input name={{id_name[key]['goal']}} type="number" value={{goals[key]['goal']}} min="0" max="999999" step="0.01"></td>
 
                 <td><input name={{id_name[key]['date']}} type="date" value={{goals[key]['date']}}></td>
 

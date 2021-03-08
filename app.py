@@ -152,14 +152,14 @@ def output():
             savings[key]['value'] += savings[key]['to_pay']
 
             # save update value in db
-            savings_db.query.filter_by(userid=userid, name=key).update({ 'value': savings[key]['value'] })
+            savings_db.query.filter_by(userid=userid, name=key).update({ 'value': savings[key]['value'] * 100 })
 
         for key in goals:
             goals[key]['to_pay'] = float(request.form.get(key))
             goals[key]['value'] += goals[key]['to_pay']
 
             # save update value in db
-            goals_db.query.filter_by(userid=userid, name=key).update({ 'value': goals[key]['value'] })
+            goals_db.query.filter_by(userid=userid, name=key).update({ 'value': goals[key]['value'] * 100 })
 
 
         save_in_history(db, history_db,expenses,savings, goals, salary)
@@ -207,7 +207,7 @@ def settings():
 
     if request.method == 'POST':
         if request.form.get("delete_account") is not None:
-            # delete one of account
+            # delete one of money account
             userid = session.get('userid')
 
             #load name of account
@@ -304,7 +304,7 @@ def settings_change():
                     return redirect('/error')
 
             # update db
-            expenses_db.query.filter_by(userid=userid, name=key).update({ 'name': newname, 'value': newvalue })
+            expenses_db.query.filter_by(userid=userid, name=key).update({ 'name': newname, 'value': newvalue * 100 })
 
         # update session info
         load_expenses(userid, expenses_db)
@@ -330,8 +330,8 @@ def settings_change():
             savings_db.query.filter_by(userid=userid, name=key).update\
                     ({
                         'name': newname,
-                        'value': float(request.form.get('value_' + key)),
-                        'goal' : float(request.form.get('goal_' + key)) ,
+                        'value': 100 * float(request.form.get('value_' + key)),
+                        'goal' : 100 * float(request.form.get('goal_' + key)) ,
                         'percent' : int(request.form.get('percent_' + key))
                     })
 
@@ -352,8 +352,8 @@ def settings_change():
             goals_db.query.filter_by(userid=userid, name=key).update \
                     ({
                     'name': newname,
-                    'value': float(request.form.get('value_' + key)),
-                    'goal': float(request.form.get('goal_' + key)),
+                    'value': 100 * float(request.form.get('value_' + key)),
+                    'goal': 100 * float(request.form.get('goal_' + key)),
                     'date': request.form.get('date_' + key)
                 })
 
@@ -409,7 +409,7 @@ def add_expenses():
             max_id = expenses_db.query.order_by(expenses_db.id.desc()).first().id
 
         # update db
-        newrow = expenses_db(id=max_id + 1, userid=session.get('userid'), name=newname, value=newvalue)
+        newrow = expenses_db(id=max_id + 1, userid=session.get('userid'), name=newname, value=100 *newvalue)
         db.session.add(newrow)
         db.session.commit()
 
@@ -445,8 +445,8 @@ def add_savings():
         # update db
         newrow = savings_db(id=max_id + 1, userid=session.get('userid'),
                             name=newname,
-                            value=newvalue,
-                            goal=newgoal,
+                            value= 100 * newvalue,
+                            goal= 100 * newgoal,
                             percent=newpercent
                             )
         db.session.add(newrow)
@@ -485,8 +485,8 @@ def add_goals():
         # update db
         newrow = goals_db(id=max_id + 1, userid=session.get('userid'),
                             name=newname,
-                            value=newvalue,
-                            goal=newgoal,
+                            value= 100 * newvalue,
+                            goal= 100 * newgoal,
                             date=newdate
                             )
         db.session.add(newrow)

@@ -10,11 +10,15 @@ def load_savings(userid, savings_db):
 
     savings = {}
     for row in datas:
-        progress = round(100 * row.value / row.goal)
+        # convert to dollar and cents
+        goal = row.goal / 100
+        value = row.value / 100
+
+        progress = round(100 * value / goal)
         if progress < 0 : progress = 0
 
         savings[row.name] = {
-                             'goal':row.goal, 'value':row.value,
+                             'goal': goal, 'value':value,
                              'percent':row.percent,
                              'progress':progress,
                              'for_bar':'width:'+ str( progress) +'%;' ,
@@ -32,9 +36,8 @@ def load_expenses(userid, expenses_db):
     datas = expenses_db.query.filter_by(userid=userid).all()
 
     for row in datas:
-        expenses[row.name] = {'value':row.value}
-
-
+        # division by 100 to convert to euro and cents (in db values are saved as integer)
+        expenses[row.name] = {'value':row.value / 100}
 
     # save in session
     session['expenses'] = expenses
@@ -75,17 +78,21 @@ def load_goals(userid, goals_db):
         difference = relativedelta.relativedelta(row.date, today)
         months = difference.months
 
+        # convert to dollar and cents
+        goal = row.goal / 100
+        value = row.value / 100
+
         # calculate payments based on date and goal
-        if months <= 0 or (row.goal - row.value) < 0: # date of goal passed or goal has been achieved
+        if months <= 0 or (goal - value) < 0: # date of goal passed or goal has been achieved
             to_pay = 0
         else:
-            to_pay = (row.goal - row.value) / months
+            to_pay = (goal - value) / months
 
-        progress = round(100 * row.value / row.goal)
+        progress = round(100 * value / goal)
 
         goals[row.name] = {
-            'value' : row.value,
-            'goal' : row.goal,
+            'value' : value,
+            'goal' : goal,
             'date' : row.date.strftime('%Y-%m-%d'),
             'to_pay' : to_pay,
             'progress' : progress,
@@ -249,6 +256,7 @@ def calc_payments_for_saving(savings, salary):
     # DEF: calculate payments for each saving account
     for key in savings:
         # check that we do not achieve goal for this savings
+
         # calculate insufficient sum
         insuf = savings[key]['goal'] - savings[key]['value']
 
@@ -294,6 +302,8 @@ def calc_payments_using_remains(remains, to_pay_sum, account):
 
 
 def save_in_history(db, history_db,expenses,savings, goals, salary):
+    # in db i save sums in integer format, to obtain float format (euro + cents) you should divide by 100
+    # db / 100 = euro+cents; euro+cents * 100 = db format
     userid = session.get('userid')
     today_date = datetime.datetime.now().date()
 
@@ -301,26 +311,26 @@ def save_in_history(db, history_db,expenses,savings, goals, salary):
     expenses_name, expenses_value = [],[]
     for key in expenses:
         expenses_name.append(key)
-        expenses_value.append(expenses[key]['value'])
+        expenses_value.append(expenses[key]['value'] * 100)
 
     # for savings: create lists of names, to_pay and values
     savings_name, savings_to_pay, savings_value = [],[],[]
     for key in savings:
         savings_name.append(key)
-        savings_to_pay.append( savings[key]['to_pay'] )
-        savings_value.append(savings[key]['value'])
+        savings_to_pay.append( savings[key]['to_pay'] * 100)
+        savings_value.append(savings[key]['value'] * 100)
 
     # for goals: create lists of name, to_pay and values
     goals_name, goals_value, goals_to_pay = [],[],[]
     for key in goals:
         goals_name.append(key)
-        goals_to_pay.append(goals[key]['to_pay'])
-        goals_value.append(goals[key]['value'])
+        goals_to_pay.append(goals[key]['to_pay'] * 100)
+        goals_value.append(goals[key]['value'] * 100)
 
     # check that this date doesn't exist in db
     datas = history_db.query.filter_by(userid=userid,date=today_date).all()
 
-    if len(datas) == 0: # add new row
+    if len(datas) == 0: # there is no such date in history = > add new row
         # find out last id in db
         if len(history_db.query.all()) == 0: # db is empty
             max_id = 0
@@ -329,7 +339,7 @@ def save_in_history(db, history_db,expenses,savings, goals, salary):
 
         new_row = history_db(id=max_id + 1 ,
                              userid=userid,
-                             salary=salary,
+                             salary=salary * 100,
                              savings_name=savings_name, savings_to_pay=savings_to_pay, savings_value=savings_value,
                              goals_name=goals_name, goals_to_pay=goals_to_pay, goals_value=goals_value,
                              expenses_name=expenses_name, expenses_value=expenses_value,
@@ -339,9 +349,9 @@ def save_in_history(db, history_db,expenses,savings, goals, salary):
         db.session.add(new_row)
         print('new row is added to history_db')
 
-    elif len(datas) == 1: # update
+    elif len(datas) == 1: # there is such date in the history => rewrite
         ret = history_db.query.filter_by(userid=userid, date=today_date).update({
-            'salary' : salary,
+            'salary' : salary * 100,
             'savings_name' : savings_name, 'savings_to_pay':savings_to_pay, 'savings_value' : savings_value,
             'goals_name':goals_name,       'goals_to_pay':goals_to_pay,     'goals_value' : goals_value,
             'expenses_name' : expenses_name, 'expenses_value':expenses_value
@@ -362,23 +372,26 @@ def load_history(history_db):
     datas = history_db.query.filter_by(userid=userid).order_by(history_db.date.desc()).all()
 
     for row in datas:
-        history[row.date] = { 'salary' : row.salary}
+        history[row.date] = { 'salary' : row.salary / 100}
 
         expenses_name = row.expenses_name
+
+        print('expenses in history: {}'.format(row.expenses_name))
         if expenses_name is not None:
             for i in range(len(expenses_name)):
-                history[row.date][expenses_name[i]] = {'value': row.expenses_value[i]}
+                print(i, expenses_name[i])
+                history[row.date][expenses_name[i]] = {'value': row.expenses_value[i] / 100}
 
 
         savings_name = row.savings_name
         if savings_name is not None:
             for i in range(len(savings_name)):
-                history[row.date][savings_name[i]] = { 'value': row.savings_value[i], 'to_pay':row.savings_to_pay[i]}
+                history[row.date][savings_name[i]] = { 'value': row.savings_value[i] / 100, 'to_pay':row.savings_to_pay[i] / 100}
 
         goals_name = row.goals_name
         if goals_name is not None:
             for i in range(len(goals_name)):
-                history[row.date][goals_name[i]] = { 'value': row.goals_value[i], 'to_pay':row.goals_to_pay[i]}
+                history[row.date][goals_name[i]] = { 'value': row.goals_value[i] / 100, 'to_pay':row.goals_to_pay[i] / 100}
 
 
     print(f"\n\n history is \n{history}")

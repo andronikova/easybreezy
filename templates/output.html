@@ -134,7 +134,7 @@
                       {% for key in expenses %}
                       <tr>
                           <td>{{key}}</td>
-                        <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999" class="to_pay"></td>
+                        <td><input name={{key}} type="number" value={{expenses[key]['value']}} min="0" max="999999" step="0.01" class="to_pay"></td>
                       </tr>
                     {% endfor %}
                     <tr>
@@ -160,7 +160,7 @@
                                     {{key}}
                                 {% endif %}
                             </td>
-                            <td><input name={{key}} type="number" value={{savings[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
+                            <td><input name={{key}} type="number" value={{savings[key]['to_pay']}} min="0" max="999999" step="0.01" class="to_pay"></td>
                             <td>{{savings[key]['percent']}}%</td>
                             <td>
                                 <div class="progress" style="display:inline-block;">
@@ -195,7 +195,7 @@
                         {% for key in goals %}
                         <tr>
                             <td>{{key}}</td>
-                        <td><input name={{key}} type="number" value={{goals[key]['to_pay']}} min="0" max="999999" class="to_pay"></td>
+                        <td><input name={{key}} type="number" value={{goals[key]['to_pay']}} min="0" max="999999" step="0.01" class="to_pay"></td>
                         <td>
                             <div class="progress" style="display:inline-block;">
                               <div class="progress-bar" role="progressbar" aria-valuenow={{goals[key]['progress']}}
