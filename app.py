@@ -54,6 +54,7 @@ def input():
             return render_template('welcome.html')
 
         userid = session.get('userid')
+
         # load info from db and save it in session
         load_savings(userid, savings_db)
         load_expenses(userid, expenses_db)

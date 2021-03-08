@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="col-sm" style="color:white; font-size: 30px; float:right;"> = </div>
+          <div class="col-sm" style="color:white; font-size: 30px; float:right;"> <img src="/static/equally.png" class="button-add"/> </div>
 
           <div class="col-sm" style="color:white; font-size: 30px;">
               <span id="easycalcresult"> 2 </span>
@@ -81,7 +81,7 @@
         <div class="form-group">
             <h4>
                 Your income
-                <input name="salary" type="number" value="5000" min="0.00" max="999999999999.99" step="0.01">
+                <input name="salary" type="number" value="0" min="0.00" max="999999999999.99" step="0.01">
 
                 <input type="image" src="/static/pig_2.png" alt="Submit Form" name="submit" class="button-image" title="Distribute money"/>
             </h4>
@@ -214,16 +214,16 @@
             var term2 = 1 * document.getElementById("term2").value ;
 
              if ( this.value == 'plus')
-             { document.querySelector('#easycalcresult').innerHTML = term1 + term2; }
+             { document.querySelector('#easycalcresult').innerHTML = (term1 + term2).toFixed(4) ; }
 
              else if ( this.value == 'minus')
-             { document.querySelector('#easycalcresult').innerHTML = term1 - term2; }
+             { document.querySelector('#easycalcresult').innerHTML = (term1 - term2).toFixed(4); }
 
              else if ( this.value == 'multipl')
-             { document.querySelector('#easycalcresult').innerHTML = term1 * term2; }
+             { document.querySelector('#easycalcresult').innerHTML = (term1 * term2).toFixed(4); }
 
              else if ( this.value == 'divide')
-             { document.querySelector('#easycalcresult').innerHTML = term1 / term2; }
+             { document.querySelector('#easycalcresult').innerHTML = (term1 / term2).toFixed(4); }
         })
     }
 

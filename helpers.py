@@ -126,7 +126,9 @@ def money_distribution(userid):
 
         #check, that reserve account  is real account in savings
         if reserve not in savings:
-            session['error_message'] = "You don't choose reserve account. Please, go to settings -> change value -> savings"
+            error_message = "You don't choose reserve account. Please, go to settings -> change value -> savings"
+            session['error_message'] = error_message
+            print('XXXXX: error message: {}'.format(error_message))
             return False
 
         savings[reserve]['value'] += remain
@@ -143,8 +145,11 @@ def money_distribution(userid):
                       + reserve + "). \nNo money for savings and goals. "
 
         else: # we have not enough money in reserves
-            message = "Your salary isn't enough to cover expenses and living cost. Your reserve account (" \
+            error_message = "Your salary isn't enough to cover expenses and living cost. Your reserve account (" \
                       + reserve + ") also is not enough. :( Change your expenses and/or sum for living. "
+            session['error_message'] = error_message
+            print('XXXXX: error message: {}'.format(error_message))
+            return False
 
         # end function
         return {'remain': remain, 'savings': savings, 'goals': goals,'message': message}
