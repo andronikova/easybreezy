@@ -61,63 +61,59 @@
 <table class="table">
     <thead >
         <tr>
-            <td style="color:yellow;">date</td>
-            {% for date in history %}
-                <td style="color:yellow;">{{date}}</td>
-            {% endfor %}
-        </tr>
-
-    </thead>
-    <tbody>
-            <tr>
-                <td>salary</td>
-                {% for date in history %}
-                    <td>{{"{:,.2f}".format(history[date]['salary']).replace(",", " ") }}</td>
-                {% endfor %}
-            </tr>
-
+            <td>date</td>
+            <td>income</td>
             {%  for name in expenses %}
-                <tr>
-                    <td>{{ name }}</td>
-                    {% for date in history %}
-                        {% if name in history[date] %}
-                            <td> {{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
+                <td>{{ name }}</td>
             {%  endfor%}
 
             {%  for name in savings %}
-                <tr>
-                    <td>{{ name }}</td>
-                    {% for date in history %}
-                        {% if name in history[date] %}
-                            <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }}
-                                <br>(+{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                    {%  endfor%}
-                </tr>
-
+                <td>{{ name }}</td>
             {%  endfor%}
 
             {%  for name in goals %}
-            <tr>
                 <td>{{ name }}</td>
-                {% for date in history %}
+            {%  endfor%}
+
+
+    </thead>
+    <tbody>
+        {% for date in history %}
+            <tr>
+                <td>{{date}}</td>
+                <td>{{"{:,.2f}".format(history[date]['salary']).replace(",", " ") }}</td>
+                {%  for name in expenses %}
                     {% if name in history[date] %}
-                        <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }}
-                            <br>(+{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
+                        <td> {{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }}</td>
                     {% else %}
                         <td></td>
                     {% endif %}
                 {%  endfor%}
+
+                {%  for name in savings %}
+                    {% if name in history[date] %}
+                        <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }} (+{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {%  endfor%}
+
+                {%  for name in goals %}
+                    {% if name in history[date] %}
+                        <td>{{ "{:,.2f}".format(history[date][name]['value']).replace(",", " ") }} (+{{ "{:,.2f}".format(history[date][name]['to_pay']).replace(",", " ") }})</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {%  endfor%}
+
+
             </tr>
-            {%  endfor%}
+        {% endfor %}
+
     </tbody>
+
+
+
 </table>
 
 <script>
