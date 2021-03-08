@@ -69,14 +69,14 @@ def load_user_info(userid, user_db):
 def load_goals(userid, goals_db):
     # def: load goals info and save it in session
     goals = {}
-    today = datetime.date.today()
 
     datas = goals_db.query.filter_by(userid=userid).all()
 
     for row in datas:
         # This will find the difference between the two dates
-        difference = relativedelta.relativedelta(row.date, today)
-        months = difference.months
+        difference = relativedelta.relativedelta(row.date, datetime.date.today())
+        years = difference.years
+        months = difference.months + 12 * years
 
         # convert to dollar and cents
         goal = row.goal / 100
@@ -86,7 +86,7 @@ def load_goals(userid, goals_db):
         if months <= 0 or (goal - value) < 0: # date of goal passed or goal has been achieved
             to_pay = 0
         else:
-            to_pay = (goal - value) / months
+            to_pay = round(100 * (goal - value) / months) / 100
 
         progress = round(100 * value / goal)
 

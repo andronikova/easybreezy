@@ -179,8 +179,16 @@ input{
 
 p{
     float:left;
+    text-align:justify;
     color:white;
-    font-size:24px;
+    font-size:20px;
+}
+
+h6{
+    float:left;
+    text-align:justify;
+    color:yellow;
+    font-size:30px;
 }
 
 h5{
@@ -206,4 +214,3 @@ h5{
   /* Adjust with JavaScript */
 
 }
-

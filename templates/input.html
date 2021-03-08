@@ -68,12 +68,50 @@
 <!--for new user-->
 {% if (expenses|length == 0)  and (goals|length == 0) and (savings|length == 0)%}
 
-    Add expenses or accounts first
+<h4>Add at least one account</h4>
 <br>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';">Add new expenses</button>
 
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';">Add new savings</button>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';">Add new goal</button>
+
+    <div class="container" style="background-color:rgb(250,250,250,0); border:none;">
+      <div class="row">
+
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new expenses</button>
+            <p>
+                <br>predictable life expenses
+                <br><br>•fixed sum you pay every month
+                <br><br>e.g. apartment rent
+            </p>
+        </div>
+
+          <div class="col-sm">
+              <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new savings</button>
+
+              <p>
+                  <br>
+                  your saving accounts
+                  <br><br>•value has upper limit (goal)
+                  <br>•refilled monthly by fixed fraction of salary
+                  <br><br>e.g. savings for job loss
+              </p>
+          </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new goal</button>
+            <p>
+                <br>
+                to save up for some goals
+                <br><br>•value has upper limit (goal)
+                <br>•has deadline
+                <br>•monthly payment is based on missed sum and deadline
+                <br><br>
+                e.g. save for a vacation
+            </p>
+        </div>
+      </div>
+    </div>
+
+<br><br>
+<a class="nav-link" href="/help">To read more about money distribution between these accounts.</a>
 
 <!--for old user-->
 {% else %}
