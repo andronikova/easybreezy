@@ -10,8 +10,7 @@
 
 {% block main %}
 
-
-<h6>Distribute your income wisely by a three simple steps:</h6>
+<h6>EasyBreezy is made to help you easily distribute your monthly income by a three simple steps:</h6>
 <br>
 <div>
         <p>1. Fill in your income and, if necessary, update monthly expenses and current value of your accounts.</p>
@@ -19,8 +18,85 @@
         <p>3. (optional) You can correct payments by hand, if needed, and save all results in history, if you want. </p>
 </div>
 
+<h6>Account types</h6>
+<p>There are three types of account in EasyBreezy: expenses, savings and goals.
+They are different from each other by a strategy to calculate monthly payments as well as by priority in which you distribute your money between them.
+</p>
+<table class="table table-no-border">
+    <thead>
+        <tr >
+            <td></td>
+            <td style="font-size:20px; color:yellow;">expenses</td>
+            <td style="font-size:20px; color:yellow;">savings</td>
+            <td style="font-size:20px; color:yellow;">goals</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>monthly payment</td>
+            <td>fixed<br>set by user</td>
+            <td>variable<br>% of salary</td>
+            <td>variable<br>(goal value - current value) / months to deadline</td>
+        </tr>
+        <tr>
+            <td>parameters</td>
+            <td>value to pay monthly</td>
+            <td>upper limit <br> percent of salary</td>
+            <td>upper limit<br> date</td>
+        </tr>
+        <tr>
+            <td>priority</td>
+            <td>high</td>
+            <td>medium</td>
+            <td>low</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<p>
+    <span style="color:yellow;">Expenses</span> are the payments with fixed monthly sum.
+For example, you can use this type of account to take into consideration apartment rent or travel card expenses.
+</p>
+<br>
+<p>
+    <span style="color:yellow;">Saving</span> accounts are for saving up some money.
+It is payments you would like to make regularly and the value of payment is some fraction of you income.
+You also can put upper limit for your savings. Monthly payments  will stop as soon as you accumulate this sum.
+You could use saving accounts to make some emergency savings (for job loss) or nest-egg for retiremenet.
+</p>
+<p>
+    We will ask you to choose one <span style="color:yellow;">reserve</span> account between your savings.
+This account will be used in case your income can't cover your expenses.
+See section "account priority" to read about this situation.
+</p>
+<br>
+<p>
+    <span style="color:yellow;">Goal</span> accounts are for saving up for special goal.
+You should know the date and the amount of money you would like to save by the date.
+Monthly payment will be calculated by taking into account missed sum and deadline.
+For example, you would like to use goal account to save up for summer vacation or for some expensive purchase (e.g. car).
+</p>
+<br>
 
-<br><br><br><h6>How algorithm distributes money.</h6>
+
+<h6>Account priority</h6>
+<p>Account priority is important when your income is not enough to cover all your payments.
+In this situation you should choose - which accounts you want to replenish first.
+</p>
+<p>In EasyBreezy expenses accounts have the highest priority. It means, that at first income goes to expenses.
+    If income is not enough to cover all your expenses, money from reserve account would be used.
+    In this situation there would be no replenishes for saving and goal accounts.
+</p>
+<p>If after repayment of expenses there are non-zero remains in income, the saving accounts are replenished.
+If remains are less than total sum of savings payments, remains are distributed between all savings in proportion.
+</p>
+<p>Goals are replenished in the end.
+    If remains are not enough to cover all goals, they are distributed between all goals in proportion.
+</p>
+
+<p>It could happen that after all you still have non-zero remains.
+    In this case you may add it to any account you wish.
+</p>
 <br>
 
 
