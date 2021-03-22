@@ -146,6 +146,11 @@ main img
     max-width: 100%;
 }
 
+.img-schemas{
+    width: 80%;
+    border: none !important;
+    background: none;
+}
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited
 {
