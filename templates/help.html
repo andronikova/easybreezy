@@ -10,17 +10,17 @@
 
 {% block main %}
 
-<h6>EasyBreezy is made to help you easily distribute your monthly income by 3 simple steps:</h6>
+<h6>EasyBreezy is made to help you easily distribute your monthly income following 3 simple steps:</h6>
 <br>
 <div>
         <p>1. Fill in your income and, if necessary, update monthly expenses and current value of your accounts.</p>
         <p>2. EasyBreezy distributes your money using its algorithm. </p>
-        <p>3. (optional) You can correct payments by hand, if needed, and save all results in history, if you want. </p>
+        <p>3. (optional) You can correct payments by hand, if needed, and save all results to history, if you want. </p>
 </div>
 
-<h6>Account types</h6>
-<p>There are three types of account in EasyBreezy: expenses, savings and goals.
-They are different from each other by a strategy to calculate monthly payments as well as by priority in which you distribute your money between them.
+<h6>Types of accounts</h6>
+<p>There are three types of accounts in EasyBreezy: expenses, savings and goals. Table below shows main properties of accounts.
+<!--They differ from each other by a strategy to calculate monthly payments as well as by priority in which you distribute your money between them.-->
 </p>
 <table class="table">
     <thead>
@@ -33,17 +33,18 @@ They are different from each other by a strategy to calculate monthly payments a
     </thead>
     <tbody>
         <tr>
+            <td>user defined parameters</td>
+            <td>value to pay monthly</td>
+            <td>upper limit, <br> percent of salary</td>
+            <td>upper limit,<br> date</td>
+        </tr>
+        <tr>
             <td>monthly payment</td>
             <td>fixed,<br>set by user</td>
             <td>variable,<br>% of salary</td>
             <td>variable,<br>missed sum / months to deadline</td>
         </tr>
-        <tr>
-            <td>parameters</td>
-            <td>value to pay monthly</td>
-            <td>upper limit, <br> percent of salary</td>
-            <td>upper limit,<br> date</td>
-        </tr>
+
         <tr>
             <td>priority</td>
             <td>high</td>
@@ -54,8 +55,10 @@ They are different from each other by a strategy to calculate monthly payments a
 </table>
 <br>
 <p>
-    <span style="color:yellow;">Expenses</span> are the payments with fixed monthly sum.
-For example, you can use this type of account to take into consideration apartment rent or travel card expenses.
+    <span style="color:yellow;">Expenses</span> are the payments with fixed monthly value.
+This type of account is suitable for apartment rent, electricity bills, credit payments.
+    It is also recommended to use this type of account for monthly allowance (your everyday expenses for food, hobbies, and other personal stuff)
+
 </p>
 <br>
 <p>
