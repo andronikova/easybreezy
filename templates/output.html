@@ -55,8 +55,8 @@
             <div class="col-sm">
                 <div class="row">
                     <div class="col-sm" >
-                    <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:right; width:120px;" class="button-image" disabled title="Save to history" />
-                    <h6 id="message_for_save" style="float:right; display:none;">Disabled with not zero remain </h6>
+                    <input type="image" src="/static/save_1.png" alt="Submit Form" name="save" id="save" style="float:right; width:120px;" class="button-image" title="Save to history" />
+                    <!--<h6 id="message_for_save" style="float:right; display:none;">Disabled with not zero remain </h6>-->
                     </div>
                 </div>
                 <br>
@@ -217,34 +217,34 @@
       $('[data-toggle="tooltip"]').tooltip();
     });
 
-<!--check remains-->
-    document.getElementById("recalculate").addEventListener("click", function()
-    {
-        var message = document.querySelector('#message_for_save').innerHTML;
+<!--&lt;!&ndash;check remains&ndash;&gt;-->
+    <!--document.getElementById("recalculate").addEventListener("click", function()-->
+    <!--{-->
+        <!--var message = document.querySelector('#message_for_save').innerHTML;-->
 
-        var to_pay = document.querySelectorAll("input.to_pay");
+        <!--var to_pay = document.querySelectorAll("input.to_pay");-->
 
-        var sum_pay = 0;
-        for (var i = 0; i < to_pay.length; i++)
-        {
-            sum_pay += 1 * to_pay[i].value;
-        }
+        <!--var sum_pay = 0;-->
+        <!--for (var i = 0; i < to_pay.length; i++)-->
+        <!--{-->
+            <!--sum_pay += 1 * to_pay[i].value;-->
+        <!--}-->
 
-        var income = document.getElementsByName("salary")[0].value;
-        var remain = income - sum_pay
-        document.querySelector('#remain').innerHTML = remain.toFixed(2);
+        <!--var income = document.getElementsByName("salary")[0].value;-->
+        <!--var remain = income - sum_pay-->
+        <!--document.querySelector('#remain').innerHTML = remain.toFixed(2);-->
 
-        if (remain == 0)
-        {
-            document.querySelector('#save').disabled = false;
-            document.querySelector('#message_for_save').innerHTML = '';
-        }
-        else
-        {
-            document.querySelector('#save').disabled = true;
-            document.querySelector('#message_for_save').innerHTML = message;
-        }
-    })
+        <!--if (remain == 0)-->
+        <!--{-->
+            <!--document.querySelector('#save').disabled = false;-->
+            <!--document.querySelector('#message_for_save').innerHTML = '';-->
+        <!--}-->
+        <!--else-->
+        <!--{-->
+            <!--document.querySelector('#save').disabled = true;-->
+            <!--document.querySelector('#message_for_save').innerHTML = message;-->
+        <!--}-->
+    <!--})-->
 
 <!--easy calculator-->
     var button = document.getElementsByName("operation");
