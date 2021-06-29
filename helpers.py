@@ -128,12 +128,12 @@ def money_distribution(userid):
         remain -= expenses[key]['value']
 
     # check that salary is enough for expenses
-    if remain <= 0: #salary doesn't enough
+    if remain < 0: #salary doesn't enough
         # took money from reserve account
 
         #check, that reserve account  is real account in savings
         if reserve not in savings:
-            error_message = "You don't choose reserve account. Please, go to settings -> change value -> savings"
+            error_message = "Your income is less then your expenses. In this situation you can take wanting  value from reserve account. But you don't choose reserve account. Please, go to settings -> change accounts parameters -> savings"
             session['error_message'] = error_message
             print('XXXXX: error message: {}'.format(error_message))
             return False

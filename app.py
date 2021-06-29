@@ -620,7 +620,7 @@ def login():
         # Ensure username exists and password is correct
         if len(datas) != 1 or not check_password_hash(datas[0].hash, request.form.get("password")):
             session['error_message'] = "invalid username and/or password"
-            return redirect('/error')
+            return redirect('/wrong_login_or_password')
 
         # Remember which user has logged in
         session["userid"] = datas[0].userid
@@ -687,8 +687,11 @@ def forgot_password():
 
 @app.route('/error')
 def error():
-
     return render_template('error_page.html', message=session.get('error_message'))
+
+@app.route('/wrong_login_or_password')
+def wrong_login_or_password():
+    return render_template('wrong_login_or_password.html', message=session.get('error_message'))
 
 
 if __name__ == "__main__":
