@@ -5,14 +5,39 @@
 {% endblock %}
 
 {% block main %}
-<h3>Add new expense</h3>
+<!--help-->
+<div class="comment" style="display:none; ">
+    <div class="container" style="background-color:rgb(250,250,250,0);">
+      <div class="row">
+         <div class="col-md-1">
+            <div class="nav-image" style="float: left;">
+            <img src="/static/comment_question.png" class="img-fluid-help-small">
+            </div>
+         </div>
+
+          <div class="col-md-11">
+            <span style="padding:5px;">
+                <p style="color:white; float:left;">Fill in parameters of your expense account.</p>
+                <p style="color:white; float:left;">When press save button.</p>
+                <br><br>
+                <div><a class="nav-link" href="/help" style="float:left;">Help page</a></div>
+            </span>
+          </div>
+      </div>
+    </div>
+    <br><br><br>
+</div>
+
+
+
+<h3 style="color:yellow;">Add new expense</h3>
 <form action="\add_expenses" method="POST">
     <div class="form-group">
         <table class="table">
             <thead>
                 <tr>
-                    <td>name</td>
-                    <td>value</td>
+                    <td>name <a href="#" data-toggle="tooltip" title="Don't use space in name." style="color:white;">⍰</a></td>
+                    <td>value <a href="#" data-toggle="tooltip" title="How much money you have right now in the account." style="color:white;">⍰</a></td>
                     <td></td>
                 </tr>
             </thead>
@@ -25,7 +50,7 @@
                         <input name="value" autocomplete='off' class="form-control" type="number" step="0.01">
                     </td>
                     <td>
-                        <button id="submit" type="submit" class="btn btn-primary" disabled>Save expense</button>
+                        <button id="submit" type="submit" class="btn btn-primary" disabled>Save</button>
 
                     </td>
                 </tr>
@@ -76,6 +101,12 @@ function IsEmpty()
     <!--for toolitp-->
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
+
+      $("#toggle_help").click(function()
+      {
+        $(".comment").toggle();
+      });
+
     });
 </script>
 

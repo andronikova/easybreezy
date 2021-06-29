@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7e38b109-bffd-4a92-9652-05a3859f0072" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_savings.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_savings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/input.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/input.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_goals.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_goals.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,15 +23,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="24" selection-start-column="24" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/welcome.html">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -44,7 +34,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/input.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
+            <state relative-caret-position="709">
               <caret line="298" column="9" lean-forward="true" selection-start-line="295" selection-start-column="4" selection-end-line="298" selection-end-column="9" />
               <folding>
                 <element signature="e#912#932#0" expanded="true" />
@@ -74,10 +64,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/add_goals.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="794">
+              <caret line="115" column="7" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#2;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#td#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#td#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#td#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#td#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add_savings.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+            <state relative-caret-position="542">
+              <caret line="117" selection-start-line="117" selection-end-line="126" selection-end-column="7" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -92,7 +104,6 @@
                 <element signature="n#style#0;n#a#0;n#td#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#td#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#td#4;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -239,7 +250,6 @@
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/templates/settings_change.html" />
         <option value="$PROJECT_DIR$/templates/add_expenses.html" />
-        <option value="$PROJECT_DIR$/templates/add_goals.html" />
         <option value="$PROJECT_DIR$/helpers.py" />
         <option value="$PROJECT_DIR$/templates/history.html" />
         <option value="$PROJECT_DIR$/templates/layout.html" />
@@ -252,14 +262,15 @@
         <option value="$PROJECT_DIR$/templates/help.html" />
         <option value="$PROJECT_DIR$/templates/input.html" />
         <option value="$PROJECT_DIR$/templates/add_savings.html" />
+        <option value="$PROJECT_DIR$/templates/add_goals.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-6" />
-    <option name="y" value="-1088" />
-    <option name="width" value="385" />
-    <option name="height" value="313" />
+    <option name="x" value="694" />
+    <option name="y" value="-735" />
+    <option name="width" value="257" />
+    <option name="height" value="209" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -359,7 +370,7 @@
     <layout>
       <window_info x="515" y="-933" width="672" height="554" id="DB Browser" order="0" sideWeight="0.4795009" side_tool="true" weight="0.17448777" />
       <window_info id="Favorites" order="1" sideWeight="0.40894568" side_tool="true" weight="0.1870456" />
-      <window_info active="true" content_ui="combo" x="1163" y="-533" width="232" height="360" id="Project" order="2" sideWeight="0.5404762" visible="true" weight="0.15938166" />
+      <window_info content_ui="combo" x="1163" y="-533" width="232" height="360" id="Project" order="2" sideWeight="0.5404762" visible="true" weight="0.15938166" />
       <window_info anchor="bottom" id="DB Execution Console" order="0" weight="0.29166666" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3280507" />
@@ -407,16 +418,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../AI50_homework/degrees/degrees.py" />
     <entry file="file://$PROJECT_DIR$/static/background_with_stars.png" />
-    <entry file="file://$PROJECT_DIR$/templates/add_goals.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="29" column="103" selection-start-line="29" selection-start-column="103" selection-end-line="29" selection-end-column="103" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -634,9 +635,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout_welcome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="88" selection-start-line="88" selection-end-line="94" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/input.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
+        <state relative-caret-position="709">
           <caret line="298" column="9" lean-forward="true" selection-start-line="295" selection-start-column="4" selection-end-line="298" selection-end-column="9" />
           <folding>
             <element signature="e#912#932#0" expanded="true" />
@@ -664,17 +672,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/layout_welcome.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="88" selection-start-line="88" selection-end-line="94" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/add_savings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+        <state relative-caret-position="542">
+          <caret line="117" selection-start-line="117" selection-end-line="126" selection-end-column="7" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -689,6 +690,25 @@
             <element signature="n#style#0;n#a#0;n#td#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#td#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#td#4;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/add_goals.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="794">
+          <caret line="115" column="7" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#td#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#td#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#td#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#td#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
