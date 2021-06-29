@@ -9,29 +9,45 @@
 {% endblock %}
 
 {% block main %}
-<h6>Content</h6>
-<p> How to use EasyBreesy in 3 steps</p>
-<br>
-<p> Types of accounts</p>
-<br>
-<p> Account priority </p>
-<br>
-<p> Example of using </p>
+<span style="float:left; text-align:justify; color:yellow; font-size:30px;">
+   Content
+</span>
 
-<h6>EasyBreezy is made to help you easily distribute your monthly income following 3 simple steps:</h6>
+<br><br>
+    <ul style="float:left;">
+        <li><A href="#section1" style="float:left;">How to use EasyBreesy in 3 steps</A></li>
+        <li><A href="#section2" style="float:left;">Types of accounts</A></li>
+        <li><A href="#section3" style="float:left;">Account priority</A></li>
+        <li><A href="#section4" style="float:left;">Example of usage</A></li>
+    </ul>
+
+<span style="float:left; text-align:justify; color:yellow; font-size:30px;" id="section1">
+    <br>
+    EasyBreezy is made to help you easily distribute your monthly income following 3 simple steps:
+</span>
 <br>
-<div>
+<span style="float:left; color:white;text-align:justify;">
         <p>1. Fill in your income and if necessary update your monthly expenses and current values of your accounts.</p>
         <p>2. EasyBreezy distributes your money using its algorithm. </p>
         <p>3. (optional) You can correct payments by hand if needed and save all results to history, if you would like. </p>
-</div>
+</span>
 
-<h6>Types of accounts</h6>
-<p>There are three types of accounts in EasyBreezy: expenses, savings and goals.
+
+
+
+
+
+<span style="float:left; text-align:justify; color:yellow; font-size:30px;" id="section2">
+    <br>
+    Types of accounts
+</span>
+<span style="float:left; color:white;text-align:justify;">
+    There are three types of accounts in EasyBreezy: expenses, savings and goals.
     You can have unlimited number of accounts of each type.
     Table below shows main properties of account types.
 <!--They differ from each other by a strategy to calculate monthly payments as well as by priority in which you distribute your money between them.-->
-</p>
+</span>
+<br>
 <table class="table">
     <thead>
         <tr >
@@ -64,14 +80,16 @@
     </tbody>
 </table>
 <br>
-<p>
+<span style="float:left; color:white;text-align:justify;">
+    <p></p>
     <span style="color:yellow;">Expenses</span> are the payments with fixed monthly value.
-This type of account is suitable for apartment rent, electricity bills, credit payments.
+    This type of account is suitable for apartment rent, electricity bills, credit payments.
     It is also recommended to use this type of account for monthly allowance (your everyday expenses for food, hobbies, and other personal stuff)
-
-</p>
+    </p>
+</span>
 <br>
-<p>
+<span style="float:left; color:white;text-align:justify;">
+    <p>
     <span style="color:yellow;">Saving</span> accounts are for saving up some money.
 
     They correspond to regular payments which are defined as a fraction of your income.
@@ -79,46 +97,76 @@ This type of account is suitable for apartment rent, electricity bills, credit p
     You could also use saving accounts to make some emergency savings for job loss or medical bills.
     In any case you should put an upper limit for your savings, so monthly payments stop as soon as you reach this value.
     In nest-egg  savings you may wish to put your upper limit as high as you can imagine.
+    </p>
+</span>
 
-</p>
-<p>
+<span style="float:left; color:white;text-align:justify;">
+    <p>
     We ask you to choose one <span style="color:yellow;">reserve</span> account among your savings.
-This account is used in case your income doesn't cover your expenses.
-See section "account priority" to read about this situation.
-</p>
+    This account is used in case your income doesn't cover your expenses.
+    See section "account priority" to read about this situation.
+    </p>
+</span>
+
 <br>
-<p>
+
+<span style="float:left; color:white;text-align:justify;">
     <span style="color:yellow;">Goal</span> accounts can be used for saving up for large scheduled expenses.
 You should provide the date and the amount of money you would like to have by the date.
 Monthly payment is calculated by taking into account missing amount (equal to goal value minus already saved value) and the deadline.
 For example, you can use goal account to save up for summer vacation, planned reconstruction works or for some expensive purchase, e.g. car, iPhone.
-</p>
+</span>
 <br>
 
 
-<h6>Account priority</h6>
-<p>Account priority is important if your income is not enough to cover all your payments.
-In this case you should choose  which accounts to replenish first.
-</p>
 
-<p>
+
+
+<span style="float:left; text-align:justify; color:yellow; font-size:30px;" id="section3">
+    <br>
+    Account priority
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>
+        Account priority is important if your income is not enough to cover all your payments.
+        In this case you should choose  which accounts to replenish first.
+    </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>
     EasyBreezy considers expenses accounts to have the highest priority since you always must pay the bills.
     Savings have intermediate priority. Goals have the lowest priority since they are less important for your survival.
 </p>
-<p>
+</span>
+<span style="float:left; color:white;text-align:justify;">
+    <p>
     If your income doesn't cover all your expenses, money from the reserve account are used (Fig. 1).
     In this situation there are no replenishes for saving or goal accounts.
 </p>
-<p>If your income does cover all your expenses, the saving accounts are replenished (Fig. 2).
-If residue is less than total sum of savings payments, it is distributed between all savings in proportion.
-</p>
-<p>Goals are replenished if your income covers all your expenses and all savings.
-    If residue is not enough to cover all goals, it is distributed between all goals in proportion (Fig. 3).
-</p>
+</span>
 
-<p>It may happen that after all you still have non-zero residue (Fig. 4).
-    In this case you may add it to any account you wish.
-</p>
+<span style="float:left; color:white;text-align:justify;">
+    <p>
+        If your income does cover all your expenses, the saving accounts are replenished (Fig. 2).
+        If residue is less than total sum of savings payments, it is distributed between all savings in proportion.
+    </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>
+        Goals are replenished if your income covers all your expenses and all savings.
+        If residue is not enough to cover all goals, it is distributed between all goals in proportion (Fig. 3).
+    </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>
+        It may happen that after all you still have non-zero residue (Fig. 4).
+        In this case you may add it to any account you wish.
+    </p>
+</span>
 <br>
 
 <div class="container" style="background-color:rgb(250,250,250,0); border:none;">
@@ -161,28 +209,46 @@ If residue is less than total sum of savings payments, it is distributed between
 </div>
 <br>
 
-<h6>Example of using</h6>
 
-<br>
-<p>Peter just started to use EasyBreezy.</p>
 
-<p> He creates two expenses accounts. The first one is for the rent, which amounts for 30 rubles.
-The second one is his monthly allowance, which he estimates as 40 rubles.
-</p>
 
-<p>As Peter wants to die rich, he sets up a saving account for retirement, planning to save up 7% of his income.
+
+
+<span style="float:left; text-align:justify; color:yellow; font-size:30px;" id="section4">
+    <br>
+    Example of usage
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p> Peter just started to use EasyBreezy. He creates two expenses accounts. The first one is for the rent, which amounts for 30 rubles.
+    The second one is his monthly allowance, which he estimates as 40 rubles.
+    </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>As Peter wants to die rich, he sets up a saving account for retirement, planning to save up 7% of his income.
     He uses another saving account for emergency fund, fearing he does not get paid next month.
     Peter puts 8% of his income to this account, hoping to amass at least 140 rubles.
     This sum would allow him to live without salary for 2 months. </p>
+</span>
 
-<p>He also creates a goal account, planning to spend 120 rubles in 1 year for summer vacation.</p>
+<span style="float:left; color:white;text-align:justify;">
+    <p>He also creates a goal account, planning to spend 120 rubles in 1 year for summer vacation.</p>
+</span>
 
+<span style="float:left; color:white;text-align:justify;">
 <p> Next day Peter gets his payment. He works two jobs with salaries of 40 and 60 rubles.
     Thus, his income is 100 rubles.
     EasyBreezy calculates that he must pay 30 and 40 rubles to his expenses accounts, 7 and 8 rubles to his saving account (7% and 8% of 100 rubles income) and 10 rubles for his goal account (120 rubles spread over 12 months).
 </p>
+</span>
 
-<p>For the residual 5 rubles Peter buys Happy Meal to feel better for himself.</p>
-<!--<h5>Contact</h5>-->
+<span style="float:left; color:white;text-align:justify;">
+    <p>For the residual 5 rubles Peter buys Happy Meal to feel better for himself.</p>
+</span>
+
+<div class="main img">
+    <img src="/static/Petr_example.png">
+</div>
 
 {% endblock %}
