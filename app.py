@@ -303,6 +303,10 @@ def settings_change():
                 if check_name_uniqueness(newname) is False:
                     return redirect('/error')
 
+            # check space in the name
+            if check_space_in_the_name(newname):
+                return redirect('/error')
+
             # update db
             expenses_db.query.filter_by(userid=userid, name=key).update({ 'name': newname, 'value': newvalue * 100 })
 
@@ -319,6 +323,10 @@ def settings_change():
             if newname != key:
                 if check_name_uniqueness(newname) is False:
                     return redirect('/error')
+
+            # check space in the name
+            if check_space_in_the_name(newname):
+                return redirect('/error')
 
             # if this is reserve account
             if newreserve == 'on':
@@ -347,6 +355,10 @@ def settings_change():
             if newname != key:
                 if check_name_uniqueness(newname) is False:
                     return redirect('/error')
+
+            # check space in the name
+            if check_space_in_the_name(newname):
+                return redirect('/error')
 
             # update db
             goals_db.query.filter_by(userid=userid, name=key).update \
@@ -387,6 +399,10 @@ def check_name_uniqueness(newname):
     return True
 
 def check_space_in_the_name(name):
+    if len(name) == 0:
+        session['error_message'] = "Your name is empty"
+        return True
+
     if ' ' in name:
         session['error_message'] = "Please, don't use space in the name"
         return True

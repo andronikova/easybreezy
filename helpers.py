@@ -137,7 +137,7 @@ def money_distribution(userid):
 
         #check, that reserve account  is real account in savings
         if reserve not in savings:
-            error_message = "Your income is less then your expenses. In this situation you can take wanting  value from reserve account. But you don't choose reserve account. Please, go to settings -> change accounts parameters -> savings"
+            error_message = "Your income is less than your expenses. In this situation you can take missing  value from reserve account. But you don't choose reserve account. Please, go to settings -> change accounts parameters."
             session['error_message'] = error_message
             print('XXXXX: error message: {}'.format(error_message))
             return False
