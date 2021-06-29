@@ -206,9 +206,18 @@ h5{
 }
 
 
-.progress>div {
+/*.progress>div {
   background-color: gray;
   width: 40%;
-  /* Adjust with JavaScript */
+  *//* Adjust with JavaScript *//*
 
+}*/
+
+.bg {
+    position: absolute;
+    left: 10;
+    top: 0;
+    bottom: 0;
+    background-color: #8ef;
+    /*z-index: -1;*/
 }

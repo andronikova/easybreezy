@@ -18,9 +18,11 @@ def load_savings(userid, savings_db):
         if progress < 0 : progress = 0
 
         savings[row.name] = {
-                             'goal': goal, 'value':value,
+                             'goal': goal,
+                                'value':value,
                              'percent':row.percent,
                              'progress':progress,
+                             'progress_tooltip': '{0:.0f}'.format(value) + '/' + '{0:.0f}'.format(goal)   ,
                              'for_bar':'width:'+ str( progress) +'%;' ,
                              'to_pay': 0
                              }
@@ -29,6 +31,47 @@ def load_savings(userid, savings_db):
 
     # save in session
     session['savings'] = savings
+
+
+def load_goals(userid, goals_db):
+    # def: load goals info and save it in session
+    goals = {}
+
+    datas = goals_db.query.filter_by(userid=userid).all()
+
+    for row in datas:
+        # This will find the difference between the two dates
+        difference = relativedelta.relativedelta(row.date, datetime.date.today())
+        years = difference.years
+        months = difference.months + 12 * years
+
+        # convert to dollar and cents
+        goal = row.goal / 100
+        value = row.value / 100
+
+        # calculate payments based on date and goal
+        if months <= 0 or (goal - value) < 0: # date of goal passed or goal has been achieved
+            to_pay = 0
+        else:
+            to_pay = round(100 * (goal - value) / months) / 100
+
+        progress = round(100 * value / goal)
+
+        goals[row.name] = {
+            'value' : value,
+            'goal' : goal,
+            'date' : row.date.strftime('%Y-%m-%d'),
+            'to_pay' : to_pay,
+            'progress' : progress,
+            'for_bar':'width:' + str(progress) + '%;' ,
+            'progress_tooltip': '{0:.0f}'.format(value) + '/' + '{0:.0f}'.format(goal),
+            'to_pay_to_achieve': to_pay   # sum you have to pay to achieve goal
+        }
+
+    print(f"\ngoals info is loaded and saved in dict: \n{goals} \n{len(goals)}")
+
+    session['goals'] = goals
+
 
 
 def load_expenses(userid, expenses_db):
@@ -64,45 +107,6 @@ def load_user_info(userid, user_db):
     session['user_info'] = user_info
 
     print(f"\nuser info is loaded and saved in dict:\n{user_info}")
-
-
-def load_goals(userid, goals_db):
-    # def: load goals info and save it in session
-    goals = {}
-
-    datas = goals_db.query.filter_by(userid=userid).all()
-
-    for row in datas:
-        # This will find the difference between the two dates
-        difference = relativedelta.relativedelta(row.date, datetime.date.today())
-        years = difference.years
-        months = difference.months + 12 * years
-
-        # convert to dollar and cents
-        goal = row.goal / 100
-        value = row.value / 100
-
-        # calculate payments based on date and goal
-        if months <= 0 or (goal - value) < 0: # date of goal passed or goal has been achieved
-            to_pay = 0
-        else:
-            to_pay = round(100 * (goal - value) / months) / 100
-
-        progress = round(100 * value / goal)
-
-        goals[row.name] = {
-            'value' : value,
-            'goal' : goal,
-            'date' : row.date.strftime('%Y-%m-%d'),
-            'to_pay' : to_pay,
-            'progress' : progress,
-            'for_bar':'width:' + str(progress) + '%;' ,
-            'to_pay_to_achieve': to_pay   # sum you have to pay to achieve goal
-        }
-
-    print(f"\ngoals info is loaded and saved in dict: \n{goals} \n{len(goals)}")
-
-    session['goals'] = goals
 
 
 def money_distribution(userid):

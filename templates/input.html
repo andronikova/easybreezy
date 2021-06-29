@@ -181,21 +181,22 @@
                                 <td>
 
                                     {% if key == user_info['reserve_account'] %}
-                                        <a href="#" data-toggle="tooltip" title="Reserve account">☆</a>{{key}}
+                                        <a href="#" data-toggle="tooltip" title="Reserve account" style="color:blue;">☆</a>{{key}}
                                     {% else %}
-                                    {{key}}
+                                        {{key}}
                                     {% endif %}
                                 </td>
                                 <td><input name={{key}} type="number" value={{savings[key]['value']}} step="0.01" min="-99999999" max="99999999"></td>
                                 <td>
-                                    <div class="progress" style="display:inline-block;">
+                                    <!--<div class="progress" style="display:inline-block;">-->
                                       <div class="progress-bar" role="progressbar" aria-valuenow={{savings[key]['progress']}}
                                       aria-valuemin="0" aria-valuemax="100" style={{savings[key]['for_bar']}} >
 
-                                          <a href="#" data-toggle="tooltip" title={{savings[key]['value']}}/{{savings[key]['goal']}} style="color:black;">{{savings[key]['progress']}} %  </a>
+                                          <a href="#" data-toggle="tooltip" title={{savings[key]['progress_tooltip']}} style="color:black;">
+                                               {{savings[key]['progress']}} %
+                                          </a>
 
                                       </div>
-                                    </div>
                                 </td>
 
                             </tr>
@@ -208,6 +209,9 @@
                         </tbody>
                     </table>
                 </div>
+
+
+
               {% endif %}
 
               {% if goals|length != 0 %}
@@ -221,13 +225,12 @@
                                 <td> {{key}} </td>
                                 <td><input name={{key}} type="number" value={{goals[key]['value']}} step="0.01" min="0" max="99999999"></td>
                                 <td>
-                                    <div class="progress" style="display:inline-block;">
-                                      <div class="progress-bar" role="progressbar" aria-valuenow={{goals[key]['progress']}}
-                                      aria-valuemin="0" aria-valuemax="100" style={{goals[key]['for_bar']}} >
-                                          <div >
-                                              <a href="#" data-toggle="tooltip" title={{goals[key]['value']}}/{{goals[key]['goal']}} style="color:black;">{{goals[key]['progress']}} %_______</a>
-                                              </div>
-                                      </div>
+                                    <div class="progress-bar" role="progressbar" aria-valuenow={{goals[key]['progress']}}
+                                          aria-valuemin="0" aria-valuemax="100" style={{goals[key]['for_bar']}} >
+
+                                          <a href="#" data-toggle="tooltip" title={{goals[key]['progress_tooltip']}} style="color:black;">
+                                               {{goals[key]['progress']}} %
+                                          </a>
                                     </div>
                                 </td>
 
