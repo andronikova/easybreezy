@@ -33,7 +33,7 @@
 <!--for new user-->
 {% if (expenses|length == 0)  and (goals|length == 0) and (savings|length == 0)%}
 
-<h4>Add at least one account</h4>
+<h4 style="color:white;">Add at least one account</h4>
 <br>
 
 
@@ -42,41 +42,84 @@
 
         <div class="col-sm">
             <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_expenses') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new expenses</button>
-            <p>
-                <br>predictable life expenses
-                <br><br>•fixed sum you pay every month
-                <br><br>e.g. apartment rent
-            </p>
+
+            <p style="color:white;">predictable life expenses</p>
+            <br>
+            <p style="color:white; float:left; text-align:justify;">fixed sum you pay every month</p>
+            <p style="color:white; float:left; text-align:justify;">e.g. apartment rent</p>
         </div>
 
           <div class="col-sm">
               <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_savings') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new savings</button>
 
-              <p>
-                  <br>
-                  your saving accounts
-                  <br><br>•value has upper limit (goal)
-                  <br>•refilled monthly by fixed fraction of salary
-                  <br><br>e.g. savings for job loss
+              <p style="color:white;">your saving accounts</p>
+              <br>
+              <p style="color:white; float:left; text-align:justify;">value has upper limit (goal)</p>
+              <p style="color:white; float:left; text-align:justify;">refilled monthly by fixed fraction of salary</p>
+              <p style="color:white; float:left; text-align:justify;">e.g. savings for job loss</p>
               </p>
           </div>
         <div class="col-sm">
             <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for( 'add_goals') }}';"><img src="/static/add_yellow.png" class="button-add"/>Add new goal</button>
-            <p>
-                <br>
-                to save up for some goals
-                <br><br>•value has upper limit (goal)
-                <br>•has deadline
-                <br>•monthly payment is based on missed sum and deadline
-                <br><br>
-                e.g. save for a vacation
-            </p>
+
+            <p style="color:white;">to save up for some goals</p>
+            <br>
+            <p style="color:white; float:left; text-align:justify;">value has upper limit (goal)</p>
+            <p style="color:white; float:left; text-align:justify;">has deadline</p>
+            <p style="color:white; float:left; text-align:justify;">monthly payment is based on missed sum and deadline</p>
+            <p style="color:white; float:left; text-align:justify;">e.g. save for a vacation</p>
         </div>
       </div>
     </div>
 
 <br><br>
-<a class="nav-link" href="/help">To read more about money distribution between these accounts.</a>
+<a class="nav-link" href="/help" style="color:white;">
+    <div class="nav-image" >
+        <img src="/static/about_empty.png" class="img-fluid-about-footer">
+        Read here more about money distribution between these accounts.
+    </div>
+</a>
+
+
+
+
+<span style="float:left; text-align:justify; color:yellow; font-size:20px;" id="section4">
+    <br><br>
+    Example of usage
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p> Peter just started to use EasyBreezy. He creates two expenses accounts. The first one is for the rent, which amounts for 30 rubles.
+    The second one is his monthly allowance, which he estimates as 40 rubles.
+    </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>As Peter wants to die rich, he sets up a saving account for retirement, planning to save up 7% of his income.
+    He uses another saving account for emergency fund, fearing he does not get paid next month.
+    Peter puts 8% of his income to this account, hoping to amass at least 140 rubles.
+    This sum would allow him to live without salary for 2 months. </p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>He also creates a goal account, planning to spend 120 rubles in 1 year for summer vacation.</p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+<p> Next day Peter gets his payment. He works two jobs with salaries of 40 and 60 rubles.
+    Thus, his income is 100 rubles.
+    EasyBreezy calculates that he must pay 30 and 40 rubles to his expenses accounts, 7 and 8 rubles to his saving account (7% and 8% of 100 rubles income) and 10 rubles for his goal account (120 rubles spread over 12 months).
+</p>
+</span>
+
+<span style="float:left; color:white;text-align:justify;">
+    <p>For the residual 5 rubles Peter buys Happy Meal to feel better for himself.</p>
+</span>
+
+<div class="main img">
+    <img src="/static/Petr_example.png">
+</div>
+
 
 <!--for old user-->
 {% else %}
