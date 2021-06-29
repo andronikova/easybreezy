@@ -5,16 +5,45 @@
 {% endblock %}
 
 {% block main %}
-<h3>Add new saving account</h3>
+
+<!--help-->
+<div class="comment" style="display:none; ">
+    <div class="container" style="background-color:rgb(250,250,250,0);">
+      <div class="row">
+         <div class="col-md-1">
+            <div class="nav-image" style="float: left;">
+            <img src="/static/comment_question.png" class="img-fluid-help-small">
+            </div>
+         </div>
+
+          <div class="col-md-11">
+            <span style="padding:5px;">
+                <p style="color:white; float:left;">Fill in parameters of your saving account.</p>
+                <p style="color:white; float:left;">If it is your first saving account make it reserve. You can change it later in settings.</p>
+                <p style="color:white; float:left;">When press save button.</p>
+                <br><br><br><br>
+                <div ><a class="nav-link" href="/help" style="float:right;">Help page</a></div>
+            </span>
+          </div>
+      </div>
+    </div>
+    <br><br><br>
+</div>
+
+
+
+
+<h3 style="color:yellow;">Add new saving account</h3>
 <form action="\add_savings" method="POST">
     <div class="form-group">
     <table class="table">
         <thead>
             <tr>
-                <td>name</td>
-                <td>current value</td>
-                <td>goal</td>
-                <td>percent, %</td>
+                <td>name  <a href="#" data-toggle="tooltip" title="Don't use space in name." style="color:white;">⍰</a></td>
+                <td>current value  <a href="#" data-toggle="tooltip" title="How much money you have right now on your saving account." style="color:white;">⍰</a></td>
+                <td>goal value  <a href="#" data-toggle="tooltip" title="How much money you would like to have at your saving account, your upper limit." style="color:white;">⍰</a></td>
+                <td>percent, %  <a href="#" data-toggle="tooltip" title="Fraction of you income to save monthly." style="color:white;">⍰</a></td>
+                <td>reserve account  <a href="#" data-toggle="tooltip" title="This account will be used to cover your expenses in case you don't have enough income. There is always should be one reserve account." style="color:white;">⍰</a></td>
                 <td></td>
             </tr>
         </thead>
@@ -24,18 +53,21 @@
                     <input name="newname" autocomplete='off' class="form-control" type="text" placeholder="e.g. transport">
                 </td>
                 <td>
-                    <input name="value" autocomplete='off' class="form-control" type="number" step="0.01">
+                    <input name="value" autocomplete='off' class="form-control" type="number" step="0.01" min="0" max="100000000">
                 </td>
 
                 <td>
-                    <input name="goal" autocomplete='off' class="form-control" type="number" step="0.01">
+                    <input name="goal" autocomplete='off' class="form-control" type="number" step="0.01" min="0" max="100000000">
                 </td>
                 <td>
-                    <input name="percent" autocomplete='off' class="form-control" type="number" step="1">
+                    <input name="percent" autocomplete='off' class="form-control" type="number" step="1" min="0" max="100">
+                </td>
+                <td>
+                    <input name="reserve" autocomplete='off' class="form-control" type="checkbox">
                 </td>
 
                 <td>
-                    <button id="submit" type="submit" class="btn btn-primary" disabled>Save saving</button>
+                    <button id="submit" type="submit" class="btn btn-primary" disabled>Save</button>
 
                 </td>
             </tr>
@@ -43,6 +75,7 @@
     </table>
     </div>
 </form>
+
 <div style="float:right;" id="message"></div>
 
 <script>
@@ -85,6 +118,12 @@ function IsEmpty()
     <!--for toolitp-->
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
+
+      $("#toggle_help").click(function()
+      {
+        $(".comment").toggle();
+      });
+
     });
 </script>
 
