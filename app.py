@@ -386,6 +386,12 @@ def check_name_uniqueness(newname):
 
     return True
 
+def check_space_in_the_name(name):
+    if ' ' in name:
+        session['error_message'] = "Please, don't use space in the name"
+        return True
+
+    return False
 
 @app.route('/add_expenses', methods=['GET','POST'])
 def add_expenses():
@@ -400,6 +406,10 @@ def add_expenses():
 
         # check uniqueness of new name
         if check_name_uniqueness(newname) is not True:
+            return redirect('/error')
+
+        # check space in the name
+        if check_space_in_the_name(newname):
             return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
@@ -435,6 +445,11 @@ def add_savings():
         # check uniqueness of new name
         if check_name_uniqueness(newname) is not True:
             return redirect('/error')
+
+        # check space in the name
+        if check_space_in_the_name(newname):
+            return redirect('/error')
+
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
         if len(savings_db.query.all()) == 0: # db is empty
@@ -474,6 +489,10 @@ def add_goals():
 
         # check uniqueness of new name
         if check_name_uniqueness(newname) is not True:
+            return redirect('/error')
+
+        # check space in the name
+        if check_space_in_the_name(newname):
             return redirect('/error')
 
         # load last id from db and put new id by hand (to avoid IntegrityError duplicate key violates unique-constraint)
